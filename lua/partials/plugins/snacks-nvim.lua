@@ -59,6 +59,9 @@ return {
 			vim.keymap.set("n", "<leader>lg", function()
 				return Snacks.lazygit.open()
 			end, { desc = "LazyGit" })
+			vim.keymap.set("n", "<leader>sz", function()
+				return Snacks.picker.zoxide()
+			end, { desc = "Zoxide" })
 			vim.keymap.set("n", "<leader>tt", function()
 				Snacks.terminal.toggle()
 			end, {
