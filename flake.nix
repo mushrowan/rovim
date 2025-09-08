@@ -137,6 +137,7 @@
           nvim-treesitter-textobjects
           nvim-treesitter.withAllGrammars
           nvim-lspconfig
+          rustaceanvim
           neocord
           obsidian-nvim
           bufferline-nvim

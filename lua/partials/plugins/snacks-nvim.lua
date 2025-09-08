@@ -56,7 +56,7 @@ return {
 			vim.keymap.set("n", "<leader>sp", function()
 				return Snacks.picker.projects()
 			end, { desc = "Projects" })
-			vim.keymap.set("n", "<leader>lg", function()
+			vim.keymap.set("n", "<leader>lG", function()
 				return Snacks.lazygit.open()
 			end, { desc = "LazyGit" })
 			vim.keymap.set("n", "<leader>sz", function()
