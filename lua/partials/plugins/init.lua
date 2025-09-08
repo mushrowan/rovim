@@ -44,11 +44,11 @@ require("lze").load({
 		end,
 	},
 	{
-		"obsidian-nvim",
+		"obsidian.nvim",
 		for_cat = "general",
 		ft = "markdown",
 		after = function()
-			require("obsidian.nvim").setup({
+			require("obsidian").setup({
 				workspaces = {
 					{
 						name = "colony",
