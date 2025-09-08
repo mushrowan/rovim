@@ -48,6 +48,7 @@ require("lze").load({
 		for_cat = "general",
 		ft = "markdown",
 		after = function()
+      vim.o.conceallevel = 1
 			require("obsidian").setup({
 				workspaces = {
 					{
