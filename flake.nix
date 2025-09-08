@@ -94,7 +94,7 @@
           docker-language-server
           lua-language-server
           luajitPackages.sqlite
-          rustfmt
+          # rustfmt
           nil
           ruff
           rust-analyzer
@@ -114,6 +114,9 @@
 
           plenary-nvim
           nix-develop-nvim
+          # This already lazy loads on its own
+          rustaceanvim
+          direnv-vim
         ];
       };
 
@@ -122,6 +125,9 @@
       optionalPlugins = {
         gitPlugins = [];
         general = with pkgs.vimPlugins; [
+          direnv-vim
+          nix-develop-nvim
+          blink-cmp
           conform-nvim
           harpoon2
           lazydev-nvim
@@ -135,10 +141,8 @@
           obsidian-nvim
           bufferline-nvim
           nvim-web-devicons
-          direnv-vim
           rose-pine
           snacks-nvim
-          rustaceanvim
 
           sqlite-lua
           tabby-nvim

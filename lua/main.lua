@@ -1,21 +1,20 @@
 -- NOTE: register an extra lze handler with the spec_field 'for_cat'
 -- that makes enabling an lze spec for a category slightly nicer
-require("lze").register_handlers(require('nixCatsUtils.lzUtils').for_cat)
+require("lze").register_handlers(require("nixCatsUtils.lzUtils").for_cat)
 
 -- NOTE: Register another one from lzextras. This one makes it so that
 -- you can set up lsps within lze specs,
 -- and trigger lspconfig setup hooks only on the correct filetypes
-require('lze').register_handlers(require('lzextras').lsp)
+require("lze").register_handlers(require("lzextras").lsp)
 -- demonstrated in ./LSPs/init.lua
 
 -- NOTE: I didnt actually include any linters or formatters in this configuration,
 -- but it is enough to serve as an example.
-require('partials.settings')
-require('partials.mappings')
-require('partials.abbreviations')
+require("partials.settings")
+require("partials.mappings")
+require("partials.abbreviations")
 
-require('partials.plugins')
-
+require("partials.plugins")
 
 -- NOTE: we even ask nixCats if we included our debug stuff in this setup! (we didnt)
 -- But we have a good base setup here as an example anyway!

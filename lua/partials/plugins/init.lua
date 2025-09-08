@@ -7,6 +7,7 @@ require("lze").load({
 	{ import = "partials.plugins.harpoon" },
 	{ import = "partials.plugins.conform" },
 	{ import = "partials.plugins.lsp" },
+	{ import = "partials.plugins.completion" },
 	{ import = "partials.plugins.lualine" },
 	{ import = "partials.plugins.snacks-nvim" },
 	{ import = "partials.plugins.which-key" },
@@ -70,23 +71,30 @@ require("lze").load({
 			vim.keymap.set("n", "<C-h>", ":bprevious<CR>", { desc = "Previous Buffer" })
 		end,
 	},
-	{
-		"rustaceanvim",
-		for_cat = "general",
-		after = function()
-			local bufnr = vim.api.nvim_get_current_buf()
-			vim.keymap.set("n", "<leader>a", function()
-				vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
-				-- or vim.lsp.buf.codeAction() if you don't want grouping.
-			end, { silent = true, buffer = bufnr })
-			vim.keymap.set(
-				"n",
-				"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
-				function()
-					vim.cmd.RustLsp({ "hover", "actions" })
-				end,
-				{ silent = true, buffer = bufnr }
-			)
-		end,
-	},
+  {
+    "direnv.vim",
+    for_cat = "general",
+    priority = 100,
+    -- after = function()
+    --   require("direnv-vim").setup({})
+    -- end,
+  },
+  {
+    "nix-develop.nvim",
+    for_cat = "general",
+  },
 })
+-- Config for rustaceanvim
+local bufnr = vim.api.nvim_get_current_buf()
+vim.keymap.set("n", "<leader>a", function()
+	vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
+	-- or vim.lsp.buf.codeAction() if you don't want grouping.
+end, { silent = true, buffer = bufnr })
+vim.keymap.set(
+	"n",
+	"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+	function()
+		vim.cmd.RustLsp({ "hover", "actions" })
+	end,
+	{ silent = true, buffer = bufnr }
+)
