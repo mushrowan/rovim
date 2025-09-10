@@ -62,6 +62,9 @@ return {
 			vim.keymap.set("n", "<leader>sz", function()
 				return Snacks.picker.zoxide()
 			end, { desc = "Zoxide" })
+			vim.keymap.set("n", "<leader>se", function()
+				return Snacks.explorer.open()
+			end, { desc = "Explorer" })
 			vim.keymap.set("n", "<leader>tt", function()
 				Snacks.terminal.toggle()
 			end, {
