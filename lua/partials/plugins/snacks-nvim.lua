@@ -102,6 +102,7 @@ return {
 			end, { desc = "Projects" })
 			vim.keymap.set("n", "<leader>lG", function()
 				return Snacks.lazygit({
+          cwd = vim.fn.getcwd(),
 					win = { keys = terminal_keys },
 				})
 			end, { desc = "LazyGit" })
@@ -116,6 +117,7 @@ return {
 			end, { desc = "Explorer" })
 			vim.keymap.set("n", "<leader>tt", function()
 				Snacks.terminal.toggle(nil, {
+          cwd = vim.fn.getcwd(),
 					-- Prevents opening zellij
 					win = {
 						position = "float",
