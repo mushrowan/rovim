@@ -38,6 +38,7 @@ require("lze").load({
 		after = function()
 			vim.o.conceallevel = 1
 			require("obsidian").setup({
+				legacy_commands = false,
 				workspaces = {
 					{
 						name = "colony",
