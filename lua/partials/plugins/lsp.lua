@@ -3,6 +3,8 @@ return {
 	{
 		"nvim-lspconfig",
 		for_cat = "general",
+		event = "Filetype",
+
 		before = function()
       require("partials.plugins.lspkeys")
 			vim.lsp.config("*", {
