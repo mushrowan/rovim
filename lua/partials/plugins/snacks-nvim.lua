@@ -75,6 +75,7 @@ return {
 						fixbuf = true,
 						resize = true,
 						position = "float",
+						backdrop = 70,
 						keys = {
 							{
 								"<C-[>",
@@ -109,7 +110,7 @@ return {
 			vim.keymap.set("n", "<leader>gs", function()
 				return Snacks.picker.git_status()
 			end, { desc = "Git status" })
-			vim.keymap.set("n", "<leader>sp", function()
+			vim.keymap.set("n", "<leader>sP", function()
 				return Snacks.picker.projects()
 			end, { desc = "Projects" })
 			vim.keymap.set("n", "<leader>lG", function()
