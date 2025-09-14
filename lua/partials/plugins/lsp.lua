@@ -3,7 +3,10 @@ return {
 	{
 		"nvim-lspconfig",
 		for_cat = "general",
-		event = "Filetype",
+    lazy = false,
+		-- event = "Filetype",
+    -- on_require = { "lspconfig" },
+
 
 		before = function()
       require("partials.plugins.lspkeys")
