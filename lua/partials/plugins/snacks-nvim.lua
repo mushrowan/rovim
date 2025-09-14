@@ -21,20 +21,16 @@ return {
 				terminal = { enabled = true },
 				lazygit = { enabled = true },
 			})
-
-			-- local current_empty = function()
-			-- 	local current_buf = vim.api.nvim_get_current_buf()
-			-- 	local current_empty = vim.bo[current_buf].buftype == ""
-			-- 		and vim.bo[current_buf].filetype == ""
-			-- 		and vim.api.nvim_buf_line_count(current_buf) == 1
-			-- 		and vim.api.nvim_buf_get_lines(current_buf, 0, -1, false)[1] == ""
-			-- 		and vim.api.nvim_buf_get_name(current_buf) == ""
-			-- 	return current_empty
-			-- end
-
-			vim.keymap.set("n", "<leader>sf", function()
-				return Snacks.picker.files()
-			end)
+			local terminal_keys = {
+				{
+					"<C-[>",
+					function(win)
+						win:toggle()
+					end,
+					mode = "n",
+				},
+				-- Terminal raw mode binding here?
+			}
 			vim.keymap.set("n", "<C-y>", function()
 				return Snacks.picker.resume()
 			end)
@@ -57,8 +53,13 @@ return {
 				return Snacks.picker.projects()
 			end, { desc = "Projects" })
 			vim.keymap.set("n", "<leader>lG", function()
-				return Snacks.lazygit.open()
+				return Snacks.lazygit({
+					win = { keys = terminal_keys },
+				})
 			end, { desc = "LazyGit" })
+			vim.keymap.set("n", "<leader>sf", function()
+				return Snacks.picker.files()
+			end)
 			vim.keymap.set("n", "<leader>sz", function()
 				return Snacks.picker.zoxide()
 			end, { desc = "Zoxide" })
@@ -66,15 +67,17 @@ return {
 				return Snacks.explorer.open()
 			end, { desc = "Explorer" })
 			vim.keymap.set("n", "<leader>tt", function()
-				Snacks.terminal.toggle()
+				Snacks.terminal.toggle(
+					-- Prevents opening zellij
+					"fish",
+					{
+						win = {
+							keys = terminal_keys,
+						},
+					}
+				)
 			end, {
 				desc = "Toggle Terminal",
-				expr = false,
-				noremap = true,
-				nowait = false,
-				script = false,
-				silent = true,
-				unique = false,
 			})
 		end,
 	},
