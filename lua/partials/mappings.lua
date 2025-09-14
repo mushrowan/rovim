@@ -5,3 +5,4 @@ vim.keymap.set("t", "<C-[>", function()
 end, {
 	desc = "Exit terminal mode",
 })
+vim.keymap.set("n", "<C-q>", "<cmd>bd<CR>", { desc = "Delete current buffer" })
