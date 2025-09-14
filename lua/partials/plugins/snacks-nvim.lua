@@ -68,9 +68,10 @@ return {
 			end, { desc = "Explorer" })
 			vim.keymap.set("n", "<leader>tt", function()
 				Snacks.terminal.toggle(
-					-- Prevents opening zellij
-					"fish",
+          nil,
 					{
+					-- Prevents opening zellij
+						shell = "fish",
 						win = {
 							keys = terminal_keys,
 						},
