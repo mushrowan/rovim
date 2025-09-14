@@ -13,6 +13,7 @@ return {
 
 			-- Nix
 			vim.lsp.enable("nil_ls")
+			vim.lsp.enable("nixd")
 			vim.lsp.enable("statix")
 
 			-- Python

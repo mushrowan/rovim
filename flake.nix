@@ -96,6 +96,7 @@
           luajitPackages.sqlite
           # rustfmt
           nil
+          nixd
           ruff
           rust-analyzer
           statix
