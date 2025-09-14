@@ -66,16 +66,28 @@ return {
 				end,
 			})
 
-			local terminal_keys = {
-				{
-					"<C-[>",
-					function(win)
-						win:toggle()
-					end,
-					mode = "n",
-				},
-				-- Terminal raw mode binding here?
-			}
+			---@param working_dir string?
+			local terminal_opts = function(working_dir)
+				return {
+					-- Prevents opening zellij
+					cwd = working_dir or vim.fn.getcwd(),
+					win = {
+						fixbuf = true,
+						resize = true,
+						position = "float",
+						keys = {
+							{
+								"<C-[>",
+								function(win)
+									win:toggle()
+								end,
+								mode = "n",
+							},
+							-- Terminal raw mode binding here?
+						},
+					},
+				}
+			end
 			vim.keymap.set("n", "<leader>rf", function()
 				return Snacks.rename.rename_file()
 			end, { desc = "Rename File" })
@@ -101,10 +113,7 @@ return {
 				return Snacks.picker.projects()
 			end, { desc = "Projects" })
 			vim.keymap.set("n", "<leader>lG", function()
-				return Snacks.lazygit({
-          cwd = vim.fn.getcwd(),
-					win = { keys = terminal_keys },
-				})
+				return Snacks.lazygit(terminal_opts())
 			end, { desc = "LazyGit" })
 			vim.keymap.set("n", "<leader>sf", function()
 				return Snacks.picker.files()
@@ -115,15 +124,9 @@ return {
 			vim.keymap.set("n", "<leader>se", function()
 				return Snacks.explorer.open()
 			end, { desc = "Explorer" })
+
 			vim.keymap.set("n", "<leader>tt", function()
-				Snacks.terminal.toggle(nil, {
-          cwd = vim.fn.getcwd(),
-					-- Prevents opening zellij
-					win = {
-						position = "float",
-						keys = terminal_keys,
-					},
-				})
+				return Snacks.terminal.toggle(nil, terminal_opts())
 			end, {
 				desc = "Toggle Terminal",
 			})
