@@ -2,6 +2,7 @@ return {
 	{
 		"auto-session",
 		for_cat = "general",
+    lazy = false,
 		after = function()
 			require("auto-session").setup({
 				suppressed_dirs = { "~" },
@@ -12,6 +13,7 @@ return {
 						preset = "default",
 					},
 				},
+        lsp_stop_on_restore = true,
 			})
 			vim.keymap.set("n", "<leader>sp", "<cmd>AutoSession search<CR>", { desc = "Session Search" })
 		end,

@@ -1,3 +1,6 @@
+local async = require("plenary.async")
+local DirenvReady = { id = "User DirenvReady", event = "User", pattern = "DirenvReady" }
+local DirenvNotFound = { id = "User DirenvNotFound", event = "User", pattern = "DirenvNotFound" }
 require("lze").load({
 	{
 		"rose-pine",
@@ -62,42 +65,63 @@ require("lze").load({
 		end,
 	},
 	{
-		"direnv.vim",
-		for_cat = "general",
-		priority = 100,
-		-- after = function()
-		--   require("direnv-vim").setup({})
-		-- end,
+		"nvim-notify",
+		after = function()
+			require("notify").setup({})
+		end,
 	},
 	{
-		"nix-develop.nvim",
+		"direnv.nvim",
 		for_cat = "general",
+		after = function()
+			require("direnv-nvim").setup({
+				async = true,
+				on_direnv_finished = function()
+					vim.cmd("LspStart")
+					if vim.bo.filetype == "rust" then
+						require("rustaceanvim.lsp").start()
+					end
+				end,
+			})
+		end,
 	},
 	{
 		"rustaceanvim",
 		for_cat = "general",
 		lazy = false,
 		before = function()
-			require("partials.plugins.lspkeys")
-			local bufnr = vim.api.nvim_get_current_buf()
-			vim.keymap.set("n", "<leader>a", function()
-				vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
-				-- or vim.lsp.buf.codeAction() if you don't want grouping.
-			end, { silent = true, buffer = bufnr })
-			vim.keymap.set(
-				"n",
-				"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
-				function()
-					vim.cmd.RustLsp({ "hover", "actions" })
-				end,
-				{ silent = true, buffer = bufnr }
-			)
+			vim.g.rustaceanvim = {
+				server = {
+					on_attach = function(client, bufnr)
+						vim.keymap.set("n", "<leader>ca", function()
+							vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
+							-- or vim.lsp.buf.codeAction() if you don't want grouping.
+						end, { noremap = true, silent = true, buffer = bufnr })
+						vim.keymap.set("n", "<leader>cz", function()
+							vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
+							-- or vim.lsp.buf.codeAction() if you don't want grouping.
+						end, { noremap = true, silent = true, buffer = bufnr })
+						vim.keymap.set(
+							"n",
+							"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+							function()
+								vim.cmd.RustLsp({ "hover", "actions" })
+							end,
+							{ noremap = true, silent = true, buffer = bufnr }
+						)
+					end,
+				},
+			}
 		end,
+	},
+	{
+		"nix-develop.nvim",
+		lazy = false,
+		for_cat = "general",
 	},
 
 	{ import = "partials.plugins.auto-session" },
 	{ import = "partials.plugins.lint" },
-	-- { import = "partials.plugins.tabby" },
 	{ import = "partials.plugins.treesitter" },
 	{ import = "partials.plugins.yanky" },
 	{ import = "partials.plugins.harpoon" },
