@@ -40,6 +40,8 @@ vim.o.wrap = true
 vim.o.writebackup = true
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menu,preview,noselect"
+-- suggested by autosession
+-- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- [[ Disable auto comment on enter ]]
 -- See :help formatoptions
@@ -49,6 +51,10 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt.formatoptions:remove({ "c", "r", "o" })
 	end,
 })
+-- vim.api.nvim_create_autocmd("User", {
+--         group = "direnv-nvim",
+--         pattern = { "DirenvReady", "DirenvNotFound" },
+-- })
 -- Neovide settings
 vim.g.neovide_normal_opacity = 0.95
 vim.g.neovide_cursor_vfx_mode = "pixiedust"

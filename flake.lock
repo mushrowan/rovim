@@ -84,11 +84,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1757588530,
-        "narHash": "sha256-tJ7A8mID3ct69n9WCvZ3PzIIl3rXTdptn/lZmqSS95U=",
+        "lastModified": 1757974173,
+        "narHash": "sha256-4DpXmct/2rcLgScT1CXOLr0TUeIlrBB1rnFqCOf5MUw=",
         "owner": "cachix",
         "repo": "git-hooks.nix",
-        "rev": "b084b2c2b6bc23e83bbfe583b03664eb0b18c411",
+        "rev": "302af509428169db34f268324162712d10559f74",
         "type": "github"
       },
       "original": {
@@ -128,11 +128,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1755233722,
-        "narHash": "sha256-AavrbMltJKcC2Fx0lfJoZfmy7g87ebXU0ddVenhajLA=",
+        "lastModified": 1758022363,
+        "narHash": "sha256-ENUhCRWgSX4ni751HieNuQoq06dJvApV/Nm89kh+/A0=",
         "owner": "hercules-ci",
         "repo": "hercules-ci-effects",
-        "rev": "99e03e72e3f7e13506f80ef9ebaedccb929d84d0",
+        "rev": "1a3667d33e247ad35ca250698d63f49a5453d824",
         "type": "github"
       },
       "original": {
@@ -152,11 +152,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1757808376,
-        "narHash": "sha256-bBlkNzJkt8OiaMcoRNlZM1dViUcXViuaqwpqxK+xK+E=",
+        "lastModified": 1758067563,
+        "narHash": "sha256-g9UMPKyBtIfCI21zdseTfe5I5P4RyjpaQXgtO1txoWM=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "7ef746f86fb9e35edc54809601f58a3b4b0b2c81",
+        "rev": "958af4628a9e463582e3cf16c963fdb510dc85f3",
         "type": "github"
       },
       "original": {
@@ -168,11 +168,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1757806386,
-        "narHash": "sha256-32vMFpPcSLk8llBvUN+8UpEdQFByR9mivEgK7CC+PUo=",
+        "lastModified": 1758047314,
+        "narHash": "sha256-HzyJpt8TsVQmF+tkZgVaubzCA8H9syQhZvwrwXj7frc=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "68f40386ed8cf813a7ae8443628b950e7707dc3e",
+        "rev": "cbfa7f0d7b55c5329e6ffd36451b41b7f41b645c",
         "type": "github"
       },
       "original": {
@@ -183,11 +183,11 @@
     },
     "nixCats": {
       "locked": {
-        "lastModified": 1757649271,
-        "narHash": "sha256-ibIge275+cw7rdrHnIQlPhv0ydOPmDvYR852U/m3kHY=",
+        "lastModified": 1757949877,
+        "narHash": "sha256-HmMC/kLT/m6gZNKlJrn32ACYyrKhWD8SnU4laiWPRkc=",
         "owner": "BirdeeHub",
         "repo": "nixCats-nvim",
-        "rev": "adf4a129b8e05971b564340f39622590b27c46f1",
+        "rev": "2ac30eb4e65e03ce711aceba964215a79f562ccf",
         "type": "github"
       },
       "original": {
@@ -198,16 +198,32 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1757746433,
-        "narHash": "sha256-fEvTiU4s9lWgW7mYEU/1QUPirgkn+odUBTaindgiziY=",
+        "lastModified": 1757967192,
+        "narHash": "sha256-/aA9A/OBmnuOMgwfzdsXRusqzUpd8rQnQY8jtrHK+To=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6d7ec06d6868ac6d94c371458fc2391ded9ff13d",
+        "rev": "0d7c15863b251a7a50265e57c1dca1a7add2e291",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-direnv-nvim": {
+      "locked": {
+        "lastModified": 1758145330,
+        "narHash": "sha256-B6HUMnCQDOK0Mlw0EiltTJq4e+CeA8gMgklQDtUClWg=",
+        "owner": "mushrowan",
+        "repo": "nixpkgs",
+        "rev": "f01904087a29acdd58645cd0283972d758e91737",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mushrowan",
+        "ref": "direnv-nvim",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -228,11 +244,29 @@
         "type": "github"
       }
     },
+    "plugins-direnv-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1756190688,
+        "narHash": "sha256-qx+mbZz2tzA8F7pEYD4eGjujvpPa4/KfO9M6oxKFnM0=",
+        "owner": "actionshrimp",
+        "repo": "direnv.nvim",
+        "rev": "8a6d69b3a21928d54228f921bdee92b6839f25a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "actionshrimp",
+        "repo": "direnv.nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixCats": "nixCats",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "nixpkgs-direnv-nvim": "nixpkgs-direnv-nvim",
+        "plugins-direnv-nvim": "plugins-direnv-nvim"
       }
     },
     "treefmt-nix": {

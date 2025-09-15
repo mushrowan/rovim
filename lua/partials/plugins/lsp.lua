@@ -3,13 +3,16 @@ return {
 	{
 		"nvim-lspconfig",
 		for_cat = "general",
-    lazy = false,
-		-- event = "Filetype",
-    -- on_require = { "lspconfig" },
-
+		lazy = false,
+		--event = "Filetype",
+		-- on_require = { "lspconfig" },
+		event = {
+			{ id = "User DirenvReady", event = "User", pattern = "DirenvReady" },
+			{ id = "User DirenvNotFound", event = "User", pattern = "DirenvNotFound" },
+		},
 
 		before = function()
-      require("partials.plugins.lspkeys")
+			require("partials.plugins.lspkeys")
 			vim.lsp.config("*", {
 				root_markers = { ".git" },
 			})
@@ -18,14 +21,26 @@ return {
 
 			-- Nix
 			vim.lsp.enable("nil_ls")
+			vim.lsp.config("nil_ls", {
+				autostart = false,
+			})
 			vim.lsp.enable("nixd")
+			vim.lsp.config("nixd", {
+				autostart = false,
+			})
 			vim.lsp.enable("statix")
+			vim.lsp.config("statix", {
+				autostart = false,
+			})
 
 			-- Python
 			vim.lsp.enable("ruff")
 
 			-- Lua
 			vim.lsp.enable("lua_ls")
+			vim.lsp.config("lua_ls", {
+				autostart = false,
+			})
 
 			-- Docker Compose
 			vim.lsp.enable("docker_compose_language_service")
@@ -55,8 +70,6 @@ return {
 				["virtual_lines"] = true,
 				["virtual_text"] = false,
 			})
-
-
 		end,
 	},
 }
