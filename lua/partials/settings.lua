@@ -51,10 +51,16 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt.formatoptions:remove({ "c", "r", "o" })
 	end,
 })
--- vim.api.nvim_create_autocmd("User", {
---         group = "direnv-nvim",
---         pattern = { "DirenvReady", "DirenvNotFound" },
--- })
+-- Set up a global autocommand to restart LSP after direnv loads.
+vim.api.nvim_create_autocmd("User", {
+    pattern = { "DirenvReady" },
+    callback = function()
+        -- Only restart if the current file is a Rust file.
+        if vim.bo.filetype == "rust" then
+            require("rustaceanvim.lsp").restart()
+        end
+    end,
+})
 -- Neovide settings
 vim.g.neovide_normal_opacity = 0.95
 vim.g.neovide_cursor_vfx_mode = "pixiedust"

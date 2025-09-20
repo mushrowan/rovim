@@ -56,7 +56,7 @@
           cargo
           cargo-edit
           clippy
-          rust-analyzer
+          # rust-analyzer
           rustc
           rustfmt
         ];
@@ -68,8 +68,6 @@
           lze
           lzextras
           plenary-nvim
-          rustaceanvim
-          # pkgs.neovimPlugins.direnv-nvim
         ];
       };
 

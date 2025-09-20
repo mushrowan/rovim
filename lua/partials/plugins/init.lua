@@ -65,20 +65,48 @@ require("lze").load({
 		end,
 	},
 	{
-		"direnv.nvim",
+		"rustaceanvim",
 		for_cat = "general",
-		lazy = false,
-		after = function()
-			require("direnv-nvim").setup({
-				-- type = "dir",
-				async = false,
-			})
+		-- lazy = false,
+		event = { pattern = { "BufReadPost *.rs", "User DirenvReady" } },
+		-- "User DirenvReady"
+		before = function()
+			vim.g.rustaceanvim = {
+				server = {
+					on_attach = function(client, bufnr)
+						if vim.bo.filetype == "rust" then
+							vim.keymap.set("n", "<leader>ca", function()
+								vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
+								-- or vim.lsp.buf.codeAction() if you don't want grouping.
+							end, { noremap = true, silent = true, buffer = bufnr })
+							vim.keymap.set("n", "<leader>cz", function()
+								vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
+								-- or vim.lsp.buf.codeAction() if you don't want grouping.
+							end, { noremap = true, silent = true, buffer = bufnr })
+							vim.keymap.set(
+								"n",
+								"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+								function()
+									vim.cmd.RustLsp({ "hover", "actions" })
+								end,
+								{ noremap = true, silent = true, buffer = bufnr }
+							)
+						end
+					end,
+				},
+			}
 		end,
 	},
 	{
-		"rustaceanvim",
+		"direnv.nvim",
 		for_cat = "general",
-		lazy = false,
+		-- lazy = false,
+		after = function()
+			require("direnv-nvim").setup({
+				-- type = "dir",
+				async = true,
+			})
+		end,
 	},
 	-- {
 	-- 	"direnv.vim",
@@ -109,42 +137,3 @@ require("lze").load({
 })
 
 -- Config for rustaceanvim
-vim.g.rustaceanvim = {
-	server = {
-		on_attach = function(bufnr)
-			vim.api.nvim_create_autocmd("User", {
-				pattern = { "DirenvReady", "DirenvNotFound" },
-				-- once = true,
-				callback = function()
-					if vim.bo.filetype == "rust" then
-						require("rustaceanvim.lsp").restart()
-						vim.keymap.set("n", "<leader>ca", function()
-							vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
-							-- or vim.lsp.buf.codeAction() if you don't want grouping.
-						end, { noremap = true, silent = true, buffer = bufnr })
-						vim.keymap.set("n", "<leader>cz", function()
-							vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
-							-- or vim.lsp.buf.codeAction() if you don't want grouping.
-						end, { noremap = true, silent = true, buffer = bufnr })
-						vim.keymap.set(
-							"n",
-							"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
-							function()
-								vim.cmd.RustLsp({ "hover", "actions" })
-							end,
-							{ noremap = true, silent = true, buffer = bufnr }
-						)
-						vim.keymap.set(
-							"n",
-							"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
-							function()
-								vim.cmd.RustLsp({ "hover", "actions" })
-							end,
-							{ noremap = true, silent = true, buffer = bufnr }
-						)
-					end
-				end,
-			})
-		end,
-	},
-}
