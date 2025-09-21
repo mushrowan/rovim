@@ -4,6 +4,8 @@ return {
 		for_cat = "general",
     lazy = false,
 		after = function()
+      -- TODO: add delete bind
+      -- TODO: add preview directory
 			require("auto-session").setup({
 				suppressed_dirs = { "~" },
 				bypass_save_filetypes = { "alpha", "dashboard", "snacks_dashboard" }, -- or whatever dashboard you use

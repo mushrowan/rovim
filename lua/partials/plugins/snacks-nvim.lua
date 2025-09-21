@@ -89,6 +89,7 @@ return {
 					},
 				}
 			end
+
 			vim.keymap.set("n", "<leader>rf", function()
 				return Snacks.rename.rename_file()
 			end, { desc = "Rename File" })
@@ -125,6 +126,35 @@ return {
 			vim.keymap.set("n", "<leader>se", function()
 				return Snacks.explorer.open()
 			end, { desc = "Explorer" })
+
+			vim.keymap.set("n", "<leader>sd", function()
+				Snacks.picker.pick({
+					title = "Directories",
+					format = "text",
+					preview = "directory",
+					confirm = "load_session",
+          transform = "text_to_file",
+					finder = function(opts, ctx)
+						local proc_opts = {
+							cmd = "fd",
+							args = { ".", os.getenv('HOME'), "--hidden", "--type", "directory", "--absolute-path" },
+						}
+						return require("snacks.picker.source.proc").proc({ opts, proc_opts }, ctx)
+					end,
+					win = {
+						-- preview = { minimal = true },
+						input = {
+							keys = {
+								["<c-e>"] = { "<c-e>", { "tcd", "picker_explorer" }, mode = { "n", "i" } },
+								["<c-f>"] = { "<c-f>", { "tcd", "picker_files" }, mode = { "n", "i" } },
+								["<c-g>"] = { "<c-g>", { "tcd", "picker_grep" }, mode = { "n", "i" } },
+
+								["<c-r>"] = { "<c-r>", { "tcd", "picker_recent" }, mode = { "n", "i" } },
+							},
+						},
+					},
+				})
+			end, { desc = "Directories" })
 
 			vim.keymap.set("n", "<leader>tt", function()
 				return Snacks.terminal.toggle(nil, terminal_opts())

@@ -65,12 +65,6 @@ require("lze").load({
 		end,
 	},
 	{
-		"nvim-notify",
-		after = function()
-			require("notify").setup({})
-		end,
-	},
-	{
 		"direnv.nvim",
 		for_cat = "general",
 		after = function()
@@ -92,14 +86,9 @@ require("lze").load({
 		before = function()
 			vim.g.rustaceanvim = {
 				server = {
-					on_attach = function(client, bufnr)
+					on_attach = function(_, bufnr)
 						vim.keymap.set("n", "<leader>ca", function()
 							vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
-							-- or vim.lsp.buf.codeAction() if you don't want grouping.
-						end, { noremap = true, silent = true, buffer = bufnr })
-						vim.keymap.set("n", "<leader>cz", function()
-							vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
-							-- or vim.lsp.buf.codeAction() if you don't want grouping.
 						end, { noremap = true, silent = true, buffer = bufnr })
 						vim.keymap.set(
 							"n",
