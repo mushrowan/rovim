@@ -4,7 +4,7 @@ return {
 		"nvim-lspconfig",
 		for_cat = "general",
 		lazy = false,
-    priority = 100,
+		priority = 100,
 		dep_of = { "direnv.nvim" },
 		--event = "Filetype",
 		-- on_require = { "lspconfig" },
@@ -15,26 +15,34 @@ return {
 				root_markers = { ".git" },
 			})
 
-      local enable_no_autostart = function(ls)
-        vim.lsp.enable(ls)
-        vim.lsp.config(ls, {autostart = false,})
-      end
+			local enable_no_autostart = function(ls)
+				vim.lsp.enable(ls)
+				vim.lsp.config(ls, { autostart = false })
+			end
 			-- Nixcats - use the lspandruntimedeps for this bit
 			-- Nix
-      enable_no_autostart("nil_ls")
-      enable_no_autostart("nixd")
-      enable_no_autostart("statix")
+			enable_no_autostart("nil_ls")
+			enable_no_autostart("nixd")
+			enable_no_autostart("statix")
 
 			-- Python
-      enable_no_autostart("ruff")
+			enable_no_autostart("ruff")
 
 			-- Lua
 			vim.lsp.enable("lua_ls")
 			vim.lsp.config("lua_ls", {
-        -- autostart = false,
+				-- autostart = false,
 			})
 
 			-- Docker Compose
+			vim.filetype.add({
+				filename = {
+					["docker-compose.yml"] = "yaml.docker-compose",
+					["docker-compose.yaml"] = "yaml.docker-compose",
+					["compose.yml"] = "yaml.docker-compose",
+					["compose.yaml"] = "yaml.docker-compose",
+				},
+			})
 			vim.lsp.enable("docker_compose_language_service")
 
 			-- Ansible
@@ -56,7 +64,7 @@ return {
 			-- SQL
 			vim.lsp.enable("sqls")
 			vim.diagnostic.config({
-        signs = true,
+				signs = true,
 				underline = true,
 				update_in_insert = false,
 				virtual_lines = true,
