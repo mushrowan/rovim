@@ -69,6 +69,7 @@
         general = with pkgs.vimPlugins; [
           pkgs-direnv.vimPlugins.direnv-nvim
           rustaceanvim
+          flash-nvim
           nix-develop-nvim
           blink-cmp
           conform-nvim
