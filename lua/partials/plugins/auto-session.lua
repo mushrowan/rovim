@@ -8,6 +8,8 @@ return {
       -- TODO: add preview directory
 			require("auto-session").setup({
 				suppressed_dirs = { "~" },
+        cwd_change_handling = true,
+
 				bypass_save_filetypes = { "alpha", "dashboard", "snacks_dashboard" }, -- or whatever dashboard you use
 				session_lens = {
 					picker_opts = {
@@ -15,7 +17,7 @@ return {
 						preset = "default",
 					},
 				},
-        lsp_stop_on_restore = true,
+        -- lsp_stop_on_restore = true,
 			})
 			vim.keymap.set("n", "<leader>sp", "<cmd>AutoSession search<CR>", { desc = "Session Search" })
 		end,
