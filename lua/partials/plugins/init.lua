@@ -37,6 +37,7 @@ require("lze").load({
 	{
 		"obsidian.nvim",
 		for_cat = "general",
+		lazy = true,
 		ft = "markdown",
 		after = function()
 			vim.o.conceallevel = 1
