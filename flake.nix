@@ -41,16 +41,19 @@
       lspsAndRuntimeDeps = {
         general = with pkgs; [
           alejandra
+          bash-language-server
           docker-compose-language-service
           docker-language-server
           lua-language-server
           luajitPackages.sqlite
+          shfmt
           nil
           nixd
           ruff
           statix
           stylua
           vale
+          shellcheck
         ];
       };
 

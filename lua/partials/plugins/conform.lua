@@ -13,7 +13,8 @@ return {
 				formatters_by_ft = {
 					lua = { "stylua" },
 					nix = { "alejandra" },
-          rust = { "rustfmt" },
+					rust = { "rustfmt" },
+					sh = { "shfmt" },
 				},
 			})
 
