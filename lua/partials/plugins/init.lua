@@ -106,30 +106,6 @@ require("lze").load({
 		end,
 	},
 	{
-		"rustaceanvim",
-		for_cat = "general",
-		lazy = false,
-		before = function()
-			vim.g.rustaceanvim = {
-				server = {
-					on_attach = function(_, bufnr)
-						vim.keymap.set("n", "<leader>ca", function()
-							vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
-						end, { noremap = true, silent = true, buffer = bufnr })
-						vim.keymap.set(
-							"n",
-							"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
-							function()
-								vim.cmd.RustLsp({ "hover", "actions" })
-							end,
-							{ noremap = true, silent = true, buffer = bufnr }
-						)
-					end,
-				},
-			}
-		end,
-	},
-	{
 		"nix-develop.nvim",
 		lazy = false,
 		for_cat = "general",

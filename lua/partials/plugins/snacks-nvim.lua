@@ -126,6 +126,12 @@ return {
 			vim.keymap.set("n", "<leader>se", function()
 				return Snacks.explorer.open()
 			end, { desc = "Explorer" })
+			vim.keymap.set("n", "<leader>ld", function()
+				return Snacks.picker.diagnostics_buffer()
+			end, { desc = "Diagnostics" })
+			vim.keymap.set("n", "<leader>lwd", function()
+				return Snacks.picker.diagnostics()
+			end, { desc = "Workspace Diagnostics" })
 
 			vim.keymap.set("n", "<leader>sd", function()
 				Snacks.picker.pick({

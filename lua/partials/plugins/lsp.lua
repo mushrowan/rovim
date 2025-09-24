@@ -1,6 +1,32 @@
 -- Set default root markers for all clients
 return {
 	{
+		"rustaceanvim",
+		for_cat = "general",
+		lazy = false,
+		dep_of = { "direnv.nvim" },
+		priority = 100,
+		before = function()
+			vim.g.rustaceanvim = {
+				server = {
+					on_attach = function(_, bufnr)
+						vim.keymap.set("n", "<leader>ca", function()
+							vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
+						end, { noremap = true, silent = true, buffer = bufnr })
+						vim.keymap.set(
+							"n",
+							"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+							function()
+								vim.cmd.RustLsp({ "hover", "actions" })
+							end,
+							{ noremap = true, silent = true, buffer = bufnr }
+						)
+					end,
+				},
+			}
+		end,
+	},
+	{
 		"nvim-lspconfig",
 		for_cat = "general",
 		lazy = false,
