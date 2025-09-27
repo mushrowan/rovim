@@ -52,7 +52,7 @@
           ruff
           statix
           stylua
-          vale
+          # vale
           shellcheck
         ];
       };
@@ -72,6 +72,7 @@
         general = with pkgs.vimPlugins; [
           pkgs-direnv.vimPlugins.direnv-nvim
           rustaceanvim
+          # vale
           flash-nvim
           nix-develop-nvim
           blink-cmp
