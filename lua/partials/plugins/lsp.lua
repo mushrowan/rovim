@@ -71,6 +71,11 @@ return {
 			})
 			vim.lsp.enable("docker_compose_language_service")
 
+
+      -- Javascript/typescript
+      vim.lsp.enable("ts_ls")
+      -- JSON
+      vim.lsp.enable("jsonls")
 			-- Ansible
 			-- vim.lsp.enable("ansiblels")
 

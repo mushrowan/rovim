@@ -46,14 +46,20 @@
           docker-language-server
           lua-language-server
           luajitPackages.sqlite
-          shfmt
+          markdown-oxide
+          marksman
+          vscode-json-languageserver
           nil
           nixd
           ruff
+          shellcheck
+          shfmt
+          sqls
           statix
           stylua
-          # vale
-          shellcheck
+          typescript
+          typescript-language-server
+          vale
         ];
       };
 

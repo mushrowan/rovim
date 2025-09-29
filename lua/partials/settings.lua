@@ -45,12 +45,12 @@ vim.o.completeopt = "menu,preview,noselect"
 
 -- [[ Disable auto comment on enter ]]
 -- See :help formatoptions
-vim.api.nvim_create_autocmd("FileType", {
-	desc = "remove formatoptions",
-	callback = function()
-		vim.opt.formatoptions:remove({ "c", "r", "o" })
-	end,
-})
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	desc = "remove formatoptions",
+-- 	callback = function()
+-- 		vim.opt.formatoptions:remove({ "c", "r", "o" })
+-- 	end,
+-- })
 -- -- Set up a global autocommand to restart LSP after direnv loads.
 -- vim.api.nvim_create_autocmd("User", {
 --     pattern = { "DirenvReady" },
