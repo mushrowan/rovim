@@ -68,9 +68,12 @@ return {
 
 			---@param working_dir string?
 			local terminal_opts = function(working_dir)
+				local env = {}
+				env["IN_NIX_SHELL"] = ""
 				return {
 					-- Prevents opening zellij
 					cwd = working_dir or vim.fn.getcwd(),
+					env,
 					win = {
 						fixbuf = true,
 						resize = true,
@@ -139,11 +142,11 @@ return {
 					format = "text",
 					preview = "directory",
 					confirm = "load_session",
-          transform = "text_to_file",
+					transform = "text_to_file",
 					finder = function(opts, ctx)
 						local proc_opts = {
 							cmd = "fd",
-							args = { ".", os.getenv('HOME'), "--hidden", "--type", "directory", "--absolute-path" },
+							args = { ".", os.getenv("HOME"), "--hidden", "--type", "directory", "--absolute-path" },
 						}
 						return require("snacks.picker.source.proc").proc({ opts, proc_opts }, ctx)
 					end,
