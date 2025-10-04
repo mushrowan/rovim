@@ -48,9 +48,9 @@
           luajitPackages.sqlite
           markdown-oxide
           marksman
-          vscode-json-languageserver
           nil
           nixd
+          prettier
           ruff
           shellcheck
           shfmt
@@ -60,6 +60,7 @@
           typescript
           typescript-language-server
           vale
+          vscode-json-languageserver
         ];
       };
 

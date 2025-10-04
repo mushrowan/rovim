@@ -15,6 +15,7 @@ return {
 					nix = { "alejandra" },
 					rust = { "rustfmt" },
 					sh = { "shfmt" },
+					markdown = { "prettier" },
 				},
 			})
 
