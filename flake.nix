@@ -60,6 +60,7 @@
           typescript
           typescript-language-server
           vale
+          vale-ls
           vscode-json-languageserver
         ];
       };
