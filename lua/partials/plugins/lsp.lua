@@ -32,8 +32,6 @@ return {
 		lazy = false,
 		priority = 100,
 		dep_of = { "direnv.nvim" },
-		--event = "Filetype",
-		-- on_require = { "lspconfig" },
 
 		before = function()
 			require("partials.plugins.lspkeys")
@@ -59,6 +57,9 @@ return {
 			vim.lsp.config("lua_ls", {
 				-- autostart = false,
 			})
+
+      -- Qml
+      vim.lsp.enable("qmlls")
 
 			-- Docker Compose
 			vim.filetype.add({

@@ -1,6 +1,3 @@
-local async = require("plenary.async")
-local DirenvReady = { id = "User DirenvReady", event = "User", pattern = "DirenvReady" }
-local DirenvNotFound = { id = "User DirenvNotFound", event = "User", pattern = "DirenvNotFound" }
 require("lze").load({
 	{
 		"rose-pine",
@@ -105,14 +102,13 @@ require("lze").load({
 			})
 		end,
 	},
-	{
-		"nix-develop.nvim",
-		lazy = false,
-		for_cat = "general",
-	},
+	-- {
+	-- 	"nix-develop.nvim",
+	-- 	lazy = false,
+	-- 	for_cat = "general",
+	-- },
 
 	{ import = "partials.plugins.auto-session" },
-	{ import = "partials.plugins.lint" },
 	{ import = "partials.plugins.treesitter" },
 	{ import = "partials.plugins.yanky" },
 	{ import = "partials.plugins.harpoon" },
@@ -123,5 +119,3 @@ require("lze").load({
 	{ import = "partials.plugins.lsp" },
 	{ import = "partials.plugins.which-key" },
 })
-
--- Config for rustaceanvim

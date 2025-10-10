@@ -115,7 +115,7 @@ return {
 				return Snacks.picker.git_status()
 			end, { desc = "Git status" })
 			vim.keymap.set("n", "<leader>sP", function()
-				return Snacks.picker.projects()
+				return Snacks.picker.projects({ dev = { "~/dev/*", "~/dev" } })
 			end, { desc = "Projects" })
 			vim.keymap.set("n", "<leader>lG", function()
 				return Snacks.lazygit(terminal_opts())

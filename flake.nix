@@ -54,6 +54,7 @@
           ruff
           shellcheck
           shfmt
+          kdePackages.qtdeclarative
           sqls
           statix
           stylua
@@ -82,6 +83,7 @@
           rustaceanvim
           # vale
           flash-nvim
+          nvim-dap
           nix-develop-nvim
           blink-cmp
           conform-nvim
