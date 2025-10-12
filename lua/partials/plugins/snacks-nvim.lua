@@ -111,9 +111,6 @@ return {
 			vim.keymap.set("n", "<leader>ss", function()
 				return Snacks.picker.smart()
 			end, { desc = "Smart picker" })
-			vim.keymap.set("n", "<leader>gs", function()
-				return Snacks.picker.git_status()
-			end, { desc = "Git status" })
 			vim.keymap.set("n", "<leader>sP", function()
 				return Snacks.picker.projects({ dev = { "~/dev/*", "~/dev" } })
 			end, { desc = "Projects" })
@@ -132,6 +129,51 @@ return {
 			vim.keymap.set("n", "<leader>ld", function()
 				return Snacks.picker.diagnostics_buffer()
 			end, { desc = "Diagnostics" })
+
+			vim.keymap.set("n", "<leader>qf", function()
+				return Snacks.picker.qflist()
+			end, { desc = "Quickfix List" })
+
+			-- Git
+			vim.keymap.set("n", "<leader>gs", function()
+				return Snacks.picker.git_status()
+			end, { desc = "Git status" })
+			vim.keymap.set("n", "<leader>gb", function()
+				return Snacks.picker.git_branches()
+			end, { desc = "Git branches" })
+			vim.keymap.set("n", "<leader>gb", function()
+				return Snacks.picker.git_branches()
+			end, { desc = "Git branches" })
+
+			-- LSP keybinds
+			local lsp_symbols = {
+				filter = {
+					default = {
+						"Class",
+						"Constructor",
+						"Enum",
+						"Field",
+						"Function",
+						"Interface",
+						"Method",
+						"Module",
+						"Namespace",
+						"Package",
+						"Property",
+						"Struct",
+						"Trait",
+            "Unknown",
+					},
+				},
+			}
+			vim.keymap.set("n", "<leader>ls", function()
+				Snacks.picker.lsp_symbols(lsp_symbols)
+			end, { desc = "LSP Symbols" })
+
+			vim.keymap.set("n", "<leader>lws", function()
+				Snacks.picker.lsp_workspace_symbols(lsp_symbols)
+			end, { desc = "LSP Workspace Symbols" })
+
 			vim.keymap.set("n", "<leader>lwd", function()
 				return Snacks.picker.diagnostics()
 			end, { desc = "Workspace Diagnostics" })

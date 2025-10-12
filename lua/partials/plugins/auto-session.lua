@@ -2,13 +2,13 @@ return {
 	{
 		"auto-session",
 		for_cat = "general",
-    lazy = false,
+		lazy = false,
 		after = function()
-      -- TODO: add delete bind
-      -- TODO: add preview directory
+			-- TODO: add delete bind
+			-- TODO: add preview directory
 			require("auto-session").setup({
 				suppressed_dirs = { "~" },
-        cwd_change_handling = true,
+				cwd_change_handling = true,
 
 				bypass_save_filetypes = { "alpha", "dashboard", "snacks_dashboard" }, -- or whatever dashboard you use
 				session_lens = {
@@ -17,9 +17,10 @@ return {
 						preset = "default",
 					},
 				},
-        -- lsp_stop_on_restore = true,
+				-- lsp_stop_on_restore = true,
 			})
 			vim.keymap.set("n", "<leader>sp", "<cmd>AutoSession search<CR>", { desc = "Session Search" })
+			vim.keymap.set("n", "<leader>as", "<cmd>AutoSession save<CR>", { desc = "Autosession Save" })
 		end,
 	},
 }
