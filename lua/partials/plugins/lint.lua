@@ -6,7 +6,6 @@ return {
 
 		after = function(_)
 			require("lint").linters_by_ft = {
-				markdown = { "vale" },
         dockerfile = { "hadolint" },
 			}
 

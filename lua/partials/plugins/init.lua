@@ -112,6 +112,7 @@ require("lze").load({
 	{ import = "partials.plugins.treesitter" },
 	{ import = "partials.plugins.yanky" },
 	{ import = "partials.plugins.harpoon" },
+	{ import = "partials.plugins.lint" },
 	{ import = "partials.plugins.conform" },
 	{ import = "partials.plugins.completion" },
 	{ import = "partials.plugins.lualine" },

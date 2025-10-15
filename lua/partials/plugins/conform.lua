@@ -11,11 +11,12 @@ return {
 				-- NOTE: download some formatters in lspsAndRuntimeDeps
 				-- and configure them here
 				formatters_by_ft = {
+					dockerfile = { "dockerfmt" },
 					lua = { "stylua" },
+					markdown = { "prettier" },
 					nix = { "alejandra" },
 					rust = { "rustfmt" },
 					sh = { "shfmt" },
-					markdown = { "prettier" },
 				},
 			})
 
