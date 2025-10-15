@@ -48,6 +48,7 @@
           luajitPackages.sqlite
           markdown-oxide
           marksman
+          csharp-ls
           nil
           nixd
           prettier

@@ -49,6 +49,9 @@ return {
 			enable_no_autostart("nixd")
 			enable_no_autostart("statix")
 
+      -- CSharp
+      vim.lsp.enable("csharp_ls")
+
 			-- Python
 			enable_no_autostart("ruff")
 
