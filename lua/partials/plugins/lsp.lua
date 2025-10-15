@@ -64,6 +64,9 @@ return {
       -- Qml
       vim.lsp.enable("qmlls")
 
+      -- Docker
+      vim.lsp.enable("docker_language_server")
+
 			-- Docker Compose
 			vim.filetype.add({
 				filename = {
