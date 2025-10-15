@@ -45,6 +45,7 @@
           docker-compose-language-service
           docker-language-server
           docker-ls
+          dockerfile-language-server
           lua-language-server
           luajitPackages.sqlite
           markdown-oxide
