@@ -66,6 +66,7 @@ return {
 
       -- Docker
       vim.lsp.enable("docker_language_server")
+      vim.lsp.enable("dockerls")
 
 			-- Docker Compose
 			vim.filetype.add({
