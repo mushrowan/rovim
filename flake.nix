@@ -42,22 +42,24 @@
         general = with pkgs; [
           alejandra
           bash-language-server
+          csharp-ls
           docker-compose-language-service
           docker-language-server
           docker-ls
           dockerfile-language-server
+          dockerfmt
+          hadolint
+          kdePackages.qtdeclarative
           lua-language-server
           luajitPackages.sqlite
           markdown-oxide
           marksman
-          csharp-ls
           nil
           nixd
           prettier
           ruff
           shellcheck
           shfmt
-          kdePackages.qtdeclarative
           sqls
           statix
           stylua

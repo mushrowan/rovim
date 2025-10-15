@@ -7,7 +7,9 @@ return {
 		after = function(_)
 			require("lint").linters_by_ft = {
 				markdown = { "vale" },
+        dockerfile = { "hadolint" },
 			}
+
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 				callback = function()
 					require("lint").try_lint()
