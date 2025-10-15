@@ -63,6 +63,7 @@
           sqls
           statix
           stylua
+          trivy # For linting
           typescript
           typescript-language-server
           vale

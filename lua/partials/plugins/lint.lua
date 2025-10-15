@@ -6,7 +6,8 @@ return {
 
 		after = function(_)
 			require("lint").linters_by_ft = {
-        dockerfile = { "hadolint" },
+
+				dockerfile = { "trivy", "hadolint" },
 			}
 
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
