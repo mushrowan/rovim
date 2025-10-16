@@ -48,7 +48,6 @@
           docker-ls
           dockerfile-language-server
           dockerfmt
-          hadolint
           kdePackages.qtdeclarative
           lua-language-server
           luajitPackages.sqlite
@@ -85,34 +84,33 @@
       # use with packadd and an autocommand in config to achieve lazy loading
       optionalPlugins = {
         general = with pkgs.vimPlugins; [
-          pkgs-direnv.vimPlugins.direnv-nvim
-          rustaceanvim
-          # vale
-          flash-nvim
-          nvim-dap
-          nix-develop-nvim
+          auto-session
           blink-cmp
+          bufferline-nvim
           conform-nvim
+          flash-nvim
           harpoon2
           lazydev-nvim
-          auto-session
+          lsp_lines-nvim
           lualine-nvim
+          neocord
+          nix-develop-nvim
+          nvim-dap
           nvim-lint
+          nvim-lspconfig
+          nvim-notify
           nvim-treesitter-textobjects
           nvim-treesitter.withAllGrammars
-          nvim-lspconfig
-          neocord
-          obsidian-nvim
-          bufferline-nvim
           nvim-web-devicons
+          obsidian-nvim
+          pkgs-direnv.vimPlugins.direnv-nvim
           rose-pine
+          rustaceanvim
           snacks-nvim
-          nvim-notify
-
           sqlite-lua
           tabby-nvim
-          yanky-nvim
           which-key-nvim
+          yanky-nvim
         ];
       };
 

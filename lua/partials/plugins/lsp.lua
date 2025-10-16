@@ -49,8 +49,8 @@ return {
 			enable_no_autostart("nixd")
 			enable_no_autostart("statix")
 
-      -- CSharp
-      vim.lsp.enable("csharp_ls")
+			-- CSharp
+			vim.lsp.enable("csharp_ls")
 
 			-- Python
 			enable_no_autostart("ruff")
@@ -61,12 +61,12 @@ return {
 				-- autostart = false,
 			})
 
-      -- Qml
-      vim.lsp.enable("qmlls")
+			-- Qml
+			vim.lsp.enable("qmlls")
 
-      -- Docker
-      vim.lsp.enable("docker_language_server")
-      vim.lsp.enable("dockerls")
+			-- Docker
+			vim.lsp.enable("docker_language_server")
+			vim.lsp.enable("dockerls")
 
 			-- Docker Compose
 			vim.filetype.add({
@@ -79,11 +79,10 @@ return {
 			})
 			vim.lsp.enable("docker_compose_language_service")
 
-
-      -- Javascript/typescript
-      vim.lsp.enable("ts_ls")
-      -- JSON
-      vim.lsp.enable("jsonls")
+			-- Javascript/typescript
+			vim.lsp.enable("ts_ls")
+			-- JSON
+			vim.lsp.enable("jsonls")
 			-- Ansible
 			-- vim.lsp.enable("ansiblels")
 
@@ -103,13 +102,6 @@ return {
 
 			-- SQL
 			vim.lsp.enable("sqls")
-			vim.diagnostic.config({
-				signs = true,
-				underline = true,
-				update_in_insert = false,
-				virtual_lines = true,
-				virtual_text = false,
-			})
 		end,
 	},
 }

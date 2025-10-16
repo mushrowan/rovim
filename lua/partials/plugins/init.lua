@@ -1,6 +1,7 @@
 require("lze").load({
 	{
 		"rose-pine",
+		lazy = false,
 		for_cat = "general",
 		after = function()
 			vim.cmd("colorscheme rose-pine")
@@ -9,7 +10,6 @@ require("lze").load({
 	{
 		"lazydev.nvim",
 		for_cat = "general",
-		-- event = "Filetype",
 		cmd = { "LazyDev" },
 		ft = "lua",
 		after = function()
@@ -23,6 +23,7 @@ require("lze").load({
 	{
 		"neocord",
 		for_cat = "general",
+		event = "DeferredUIEnter",
 		after = function()
 			require("neocord").setup({
 				editing_text = "Editing",
@@ -52,7 +53,7 @@ require("lze").load({
 	{
 		"flash.nvim",
 		for_cat = "general",
-		event = { { event = "User", pattern = "DeferredUIEnter" } },
+		event = "DeferredUIEnter",
 		after = function()
 			local flash = require("flash")
 			flash.setup({})
@@ -76,6 +77,7 @@ require("lze").load({
 
 	{
 		"bufferline.nvim",
+		event = "DeferredUIEnter",
 		for_cat = "general",
 		load = function(name)
 			vim.cmd.packadd(name)
@@ -89,6 +91,7 @@ require("lze").load({
 	},
 	{
 		"direnv.nvim",
+		event = "DeferredUIEnter",
 		for_cat = "general",
 		after = function()
 			require("direnv-nvim").setup({
@@ -100,6 +103,15 @@ require("lze").load({
 					end
 				end,
 			})
+		end,
+	},
+	{
+		"lsp_lines.nvim",
+		for_cat = "general",
+		event = "DeferredUIEnter",
+		after = function()
+			vim.diagnostic.config({ virtual_text = false })
+			require("lsp_lines").setup()
 		end,
 	},
 	-- {

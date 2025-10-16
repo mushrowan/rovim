@@ -37,11 +37,19 @@ vim.o.updatetime = 250
 vim.o.visualbell = false
 vim.o.winblend = 10
 vim.o.wrap = true
+vim.o.linebreak = true
 vim.o.writebackup = true
 vim.o.completeopt = "menu,preview,noselect"
+
+vim.diagnostic.config({
+	signs = true,
+	underline = true,
+	-- update_in_insert = true,
+})
+
 -- suggested by autosession
 -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
-vim.g.neovide_normal_opacity = 0.95
+vim.g.neovide_normal_opacity = 0.97
 vim.g.neovide_cursor_vfx_mode = "pixiedust"
 
 -- Neovide binds
