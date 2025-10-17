@@ -112,7 +112,7 @@ return {
 				return Snacks.picker.smart()
 			end, { desc = "Smart picker" })
 			vim.keymap.set("n", "<leader>sP", function()
-				return Snacks.picker.projects({ dev = { "~/dev/*", "~/dev" } })
+				return Snacks.picker.projects({ dev = { "~/dev/*", "~/dev", "~/dev/toca" } })
 			end, { desc = "Projects" })
 			vim.keymap.set("n", "<leader>lG", function()
 				return Snacks.lazygit(terminal_opts())
@@ -162,7 +162,7 @@ return {
 						"Property",
 						"Struct",
 						"Trait",
-            "Unknown",
+						"Unknown",
 					},
 				},
 			}
