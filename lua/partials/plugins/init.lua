@@ -110,7 +110,7 @@ require("lze").load({
 		for_cat = "general",
 		event = "DeferredUIEnter",
 		after = function()
-			vim.diagnostic.config({ virtual_text = false })
+			vim.diagnostic.config({ virtual_lines = true, virtual_text = false })
 			require("lsp_lines").setup()
 		end,
 	},
