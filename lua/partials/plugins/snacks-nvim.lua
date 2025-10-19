@@ -120,7 +120,6 @@ return {
 						end,
 					})
 				end,
-        once = true,
 			})
 
 			---@param working_dir string?
@@ -176,6 +175,7 @@ return {
 					dev = {
 						"~/dev",
 						"~/dev/nix",
+						"~/dev/lua",
 						"~/dev/ansible",
 						"~/dev/work",
 						"~/dev/work/devops",

@@ -1,6 +1,3 @@
-local Snacks = require("snacks")
-local MiniSessions = require("mini.sessions")
-
 local M = {}
 
 local function open_file_in_new_session(project_dir)
@@ -8,7 +5,7 @@ local function open_file_in_new_session(project_dir)
 		local file_path = file_item.file
 
 		-- i. Clear all buffers
-		vim.cmd("silent! bufdo bwipeout!")
+    MiniBufremove.wipeout()
 
 		-- ii. Open the selected file
 		vim.cmd("e " .. vim.fn.fnameescape(file_path))

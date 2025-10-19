@@ -23,4 +23,19 @@ return {
 			end, { desc = "Autosession Save" })
 		end,
 	},
+  {
+    "mini.surround",
+		for_cat = "general",
+		after = function()
+      require("mini.surround").setup()
+    end,
+  },
+  {
+    "mini.bufremove",
+		for_cat = "general",
+		after = function()
+      require("mini.bufremove").setup()
+    end,
+  },
+
 }
