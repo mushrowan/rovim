@@ -84,7 +84,7 @@
       # use with packadd and an autocommand in config to achieve lazy loading
       optionalPlugins = {
         general = with pkgs.vimPlugins; [
-          auto-session
+          # auto-session
           blink-cmp
           bufferline-nvim
           conform-nvim
@@ -93,6 +93,8 @@
           lazydev-nvim
           lsp_lines-nvim
           lualine-nvim
+          mini-sessions
+          mini-icons
           neocord
           nix-develop-nvim
           nvim-dap
@@ -234,6 +236,7 @@
       inherit (utils) templates;
     });
   inputs = {
+    flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-direnv-nvim.url = "github:mushrowan/nixpkgs/direnv-nvim";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";

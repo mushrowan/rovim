@@ -10,9 +10,11 @@ return {
 				input = { enabled = true },
 				notifier = { enabled = true, timeout = 3000 },
 				picker = {
-					enabled = true,
+					-- enabled = true,
 					hidden = true,
 					sources = {
+						projects = {},
+
 						files = { hidden = true },
 						grep = { hidden = true },
 					},
@@ -21,6 +23,60 @@ return {
 				terminal = { enabled = true },
 				lazygit = { enabled = true },
 			})
+			local utils = require("partials.utils")
+			-- from https://github.com/folke/snacks.nvim/discussions/1153
+			vim.schedule(function()
+				---@param path string
+				---@param len? number
+				---@param opts? {cwd?: string}
+				require("snacks.picker.util").truncpath = function(path, len, opts)
+					local cwd =
+						svim.fs.normalize(opts and opts.cwd or vim.fn.getcwd(), { _fast = true, expand_env = false })
+					local home = svim.fs.normalize("~")
+					path = svim.fs.normalize(path, { _fast = true, expand_env = false })
+
+					if path:find(cwd .. "/", 1, true) == 1 and #path > #cwd then
+						path = path:sub(#cwd + 2)
+					else
+						local root = Snacks.git.get_root(path)
+						if root and root ~= "" and path:find(root, 1, true) == 1 then
+							-- NOTE: Changed from
+							-- local tail = vim.fn.fnamemodify(root, ":t")
+							local tail =
+								vim.fs.joinpath(vim.fn.fnamemodify(path, ":h:t"), vim.fn.fnamemodify(path, ":t"))
+							path = "⋮" .. tail .. "/" .. path:sub(#root + 2)
+						elseif path:find(home, 1, true) == 1 then
+							path = "~" .. path:sub(#home + 1)
+						end
+					end
+					path = path:gsub("/$", "")
+
+					if vim.api.nvim_strwidth(path) <= len then
+						return path
+					end
+
+					local parts = vim.split(path, "/")
+					if #parts < 2 then
+						return path
+					end
+					local ret = table.remove(parts)
+					local first = table.remove(parts, 1)
+					if first == "~" and #parts > 0 then
+						first = "~/" .. table.remove(parts, 1)
+					end
+					local width = vim.api.nvim_strwidth(ret) + vim.api.nvim_strwidth(first) + 3
+					while width < len and #parts > 0 do
+						local part = table.remove(parts) .. "/"
+						local w = vim.api.nvim_strwidth(part)
+						if width + w > len then
+							break
+						end
+						ret = part .. ret
+						width = width + w
+					end
+					return first .. "/…/" .. ret
+				end
+			end)
 			-- Notifier LSP progress from https://github.com/folke/snacks.nvim/blob/0ccf97c6e14149cdf1f03ca0186b39101174d166/docs/notifier.md
 			---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
 			local progress = vim.defaulttable()
@@ -64,6 +120,7 @@ return {
 						end,
 					})
 				end,
+        once = true,
 			})
 
 			---@param working_dir string?
@@ -111,8 +168,19 @@ return {
 			vim.keymap.set("n", "<leader>ss", function()
 				return Snacks.picker.smart()
 			end, { desc = "Smart picker" })
-			vim.keymap.set("n", "<leader>sP", function()
-				return Snacks.picker.projects({ dev = { "~/dev/*", "~/dev", "~/dev/toca" } })
+			vim.keymap.set("n", "<leader>sp", function()
+				return Snacks.picker.projects({
+
+					confirm = utils.handle_project_confirm,
+
+					dev = {
+						"~/dev",
+						"~/dev/nix",
+						"~/dev/ansible",
+						"~/dev/work",
+						"~/dev/work/devops",
+					},
+				})
 			end, { desc = "Projects" })
 			vim.keymap.set("n", "<leader>lG", function()
 				return Snacks.lazygit(terminal_opts())
@@ -144,31 +212,24 @@ return {
 			vim.keymap.set("n", "<leader>gb", function()
 				return Snacks.picker.git_branches()
 			end, { desc = "Git branches" })
+			vim.keymap.set("n", "<leader>Nh", function()
+				return Snacks.notifier.show_history()
+			end, { desc = "Show notifier history" })
 
 			-- LSP keybinds
 			local lsp_symbols = {
 				filter = {
-					default = {
-						"Class",
-						"Constructor",
-						"Enum",
-						"Field",
-						"Function",
-						"Interface",
-						"Method",
-						"Module",
-						"Namespace",
-						"Package",
-						"Property",
-						"Struct",
-						"Trait",
-						"Unknown",
-					},
+					rust = true,
+					lua = true,
+					markdown = true,
 				},
 			}
 			vim.keymap.set("n", "<leader>ls", function()
 				Snacks.picker.lsp_symbols(lsp_symbols)
 			end, { desc = "LSP Symbols" })
+			vim.keymap.set("n", "<leader>lt", function()
+				Snacks.picker.treesitter(lsp_symbols)
+			end, { desc = "Treesitter symbols" })
 
 			vim.keymap.set("n", "<leader>lws", function()
 				Snacks.picker.lsp_workspace_symbols(lsp_symbols)
@@ -177,36 +238,9 @@ return {
 			vim.keymap.set("n", "<leader>lwd", function()
 				return Snacks.picker.diagnostics()
 			end, { desc = "Workspace Diagnostics" })
-
-			vim.keymap.set("n", "<leader>sd", function()
-				Snacks.picker.pick({
-					title = "Directories",
-					format = "text",
-					preview = "directory",
-					confirm = "load_session",
-					transform = "text_to_file",
-					finder = function(opts, ctx)
-						local proc_opts = {
-							cmd = "fd",
-							args = { ".", os.getenv("HOME"), "--hidden", "--type", "directory", "--absolute-path" },
-						}
-						return require("snacks.picker.source.proc").proc({ opts, proc_opts }, ctx)
-					end,
-					win = {
-						-- preview = { minimal = true },
-						input = {
-							keys = {
-								["<c-e>"] = { "<c-e>", { "tcd", "picker_explorer" }, mode = { "n", "i" } },
-								["<c-f>"] = { "<c-f>", { "tcd", "picker_files" }, mode = { "n", "i" } },
-								["<c-g>"] = { "<c-g>", { "tcd", "picker_grep" }, mode = { "n", "i" } },
-
-								["<c-r>"] = { "<c-r>", { "tcd", "picker_recent" }, mode = { "n", "i" } },
-							},
-						},
-					},
-				})
-			end, { desc = "Directories" })
-
+			vim.keymap.set("n", "<leader>vac", function()
+				return Snacks.picker.autocmds()
+			end, { desc = "Show autocmds" })
 			vim.keymap.set("n", "<leader>tt", function()
 				return Snacks.terminal.toggle(nil, terminal_opts())
 			end, {

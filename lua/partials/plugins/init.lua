@@ -26,6 +26,7 @@ require("lze").load({
 		event = "DeferredUIEnter",
 		after = function()
 			require("neocord").setup({
+
 				editing_text = "Editing",
 				enable_line_number = true,
 				reading_text = "Reading",
@@ -120,7 +121,8 @@ require("lze").load({
 	-- 	for_cat = "general",
 	-- },
 
-	{ import = "partials.plugins.auto-session" },
+	--{ import = "partials.plugins.auto-session" },
+	{ import = "partials.plugins.mini" },
 	{ import = "partials.plugins.treesitter" },
 	{ import = "partials.plugins.yanky" },
 	{ import = "partials.plugins.harpoon" },
