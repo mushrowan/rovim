@@ -180,6 +180,9 @@ return {
 						"~/dev/work",
 						"~/dev/work/devops",
 					},
+          projects = {
+            "~/.dotfiles"
+          },
 				})
 			end, { desc = "Projects" })
 			vim.keymap.set("n", "<leader>lG", function()
