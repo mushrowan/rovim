@@ -124,12 +124,7 @@ return {
 
 			---@param working_dir string?
 			local terminal_opts = function(working_dir)
-				local env = {}
-				env["IN_NIX_SHELL"] = ""
 				return {
-					-- Prevents opening zellij
-					cwd = working_dir or vim.fn.getcwd(),
-					env,
 					win = {
 						fixbuf = true,
 						resize = true,
