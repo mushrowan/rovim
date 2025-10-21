@@ -23,12 +23,12 @@ return {
 						end,
 						"select_next",
 					},
-					["<C-h>"] = {
+					["<C-l>"] = {
 						function(cmp)
 							return cmp.select_next({ count = 5 })
 						end,
 					},
-					["<C-l>"] = {
+					["<C-h>"] = {
 						function(cmp)
 							return cmp.select_prev({ count = 5 })
 						end,
