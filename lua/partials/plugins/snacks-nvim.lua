@@ -175,9 +175,10 @@ return {
 						"~/dev/work",
 						"~/dev/work/devops",
 					},
-          projects = {
-            "~/.dotfiles"
-          },
+					projects = {
+						"~/.dotfiles",
+						"~/Documents/colony",
+					},
 				})
 			end, { desc = "Projects" })
 			vim.keymap.set("n", "<leader>lG", function()
