@@ -97,7 +97,6 @@ return {
 
 			-- Markdown
 			vim.lsp.enable("marksman")
-			vim.lsp.enable("vale_ls")
 			vim.lsp.enable("markdown_oxide")
 
 			-- SQL
