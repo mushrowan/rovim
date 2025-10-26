@@ -5,7 +5,7 @@ local function open_file_in_new_session(project_basename)
 		local file_path = file_item.file
 
 		-- i. Clear all buffers
-    MiniBufremove.wipeout()
+		MiniBufremove.wipeout()
 
 		-- ii. Open the selected file
 		vim.cmd("e " .. vim.fn.fnameescape(file_path))
@@ -39,19 +39,41 @@ M.handle_project_confirm = function(picker, item)
 		-- Session EXISTS: Load it and change directory
 		MiniSessions.read(project_basename)
 	else
-
 		-- Set CWD for the subsequent file picker
 		vim.cmd("cd " .. vim.fn.fnameescape(project_dir))
-		 -- vim.cmd("cd " .. project_dir)
+		-- vim.cmd("cd " .. project_dir)
 		Snacks.picker.files({
 			title = "Select File to Start New Session in " .. vim.fn.fnamemodify(project_basename, ":t"),
-      ignored = true,
-      hidden = false,
+			ignored = true,
+			hidden = false,
 			cwd = project_dir,
 
 			-- Nested CONFIRM function for the File Picker
 			confirm = open_file_in_new_session(project_basename),
 		})
+	end
+end
+
+M.map = function(mode, keys, action, desc, opts)
+	desc = desc or ""
+	opts = opts or {}
+	opts.desc = desc
+
+	vim.keymap.set(mode, keys, action, opts)
+end
+
+M.map_normal = function(keys, action, desc, opts)
+	M.map("n", keys, action, desc, opts)
+end
+
+M.map_normal_all = function(mappings)
+	for _, mapping in ipairs(mappings) do
+		M.map_normal(
+			mapping[1] or mapping.keys,
+			mapping[2] or mapping.action,
+			mapping[3] or mapping.desc,
+			mapping[4] or mapping.opts
+		)
 	end
 end
 

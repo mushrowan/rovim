@@ -34,24 +34,6 @@ require("lze").load({
 		end,
 	},
 	{
-		"obsidian.nvim",
-		for_cat = "general",
-		lazy = true,
-		ft = "markdown",
-		after = function()
-			vim.o.conceallevel = 1
-			require("obsidian").setup({
-				legacy_commands = false,
-				workspaces = {
-					{
-						name = "colony",
-						path = "~/Documents/colony",
-					},
-				},
-			})
-		end,
-	},
-	{
 		"flash.nvim",
 		for_cat = "general",
 		event = "DeferredUIEnter",
@@ -115,15 +97,9 @@ require("lze").load({
 			require("lsp_lines").setup()
 		end,
 	},
-	-- {
-	-- 	"nix-develop.nvim",
-	-- 	lazy = false,
-	-- 	for_cat = "general",
-	-- },
-
-	--{ import = "partials.plugins.auto-session" },
 	{ import = "partials.plugins.mini" },
 	{ import = "partials.plugins.treesitter" },
+	{ import = "partials.plugins.obsidian" },
 	{ import = "partials.plugins.yanky" },
 	{ import = "partials.plugins.harpoon" },
 	{ import = "partials.plugins.lint" },
