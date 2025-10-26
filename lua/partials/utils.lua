@@ -45,6 +45,8 @@ M.handle_project_confirm = function(picker, item)
 		 -- vim.cmd("cd " .. project_dir)
 		Snacks.picker.files({
 			title = "Select File to Start New Session in " .. vim.fn.fnamemodify(project_basename, ":t"),
+      ignored = true,
+      hidden = false,
 			cwd = project_dir,
 
 			-- Nested CONFIRM function for the File Picker
