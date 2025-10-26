@@ -146,7 +146,6 @@
           suffix-LD = true;
           wrapRc = true;
           # aliases = ["vim"];
-          # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
         };
         categories = {
           general = true;
@@ -241,9 +240,6 @@
     nixpkgs-direnv-nvim.url = "github:mushrowan/nixpkgs/direnv-nvim";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-    };
     "plugins-direnv-nvim" = {
       url = "github:actionshrimp/direnv.nvim";
       flake = false;
