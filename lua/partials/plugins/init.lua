@@ -83,6 +83,7 @@ require("lze").load({
 					vim.cmd("LspStart")
 					if vim.bo.filetype == "rust" then
 						require("rustaceanvim.lsp").start()
+						require("rustaceanvim.lsp").reload_settings()
 					end
 				end,
 			})
