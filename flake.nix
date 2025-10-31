@@ -57,6 +57,7 @@
           nixd
           prettier
           ruff
+          ripgrep
           shellcheck
           shfmt
           sqls
