@@ -178,7 +178,7 @@
       # this is just for using utils such as pkgs.mkShell
       # The one used to build neovim is resolved inside the builder
       # and is passed to our categoryDefinitions and packageDefinitions
-      pkgs = import nixpkgs {inherit system;};
+      pkgs = import nixpkgs {stdenv.hostPlatform.system = system;};
     in {
       # these outputs will be wrapped with ${system} by utils.eachSystem
 
