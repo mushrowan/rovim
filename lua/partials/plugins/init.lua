@@ -98,6 +98,13 @@ require("lze").load({
 			require("lsp_lines").setup()
 		end,
 	},
+	{
+		"vimtex",
+		for_cat = "general",
+		after = function()
+			vim.g.vimtex_view_method = "zathura"
+		end,
+	},
 	{ import = "partials.plugins.mini" },
 	{ import = "partials.plugins.treesitter" },
 	{ import = "partials.plugins.obsidian" },

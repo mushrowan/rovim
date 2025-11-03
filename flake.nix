@@ -67,6 +67,7 @@
           typescript
           typescript-language-server
           vscode-json-languageserver
+          zathura # for vimtex rendering pdf
         ];
       };
 
@@ -92,10 +93,10 @@
           lazydev-nvim
           lsp_lines-nvim
           lualine-nvim
-          mini-surround
-          mini-sessions
           mini-bufremove
           mini-icons
+          mini-sessions
+          mini-surround
           neocord
           nix-develop-nvim
           nvim-dap
@@ -112,6 +113,7 @@
           snacks-nvim
           sqlite-lua
           tabby-nvim
+          vimtex
           which-key-nvim
           yanky-nvim
         ];
