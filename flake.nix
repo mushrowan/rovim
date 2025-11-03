@@ -69,9 +69,12 @@
           vscode-json-languageserver
         ];
         latex = with pkgs; [
-          texlivePackages.latexmk
-          zathura # for vimtex rendering pdf
+          bibtex-tidy
           texlab
+          texliveFull
+          pstree
+          xdotool # for zathura
+          zathura # for vimtex rendering pdf
         ];
       };
 

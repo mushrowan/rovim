@@ -3,7 +3,7 @@ return {
 		"obsidian.nvim",
 		for_cat = "general",
 		after = function()
-			vim.o.conceallevel = 2
+			vim.o.conceallevel = 1
 			require("obsidian").setup({
 				legacy_commands = false,
 				workspaces = {
