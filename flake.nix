@@ -56,8 +56,8 @@
           nil
           nixd
           prettier
-          ruff
           ripgrep
+          ruff
           shellcheck
           shfmt
           sqls
@@ -67,6 +67,9 @@
           typescript
           typescript-language-server
           vscode-json-languageserver
+        ];
+        latex = with pkgs; [
+          texlivePackages.latexmk
           zathura # for vimtex rendering pdf
         ];
       };
@@ -113,9 +116,11 @@
           snacks-nvim
           sqlite-lua
           tabby-nvim
-          vimtex
           which-key-nvim
           yanky-nvim
+        ];
+        latex = with pkgs.vimPlugins; [
+          vimtex
         ];
       };
 
@@ -152,6 +157,7 @@
         };
         categories = {
           general = true;
+          latex = true;
         };
       };
     };

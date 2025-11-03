@@ -100,7 +100,7 @@ require("lze").load({
 	},
 	{
 		"vimtex",
-		for_cat = "general",
+		for_cat = "latex",
 		after = function()
 			vim.g.vimtex_view_method = "zathura"
 		end,
