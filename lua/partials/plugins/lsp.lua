@@ -52,6 +52,7 @@ return {
 			-- CSharp
 			vim.lsp.enable("csharp_ls")
 
+
 			-- Python
 			enable_no_autostart("ruff")
 
@@ -63,6 +64,9 @@ return {
 
 			-- Qml
 			vim.lsp.enable("qmlls")
+
+      -- LaTex
+			enable_no_autostart("texlab")
 
 			-- Docker
 			vim.lsp.enable("docker_language_server")

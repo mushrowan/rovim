@@ -71,6 +71,7 @@
         latex = with pkgs; [
           texlivePackages.latexmk
           zathura # for vimtex rendering pdf
+          texlab
         ];
       };
 
