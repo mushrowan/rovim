@@ -68,13 +68,10 @@
           typescript-language-server
           vscode-json-languageserver
         ];
-        latex = with pkgs; [
-          bibtex-tidy
-          texlab
-          texliveFull
-          pstree
-          xdotool # for zathura
-          zathura # for vimtex rendering pdf
+        typst = with pkgs; [
+          typst
+          tinymist
+          zathura # for typst rendering pdf
         ];
       };
 
@@ -123,8 +120,8 @@
           which-key-nvim
           yanky-nvim
         ];
-        latex = with pkgs.vimPlugins; [
-          vimtex
+        typst = with pkgs.vimPlugins; [
+          typst-preview-nvim
         ];
       };
 
@@ -161,7 +158,7 @@
         };
         categories = {
           general = true;
-          latex = true;
+          typst = true;
         };
       };
     };
@@ -245,7 +242,7 @@
       homeModules.default = homeModule;
 
       inherit utils nixosModule homeModule;
-      inherit (utils) templates;
+      inherit (utils) tempates;
     });
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";

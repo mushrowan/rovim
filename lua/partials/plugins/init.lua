@@ -99,10 +99,10 @@ require("lze").load({
 		end,
 	},
 	{
-		"vimtex",
-		for_cat = "latex",
+		"typst-preview.nvim",
+		for_cat = "typst",
 		after = function()
-			vim.g.vimtex_view_method = "zathura"
+			require("typst-preview").setup({})
 		end,
 	},
 	{ import = "partials.plugins.mini" },

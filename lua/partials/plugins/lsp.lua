@@ -65,8 +65,8 @@ return {
 			-- Qml
 			vim.lsp.enable("qmlls")
 
-      -- LaTex
-			enable_no_autostart("texlab")
+      -- typst
+			vim.lsp.enable("tinymist")
 
 			-- Docker
 			vim.lsp.enable("docker_language_server")
