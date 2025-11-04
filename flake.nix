@@ -44,7 +44,7 @@
           bash-language-server
           csharp-ls
           docker-compose-language-service
-          docker-language-server
+          # docker-language-server
           docker-ls
           dockerfile-language-server
           dockerfmt
@@ -70,6 +70,7 @@
         ];
         typst = with pkgs; [
           typst
+          typstPackages.easytable
           tinymist
           zathura # for typst rendering pdf
         ];
@@ -158,7 +159,7 @@
         };
         categories = {
           general = true;
-          typst = true;
+          typst = false;
         };
       };
     };
@@ -184,7 +185,8 @@
 
       # this will make a package out of each of the packageDefinitions defined above
       # and set the default package to the one passed in here.
-      packages = utils.mkAllWithDefault defaultPackage;
+      packages =
+        utils.mkAllWithDefault defaultPackage;
 
       # choose your package for devShell
       # and add whatever else you want in it.

@@ -52,21 +52,17 @@ return {
 			-- CSharp
 			vim.lsp.enable("csharp_ls")
 
-
 			-- Python
 			enable_no_autostart("ruff")
 
 			-- Lua
 			vim.lsp.enable("lua_ls")
-			vim.lsp.config("lua_ls", {
-				-- autostart = false,
-			})
 
 			-- Qml
 			vim.lsp.enable("qmlls")
 
-      -- typst
-			vim.lsp.enable("tinymist")
+			-- typst
+      -- vim.lsp.enable("tinymist")
 
 			-- Docker
 			vim.lsp.enable("docker_language_server")

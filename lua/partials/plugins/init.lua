@@ -98,13 +98,6 @@ require("lze").load({
 			require("lsp_lines").setup()
 		end,
 	},
-	{
-		"typst-preview.nvim",
-		for_cat = "typst",
-		after = function()
-			require("typst-preview").setup({})
-		end,
-	},
 	{ import = "partials.plugins.mini" },
 	{ import = "partials.plugins.treesitter" },
 	{ import = "partials.plugins.obsidian" },
