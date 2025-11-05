@@ -1,9 +1,12 @@
 return {
 	{
 		"blink.cmp",
-		for_cat = "general.completion",
+		for_cat = "general",
 		after = function(_)
 			require("blink.cmp").setup({
+				sources = {
+					default = { "lsp", "path", "snippets", "buffer"},
+				},
 				completion = {
 					-- Display a preview of the selected item on the current line
 					ghost_text = { enabled = true },
@@ -36,6 +39,13 @@ return {
 					["<C-i>"] = { "show_documentation", "hide_documentation" },
 				},
 			})
+		end,
+	},
+	{
+		"blink.compat",
+		for_cat = "general",
+		after = function()
+			require("blink.compat").setup({})
 		end,
 	},
 }

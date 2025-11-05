@@ -91,6 +91,7 @@
         general = with pkgs.vimPlugins; [
           # auto-session
           blink-cmp
+          blink-compat
           bufferline-nvim
           conform-nvim
           flash-nvim
