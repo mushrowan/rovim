@@ -109,6 +109,7 @@
           nvim-lint
           nvim-lspconfig
           nvim-notify
+          remote-nvim-nvim
           nvim-treesitter-textobjects
           nvim-treesitter.withAllGrammars
           nvim-web-devicons
