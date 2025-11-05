@@ -29,8 +29,8 @@ return {
 	{
 		"nvim-lspconfig",
 		for_cat = "general",
-		lazy = false,
-		priority = 100,
+		-- lazy = false,
+		-- priority = 100,
 		dep_of = { "direnv.nvim" },
 
 		before = function()
@@ -45,15 +45,15 @@ return {
 			end
 			-- Nixcats - use the lspandruntimedeps for this bit
 			-- Nix
-			enable_no_autostart("nil_ls")
-			enable_no_autostart("nixd")
-			enable_no_autostart("statix")
+			vim.lsp.enable("nil_ls")
+			vim.lsp.enable("nixd")
+			vim.lsp.enable("statix")
 
 			-- CSharp
 			vim.lsp.enable("csharp_ls")
 
 			-- Python
-			enable_no_autostart("ruff")
+			vim.lsp.enable("ruff")
 
 			-- Lua
 			vim.lsp.enable("lua_ls")
