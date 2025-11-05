@@ -67,6 +67,7 @@
           typescript
           typescript-language-server
           vscode-json-languageserver
+          yaml-language-server
         ];
         typst = with pkgs; [
           typst
@@ -81,6 +82,7 @@
         general = with pkgs.vimPlugins; [
           lze
           lzextras
+          nui-nvim
           plenary-nvim
         ];
       };
@@ -109,7 +111,10 @@
           nvim-lint
           nvim-lspconfig
           nvim-notify
-          remote-nvim-nvim
+          (pkgs.vimPlugins.remote-nvim-nvim.overrideAttrs (finalAttrs: previousAttrs: {
+            dontPatchShebangs = true;
+          }))
+          telescope-nvim
           nvim-treesitter-textobjects
           nvim-treesitter.withAllGrammars
           nvim-web-devicons

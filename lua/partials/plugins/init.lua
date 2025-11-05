@@ -106,6 +106,11 @@ require("lze").load({
 			require("remote-nvim").setup({})
 		end,
   },
+  {
+    "telescope.nvim",
+    lazy = true,
+    on_require = "telescope",
+  },
 	{ import = "partials.plugins.mini" },
 	{ import = "partials.plugins.treesitter" },
 	{ import = "partials.plugins.obsidian" },
