@@ -9,7 +9,7 @@ return {
 				},
 				completion = {
 					-- Display a preview of the selected item on the current line
-					ghost_text = { enabled = true },
+          --  ghost_text = { enabled = true },
 				},
 
 				keymap = {

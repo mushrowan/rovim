@@ -17,6 +17,15 @@ return {
 					nix = { "alejandra" },
 					rust = { "rustfmt" },
 					sh = { "shfmt" },
+					caddy = { "caddy" },
+				},
+
+				formatters = {
+					caddy = {
+						command = "caddy",
+						args = { "fmt", "-" },
+						stdin = true,
+					},
 				},
 			})
 

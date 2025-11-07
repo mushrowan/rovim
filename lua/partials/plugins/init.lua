@@ -4,6 +4,9 @@ require("lze").load({
 		lazy = false,
 		for_cat = "general",
 		after = function()
+			require("rose-pine").setup({
+				variant = "auto", -- auto, main, moon, or dawn
+			})
 			vim.cmd("colorscheme rose-pine")
 		end,
 	},
@@ -98,19 +101,20 @@ require("lze").load({
 			require("lsp_lines").setup()
 		end,
 	},
-  {
+	{
 		"remote-nvim.nvim",
 		for_cat = "general",
 		event = "DeferredUIEnter",
 		after = function()
 			require("remote-nvim").setup({})
 		end,
-  },
-  {
-    "telescope.nvim",
-    lazy = true,
-    on_require = "telescope",
-  },
+	},
+	{
+		"telescope.nvim",
+		lazy = true,
+		on_require = "telescope",
+	},
+	{ import = "partials.plugins.noice" },
 	{ import = "partials.plugins.mini" },
 	{ import = "partials.plugins.treesitter" },
 	{ import = "partials.plugins.obsidian" },

@@ -44,6 +44,7 @@
           bash-language-server
           csharp-ls
           docker-compose-language-service
+          caddy # for caddy treesitter and formatter
           # docker-language-server
           docker-ls
           dockerfile-language-server
@@ -119,8 +120,10 @@
           nvim-treesitter.withAllGrammars
           nvim-web-devicons
           obsidian-nvim
+          noice-nvim
           pkgs-direnv.vimPlugins.direnv-nvim
           rose-pine
+          kanagawa-nvim
           rustaceanvim
           snacks-nvim
           sqlite-lua
