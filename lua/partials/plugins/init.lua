@@ -10,6 +10,11 @@ require("lze").load({
 			vim.cmd("colorscheme rose-pine")
 		end,
 	},
+  {
+    "markview.nvim",
+    lazy = false,
+    for_cat = "general",
+  },
 	{
 		"lazydev.nvim",
 		for_cat = "general",
