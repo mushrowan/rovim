@@ -55,6 +55,7 @@
           markdown-oxide
           marksman
           nil
+          gopls
           nixd
           prettier
           ripgrep

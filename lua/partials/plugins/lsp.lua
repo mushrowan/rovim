@@ -55,6 +55,9 @@ return {
 			-- Python
 			vim.lsp.enable("ruff")
 
+      -- Go
+      vim.lsp.enable("gopls")
+
 			-- Lua
 			vim.lsp.enable("lua_ls")
 
