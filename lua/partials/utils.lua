@@ -53,11 +53,19 @@ M.handle_project_confirm = function(picker, item)
 		})
 	end
 end
+-- use ipairs
+M.merge_tables = function(t1, t2)
+	for _, v in ipairs(t2) do
+		table.insert(t1, v)
+	end
+end
 
 M.map = function(mode, keys, action, desc, opts)
 	desc = desc or ""
 	opts = opts or {}
+
 	opts.desc = desc
+  opts.silent = opts.silent or true
 
 	vim.keymap.set(mode, keys, action, opts)
 end

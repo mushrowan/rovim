@@ -10,11 +10,11 @@ require("lze").load({
 			vim.cmd("colorscheme rose-pine")
 		end,
 	},
-  {
-    "markview.nvim",
-    lazy = false,
-    for_cat = "general",
-  },
+	{
+		"markview.nvim",
+		lazy = false,
+		for_cat = "general",
+	},
 	{
 		"lazydev.nvim",
 		for_cat = "general",
@@ -76,8 +76,18 @@ require("lze").load({
 		end,
 		after = function()
 			require("bufferline").setup({})
-			vim.keymap.set("n", "<C-l>", ":bnext<CR>", { desc = "Next Buffer" })
-			vim.keymap.set("n", "<C-h>", ":bprevious<CR>", { desc = "Previous Buffer" })
+			require("partials.utils").map_normal_all({
+				{
+					"<C-l>",
+					":bnext<CR>",
+					"Next buffer",
+				},
+				{
+					"<C-h>",
+					":bprevious<CR>",
+					"Previous buffer",
+				},
+			})
 		end,
 	},
 	{
