@@ -98,6 +98,7 @@
           blink-compat
           bufferline-nvim
           conform-nvim
+          bullets-vim
           flash-nvim
           harpoon2
           lazydev-nvim

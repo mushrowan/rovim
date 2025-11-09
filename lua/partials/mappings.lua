@@ -7,4 +7,4 @@ end, {
 })
 -- vim.keymap.set("t", "<esc>", "<Nop>", { noremap = true })
 vim.keymap.set("n", "<C-q>", "<cmd>bd<CR>", { desc = "Delete current buffer", silent = true })
-vim.keymap.set("i", "<C-CR>", "<C-o>j<C-o>$", { desc = "Go to end of next line", silent = true })
+vim.keymap.set("i", "<C-CR>", "<Esc>jA", { desc = "Go to end of next line", silent = true })

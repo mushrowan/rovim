@@ -129,6 +129,10 @@ require("lze").load({
 		lazy = true,
 		on_require = "telescope",
 	},
+  {
+    "bullets.vim",
+    ft = "markdown",
+  },
 	{ import = "partials.plugins.noice" },
 	{ import = "partials.plugins.mini" },
 	{ import = "partials.plugins.treesitter" },
