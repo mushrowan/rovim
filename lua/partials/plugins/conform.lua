@@ -13,7 +13,7 @@ return {
 				formatters_by_ft = {
 					dockerfile = { "dockerfmt" },
 					lua = { "stylua" },
-					markdown = { "prettier" },
+					markdown = { "prettier_markdown" },
 					nix = { "alejandra" },
 					rust = { "rustfmt" },
 					sh = { "shfmt" },
@@ -21,6 +21,7 @@ return {
 				},
 
 				formatters = {
+
 					caddy = {
 						command = "caddy",
 						args = { "fmt", "-" },
@@ -28,6 +29,16 @@ return {
 					},
 				},
 			})
+			-- for markdown formatting
+			local markdown_formatter = vim.deepcopy(require("conform.formatters.prettier"))
+			require("conform.util").add_formatter_args(markdown_formatter, {
+				"--prose-wrap",
+				"always",
+				"--print-width",
+				"80",
+			}, { append = false })
+			---@cast markdown_formatter conform.FormatterConfigOverride
+			require("conform").formatters.prettier_markdown = markdown_formatter
 
 			vim.keymap.set({ "n", "v" }, "<leader>cf", function()
 				conform.format({
