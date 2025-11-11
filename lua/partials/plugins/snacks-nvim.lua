@@ -7,6 +7,7 @@ return {
 				bigfile = { enabled = true },
 				explorer = { enabled = true },
 				indent = { enabled = true },
+				git = { enable = true },
 				--input = { enabled = true },
 				-- notifier = { enabled = true, timeout = 3000 },
 				picker = {
@@ -24,103 +25,6 @@ return {
 				lazygit = { enabled = true },
 			})
 			local utils = require("partials.utils")
-			-- from https://github.com/folke/snacks.nvim/discussions/1153
-			-- vim.schedule(function()
-			-- 	---@param path string
-			-- 	---@param len? number
-			-- 	---@param opts? {cwd?: string}
-			-- 	require("snacks.picker.util").truncpath = function(path, len, opts)
-			-- 		local cwd =
-			-- 			svim.fs.normalize(opts and opts.cwd or vim.fn.getcwd(), { _fast = true, expand_env = false })
-			-- 		local home = svim.fs.normalize("~")
-			-- 		path = svim.fs.normalize(path, { _fast = true, expand_env = false })
-
-			-- 		if path:find(cwd .. "/", 1, true) == 1 and #path > #cwd then
-			-- 			path = path:sub(#cwd + 2)
-			-- 		else
-			-- 			local root = Snacks.git.get_root(path)
-			-- 			if root and root ~= "" and path:find(root, 1, true) == 1 then
-			-- 				-- NOTE: Changed from
-			-- 				-- local tail = vim.fn.fnamemodify(root, ":t")
-			-- 				local tail =
-			-- 					vim.fs.joinpath(vim.fn.fnamemodify(path, ":h:t"), vim.fn.fnamemodify(path, ":t"))
-			-- 				path = "⋮" .. tail .. "/" .. path:sub(#root + 2)
-			-- 			elseif path:find(home, 1, true) == 1 then
-			-- 				path = "~" .. path:sub(#home + 1)
-			-- 			end
-			-- 		end
-			-- 		path = path:gsub("/$", "")
-
-			-- 		if vim.api.nvim_strwidth(path) <= len then
-			-- 			return path
-			-- 		end
-
-			-- 		local parts = vim.split(path, "/")
-			-- 		if #parts < 2 then
-			-- 			return path
-			-- 		end
-			-- 		local ret = table.remove(parts)
-			-- 		local first = table.remove(parts, 1)
-			-- 		if first == "~" and #parts > 0 then
-			-- 			first = "~/" .. table.remove(parts, 1)
-			-- 		end
-			-- 		local width = vim.api.nvim_strwidth(ret) + vim.api.nvim_strwidth(first) + 3
-			-- 		while width < len and #parts > 0 do
-			-- 			local part = table.remove(parts) .. "/"
-			-- 			local w = vim.api.nvim_strwidth(part)
-			-- 			if width + w > len then
-			-- 				break
-			-- 			end
-			-- 			ret = part .. ret
-			-- 			width = width + w
-			-- 		end
-			-- 		return first .. "/…/" .. ret
-			-- 	end
-			-- end)
-			-- -- Notifier LSP progress from https://github.com/folke/snacks.nvim/blob/0ccf97c6e14149cdf1f03ca0186b39101174d166/docs/notifier.md
-			-- ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
-			-- local progress = vim.defaulttable()
-			-- vim.api.nvim_create_autocmd("LspProgress", {
-			-- 	---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
-			-- 	callback = function(ev)
-			-- 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-			-- 		local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
-			-- 		if not client or type(value) ~= "table" then
-			-- 			return
-			-- 		end
-			-- 		local p = progress[client.id]
-
-			-- 		for i = 1, #p + 1 do
-			-- 			if i == #p + 1 or p[i].token == ev.data.params.token then
-			-- 				p[i] = {
-			-- 					token = ev.data.params.token,
-			-- 					msg = ("[%3d%%] %s%s"):format(
-			-- 						value.kind == "end" and 100 or value.percentage or 100,
-			-- 						value.title or "",
-			-- 						value.message and (" **%s**"):format(value.message) or ""
-			-- 					),
-			-- 					done = value.kind == "end",
-			-- 				}
-			-- 				break
-			-- 			end
-			-- 		end
-
-			-- 		local msg = {} ---@type string[]
-			-- 		progress[client.id] = vim.tbl_filter(function(v)
-			-- 			return table.insert(msg, v.msg) or not v.done
-			-- 		end, p)
-
-			-- 		local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-			-- 		vim.notify(table.concat(msg, "\n"), "info", {
-			-- 			id = "lsp_progress",
-			-- 			title = client.name,
-			-- 			opts = function(notif)
-			-- 				notif.icon = #progress[client.id] == 0 and " "
-			-- 					or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-			-- 			end,
-			-- 		})
-			-- 	end,
-			-- })
 
 			---@param working_dir string?
 			local terminal_opts = function(working_dir)
@@ -172,7 +76,6 @@ return {
 						end
 						local dir = item.file
 						local session_loaded = false
-            Snacks.notify.info("whatttt")
 						vim.api.nvim_create_autocmd("SessionLoadPost", {
 							once = true,
 							callback = function()
@@ -232,6 +135,9 @@ return {
 			-- Git
 			vim.keymap.set("n", "<leader>gs", function()
 				return Snacks.picker.git_status()
+			end, { desc = "Git status" })
+			vim.keymap.set("n", "<leader>gB", function()
+				return Snacks.git.blame_line()
 			end, { desc = "Git status" })
 			vim.keymap.set("n", "<leader>gb", function()
 				return Snacks.picker.git_branches()
