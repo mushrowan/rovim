@@ -2,9 +2,13 @@ return {
 	{
 		"obsidian.nvim",
 		for_cat = "general",
+    event = "DeferredUIEnter",
 		after = function()
-			vim.o.conceallevel = 1
 			require("obsidian").setup({
+        conceallevel = 1;
+				ui = {
+					render = false,
+				},
 				legacy_commands = false,
 				workspaces = {
 					{
@@ -17,13 +21,12 @@ return {
 					date_format = "%Y-%m-%d-%a",
 					time_format = "%H:%M",
 				},
-        daily_notes = {
-          folder = "dailies",
-          template = "daily_template.md",
-        },
+				daily_notes = {
+					folder = "dailies",
+					template = "daily_template.md",
+				},
 			})
-			local utils = require("partials.utils")
-			utils.map_normal_all({
+			require("partials.utils").map_all("n", {
 				{
 					"<leader>oo",
 					function()
@@ -37,10 +40,10 @@ return {
 					"Open obsidian file",
 				},
 				{
-          "<leader>od",
-          "<cmd>Obsidian today<CR>",
-          "Open today's note",
-        },
+					"<leader>od",
+					"<cmd>Obsidian today<CR>",
+					"Open today's note",
+				},
 			})
 		end,
 	},

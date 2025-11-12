@@ -1,6 +1,6 @@
 local utils = require("partials.utils")
 
-utils.map_normal_all({
+utils.map_all("n", {
 	{ "<leader>lgD", vim.lsp.buf.declaration, "Go to declaration" },
 	{ "<leader>lgd", vim.lsp.buf.definition, "Go to definition" },
 	{ "<leader>lgt", vim.lsp.buf.type_definition, "Go to type" },
@@ -13,5 +13,8 @@ utils.map_normal_all({
 	{ "<leader>lh", vim.lsp.buf.hover, "Trigger hover", { noremap = false } },
 	{ "<leader>lS", vim.lsp.buf.signature_help, "Signature help" },
 	{ "<leader>rn", vim.lsp.buf.rename, "Rename symbol" },
+	{ "<leader>ca", vim.lsp.buf.code_action, "Code action", { noremap = false } },
+})
+utils.map_all("v", {
 	{ "<leader>ca", vim.lsp.buf.code_action, "Code action", { noremap = false } },
 })

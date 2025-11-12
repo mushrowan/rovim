@@ -111,7 +111,8 @@
           neocord
           nix-develop-nvim
           nvim-dap
-          markview-nvim
+          # markview-nvim
+          render-markdown-nvim
           nvim-lint
           nvim-lspconfig
           nvim-notify

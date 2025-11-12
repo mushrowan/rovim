@@ -11,10 +11,21 @@ require("lze").load({
 		end,
 	},
 	{
-		"markview.nvim",
-		lazy = false,
+		"render-markdown.nvim",
+		event = "DeferredUIEnter",
 		for_cat = "general",
+		after = function()
+			require("render-markdown").setup({})
+		end,
 	},
+
+	-- {
+	-- 	"markview.nvim",
+	-- 	event = "DeferredUIEnter",
+	-- 	for_cat = "general",
+	--   after = {
+	--   }
+	-- },
 	{
 		"lazydev.nvim",
 		for_cat = "general",
@@ -76,7 +87,7 @@ require("lze").load({
 		end,
 		after = function()
 			require("bufferline").setup({})
-			require("partials.utils").map_normal_all({
+			require("partials.utils").map_all("n", {
 				{
 					"<C-l>",
 					":bnext<CR>",
@@ -129,10 +140,10 @@ require("lze").load({
 		lazy = true,
 		on_require = "telescope",
 	},
-  {
-    "bullets.vim",
-    ft = "markdown",
-  },
+	{
+		"bullets.vim",
+		ft = "markdown",
+	},
 	{ import = "partials.plugins.noice" },
 	{ import = "partials.plugins.mini" },
 	{ import = "partials.plugins.treesitter" },

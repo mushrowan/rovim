@@ -70,13 +70,10 @@ M.map = function(mode, keys, action, desc, opts)
 	vim.keymap.set(mode, keys, action, opts)
 end
 
-M.map_normal = function(keys, action, desc, opts)
-	M.map("n", keys, action, desc, opts)
-end
-
-M.map_normal_all = function(mappings)
+M.map_all = function(mode, mappings)
 	for _, mapping in ipairs(mappings) do
-		M.map_normal(
+		M.map(
+      mode,
 			mapping[1] or mapping.keys,
 			mapping[2] or mapping.action,
 			mapping[3] or mapping.desc,
