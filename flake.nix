@@ -42,20 +42,19 @@
         general = with pkgs; [
           alejandra
           bash-language-server
+          caddy # for caddy treesitter and formatter
           csharp-ls
           docker-compose-language-service
-          caddy # for caddy treesitter and formatter
-          # docker-language-server
           docker-ls
           dockerfile-language-server
           dockerfmt
+          gopls
           kdePackages.qtdeclarative
           lua-language-server
           luajitPackages.sqlite
           markdown-oxide
           marksman
           nil
-          gopls
           nixd
           prettier
           ripgrep
@@ -93,14 +92,14 @@
       # use with packadd and an autocommand in config to achieve lazy loading
       optionalPlugins = {
         general = with pkgs.vimPlugins; [
-          # auto-session
           blink-cmp
           blink-compat
           bufferline-nvim
-          conform-nvim
           bullets-vim
+          conform-nvim
           flash-nvim
           harpoon2
+          kanagawa-nvim
           lazydev-nvim
           lsp_lines-nvim
           lualine-nvim
@@ -110,30 +109,29 @@
           mini-surround
           neocord
           nix-develop-nvim
+          noice-nvim
           nvim-dap
-          # markview-nvim
-          render-markdown-nvim
           nvim-lint
           nvim-lspconfig
           nvim-notify
-          (pkgs.vimPlugins.remote-nvim-nvim.overrideAttrs (finalAttrs: previousAttrs: {
-            dontPatchShebangs = true;
-          }))
-          telescope-nvim
           nvim-treesitter-textobjects
           nvim-treesitter.withAllGrammars
           nvim-web-devicons
           obsidian-nvim
-          noice-nvim
           pkgs-direnv.vimPlugins.direnv-nvim
+          render-markdown-nvim
           rose-pine
-          kanagawa-nvim
           rustaceanvim
+          smart-splits-nvim
           snacks-nvim
           sqlite-lua
           tabby-nvim
+          telescope-nvim
           which-key-nvim
           yanky-nvim
+          (pkgs.vimPlugins.remote-nvim-nvim.overrideAttrs (finalAttrs: previousAttrs: {
+            dontPatchShebangs = true;
+          }))
         ];
         typst = with pkgs.vimPlugins; [
           typst-preview-nvim
