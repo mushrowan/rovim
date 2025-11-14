@@ -39,6 +39,7 @@ vim.o.wrap = true
 vim.o.linebreak = true
 vim.o.writebackup = true
 vim.o.completeopt = "menu,preview,noselect"
+vim.o.conceallevel = 1
 
 vim.diagnostic.config({
 	signs = true,

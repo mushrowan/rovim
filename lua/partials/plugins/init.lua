@@ -137,8 +137,19 @@ require("lze").load({
 	},
 	{
 		"telescope.nvim",
-		lazy = true,
-		on_require = "telescope",
+		event = "DeferredUIEnter",
+		after = function()
+			require("telescope").setup({
+				defaults = {
+					mappings = {
+						i = {
+							["<C-k>"] = "previous_item",
+							["<C-j>"] = "next_item",
+						},
+					},
+				},
+			})
+		end,
 	},
 	{
 		"bullets.vim",

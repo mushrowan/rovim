@@ -5,9 +5,8 @@ return {
     event = "DeferredUIEnter",
 		after = function()
 			require("obsidian").setup({
-        conceallevel = 1;
 				ui = {
-					render = false,
+					enable = false,
 				},
 				legacy_commands = false,
 				workspaces = {
