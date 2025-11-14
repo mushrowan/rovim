@@ -98,9 +98,7 @@
           bufferline-nvim
           bullets-vim
           conform-nvim
-          flash-nvim
           harpoon2
-          kanagawa-nvim
           lazydev-nvim
           lsp_lines-nvim
           lualine-nvim
@@ -109,7 +107,6 @@
           mini-sessions
           mini-surround
           neocord
-          nix-develop-nvim
           noice-nvim
           nvim-dap
           nvim-lint
