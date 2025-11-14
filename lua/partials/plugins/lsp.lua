@@ -55,8 +55,8 @@ return {
 			-- Python
 			vim.lsp.enable("ruff")
 
-      -- Go
-      vim.lsp.enable("gopls")
+			-- Go
+			vim.lsp.enable("gopls")
 
 			-- Lua
 			vim.lsp.enable("lua_ls")
@@ -64,8 +64,8 @@ return {
 			-- Qml
 			vim.lsp.enable("qmlls")
 
-			-- typst
-      -- vim.lsp.enable("tinymist")
+			-- Terraform/OpenTofu
+			vim.lsp.enable("terraformls")
 
 			-- Docker
 			vim.lsp.enable("docker_language_server")

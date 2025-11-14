@@ -64,6 +64,7 @@
           sqls
           statix
           stylua
+          terraform-ls
           trivy # For linting
           typescript
           typescript-language-server
