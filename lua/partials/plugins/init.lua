@@ -11,48 +11,6 @@ require("lze").load({
 		end,
 	},
 	{
-		"render-markdown.nvim",
-		event = "DeferredUIEnter",
-		for_cat = "general",
-		after = function()
-			require("render-markdown").setup({})
-		end,
-	},
-
-	-- {
-	-- 	"markview.nvim",
-	-- 	event = "DeferredUIEnter",
-	-- 	for_cat = "general",
-	--   after = {
-	--   }
-	-- },
-	{
-		"lazydev.nvim",
-		for_cat = "general",
-		cmd = { "LazyDev" },
-		ft = "lua",
-		after = function()
-			require("lazydev").setup({
-				library = {
-					{ words = { "nixCats" }, path = (nixCats.nixCatsPath or "") .. "/lua" },
-				},
-			})
-		end,
-	},
-	{
-		"neocord",
-		for_cat = "general",
-		event = "DeferredUIEnter",
-		after = function()
-			require("neocord").setup({
-
-				editing_text = "Editing",
-				enable_line_number = true,
-				reading_text = "Reading",
-			})
-		end,
-	},
-	{
 		"flash.nvim",
 		for_cat = "general",
 		event = "DeferredUIEnter",
@@ -76,119 +34,30 @@ require("lze").load({
 			end, { desc = "Toggle Flash Search" })
 		end,
 	},
-
-	{
-		"bufferline.nvim",
-		event = "DeferredUIEnter",
-		for_cat = "general",
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("nvim-web-devicons")
-		end,
-		after = function()
-			require("bufferline").setup({})
-			require("partials.utils").map_all("n", {
-				{
-					"<C-l>",
-					":bnext<CR>",
-					"Next buffer",
-				},
-				{
-					"<C-h>",
-					":bprevious<CR>",
-					"Previous buffer",
-				},
-			})
-		end,
-	},
-	{
-		"direnv.nvim",
-		event = "DeferredUIEnter",
-		for_cat = "general",
-		after = function()
-			require("direnv-nvim").setup({
-				async = true,
-				on_direnv_finished = function()
-					vim.cmd("LspStart")
-					if vim.bo.filetype == "rust" then
-						require("rustaceanvim.lsp").start()
-						require("rustaceanvim.lsp").reload_settings()
-					end
-				end,
-			})
-		end,
-	},
-	{
-		"lsp_lines.nvim",
-		for_cat = "general",
-		event = "DeferredUIEnter",
-		after = function()
-			vim.diagnostic.config({ virtual_lines = true, virtual_text = false })
-			require("lsp_lines").setup()
-		end,
-	},
-	{
-		"remote-nvim.nvim",
-		for_cat = "general",
-		event = "DeferredUIEnter",
-		after = function()
-			require("remote-nvim").setup({})
-		end,
-	},
-	{
-		"telescope.nvim",
-		event = "DeferredUIEnter",
-		after = function()
-			require("telescope").setup({
-				defaults = {
-					mappings = {
-						i = {
-							["<C-k>"] = "previous_item",
-							["<C-j>"] = "next_item",
-						},
-					},
-				},
-			})
-		end,
-	},
 	{
 		"bullets.vim",
 		ft = "markdown",
 	},
-	{
-		"smart-splits.nvim",
-		event = "DeferredUIEnter",
-		after = function()
-			require("smart-splits").setup({})
-			require("partials.utils").map_all("n", {
-				{ "<C-A-h>", require("smart-splits").resize_left },
-				{ "<C-A-j>", require("smart-splits").resize_down },
-				{ "<C-A-k>", require("smart-splits").resize_up },
-				{ "<C-A-l>", require("smart-splits").resize_right },
-				{ "<A-h>", require("smart-splits").move_cursor_left },
-				{ "<A-j>", require("smart-splits").move_cursor_down },
-				{ "<A-k>", require("smart-splits").move_cursor_up },
-				{ "<A-l>", require("smart-splits").move_cursor_right },
-				{ "<A-\\>", require("smart-splits").move_cursor_previous },
-				{ "<A-Shift-h>", require("smart-splits").swap_buf_left },
-				{ "<A-Shift-j>", require("smart-splits").swap_buf_down },
-				{ "<A-Shift-k>", require("smart-splits").swap_buf_up },
-				{ "<A-Shift-l>", require("smart-splits").swap_buf_right },
-			})
-		end,
-	},
 
-	{ import = "partials.plugins.noice" },
-	{ import = "partials.plugins.mini" },
-	{ import = "partials.plugins.treesitter" },
-	{ import = "partials.plugins.obsidian" },
-	{ import = "partials.plugins.yanky" },
+	{ import = "partials.plugins.bufferline" },
+	{ import = "partials.plugins.completion" },
+	{ import = "partials.plugins.conform" },
+	{ import = "partials.plugins.direnv" },
 	{ import = "partials.plugins.harpoon" },
 	{ import = "partials.plugins.lint" },
-	{ import = "partials.plugins.conform" },
-	{ import = "partials.plugins.completion" },
-	{ import = "partials.plugins.lualine" },
-	{ import = "partials.plugins.snacks-nvim" },
 	{ import = "partials.plugins.lsp" },
+	{ import = "partials.plugins.lsp_lines" },
+	{ import = "partials.plugins.lualine" },
+	{ import = "partials.plugins.mini" },
+	{ import = "partials.plugins.neocord" },
+	{ import = "partials.plugins.noice" },
+	{ import = "partials.plugins.obsidian" },
+	{ import = "partials.plugins.remote-nvim" },
+	{ import = "partials.plugins.render-markdown" },
+	{ import = "partials.plugins.smart-splits" },
+	{ import = "partials.plugins.snacks-nvim" },
+	{ import = "partials.plugins.telescope" },
+	{ import = "partials.plugins.treesitter" },
 	{ import = "partials.plugins.which-key" },
+	{ import = "partials.plugins.yanky" },
 })
