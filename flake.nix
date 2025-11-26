@@ -101,7 +101,7 @@
           harpoon2
           lazydev-nvim
           lsp_lines-nvim
-          lualine-nvim
+          pkgs-direnv.vimPlugins.lualine-nvim
           mini-bufremove
           mini-icons
           mini-sessions
@@ -258,7 +258,7 @@
     });
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-direnv-nvim.url = "github:mushrowan/nixpkgs/direnv-nvim";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
