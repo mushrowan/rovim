@@ -101,7 +101,7 @@
           harpoon2
           lazydev-nvim
           lsp_lines-nvim
-          pkgs-direnv.vimPlugins.lualine-nvim
+          lualine-nvim
           mini-bufremove
           mini-icons
           mini-sessions
