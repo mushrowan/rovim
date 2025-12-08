@@ -2,7 +2,7 @@ return {
 	{
 		"obsidian.nvim",
 		for_cat = "general",
-    event = "DeferredUIEnter",
+		event = "DeferredUIEnter",
 		after = function()
 			require("obsidian").setup({
 				ui = {
@@ -25,6 +25,26 @@ return {
 					template = "daily_template.md",
 				},
 			})
+			local move_to_todo_archive = function()
+				target_file = vim.fn.expand("~/Documents/colony/todo_archive.md")
+				local line = vim.api.nvim_get_current_line()
+				if not string.match(line, "^%s*%- %[ %]") then
+					print("Not an incomplete todo item")
+					return
+				end
+				local new_line = string.gsub(line, "%- %[ %]", "- [x]", 1)
+				local date_str = os.date("%Y-%m-%d")
+				new_line = new_line .. " ✅ " .. date_str
+				local f = io.open(target_file, "a")
+				if f then
+					f:write(new_line .. "\n")
+					f:close()
+					vim.api.nvim_del_current_line()
+					print("Task moved to Archive")
+				else
+					print("Error: Could not open target file: " .. target_file)
+				end
+			end
 			require("partials.utils").map_all("n", {
 				{
 					"<leader>oo",
@@ -43,6 +63,7 @@ return {
 					"<cmd>Obsidian today<CR>",
 					"Open today's note",
 				},
+				{ "<leader>oc", move_to_todo_archive, "complete task" },
 			})
 		end,
 	},

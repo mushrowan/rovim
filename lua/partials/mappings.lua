@@ -6,9 +6,9 @@ end, {
 	desc = "Exit terminal mode",
 })
 -- vim.keymap.set("t", "<esc>", "<Nop>", { noremap = true })
-vim.keymap.set("i", "<C-CR>", "<Esc>jA", { desc = "Go to end of next line", silent = true })
 
 require("partials.utils").map_all("n", {
+	{ "<C-CR>", "<Esc>jA", "Go to end of next line" },
 	{ "<C-q>", "<cmd>bd<CR>", "Delete current buffer" },
 	-- { "<A-j>", "<C-w>j", "Focus window below" },
 	-- { "<A-k>", "<C-w>k", "Focus window above" },
