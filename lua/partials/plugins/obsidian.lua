@@ -63,6 +63,11 @@ return {
 					"<cmd>Obsidian today<CR>",
 					"Open today's note",
 				},
+				{
+					"<leader>ot",
+					"<cmd>Obsidian tags<CR>",
+					"Tags",
+				},
 				{ "<leader>oc", move_to_todo_archive, "complete task" },
 			})
 		end,
