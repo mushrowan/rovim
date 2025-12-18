@@ -99,10 +99,12 @@
           bullets-vim
           conform-nvim
           harpoon2
+          jinja-vim
           lazydev-nvim
           lsp_lines-nvim
           lualine-nvim
           mini-bufremove
+          mini-files
           mini-icons
           mini-sessions
           mini-surround
