@@ -1,7 +1,7 @@
 return {
 	{
 		"neocord",
-		for_cat = "general",
+		for_cat = "discordRichPresence",
 		event = "DeferredUIEnter",
 		after = function()
 			require("neocord").setup({

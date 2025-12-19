@@ -108,7 +108,6 @@
           mini-icons
           mini-sessions
           mini-surround
-          neocord
           noice-nvim
           nvim-dap
           nvim-lint
@@ -135,6 +134,9 @@
         ];
         typst = with pkgs.vimPlugins; [
           typst-preview-nvim
+        ];
+        discordRichPresence = [
+          pkgs.vimPlugins.neocord
         ];
       };
 
