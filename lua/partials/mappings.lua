@@ -18,3 +18,6 @@ require("partials.utils").map_all("n", {
 	{ "<A-s>", "<C-w>v", "Split horizonally" },
 	{ "<A-=>", "<C-w>=", "Resize splits to be equal" },
 })
+require("partials.utils").map_all("i", {
+	{ "<C-CR>", "<Esc>jA", "Go to end of next line" },
+})
