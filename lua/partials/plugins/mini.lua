@@ -23,32 +23,34 @@ return {
 			end, { desc = "Autosession Save" })
 		end,
 	},
-  {
-    "mini.surround",
+	{
+		"mini.surround",
 		for_cat = "general",
 		after = function()
-      require("mini.surround").setup()
-    end,
-  },
-  {
-    "mini.bufremove",
+			require("mini.surround").setup()
+		end,
+	},
+	{
+		"mini.bufremove",
 		for_cat = "general",
 		after = function()
-      require("mini.bufremove").setup()
-    end,
-  },
-  {
-    "mini.files",
-    for_cat = "general",
-    event = "DeferredUIEnter",
-    after = function()
-      require("mini.files").setup()
+			require("mini.bufremove").setup()
+		end,
+	},
+	{
+		"mini.files",
+		for_cat = "general",
+		event = "DeferredUIEnter",
+		after = function()
+			require("mini.files").setup({
+				mappings = {
+					close = "<C-[>",
+				},
+			})
 
 			vim.keymap.set("n", "<leader>se", function()
 				return MiniFiles.open()
 			end, { desc = "Explorer" })
-    end,
-  }
-
-
+		end,
+	},
 }
