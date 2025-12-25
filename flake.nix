@@ -44,6 +44,7 @@
           bash-language-server
           caddy # for caddy treesitter and formatter
           csharp-ls
+          dart
           docker-compose-language-service
           docker-ls
           dockerfile-language-server
@@ -57,6 +58,7 @@
           nil
           nixd
           prettier
+          quickshell # for quickshell modules
           ripgrep
           ruff
           shellcheck
