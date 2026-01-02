@@ -35,15 +35,30 @@ return {
 
 		before = function()
 			require("partials.plugins.lspkeys")
+
+			-- Filetypes
+			vim.filetype.add({
+				filename = {
+					["docker-compose.yml"] = "yaml.docker-compose",
+					["docker-compose.yaml"] = "yaml.docker-compose",
+					["compose.yml"] = "yaml.docker-compose",
+					["compose.yaml"] = "yaml.docker-compose",
+				},
+				extension = {
+					jinja = "jinja",
+					jinja2 = "jinja",
+					j2 = "jinja",
+				},
+				pattern = {
+					[".*%.yaml%.j2"] = "yaml.jinja",
+					[".*%.yml%.j2"] = "yaml.jinja",
+				},
+			})
+
 			vim.lsp.config("*", {
 				root_markers = { ".git" },
 			})
 
-			local enable_no_autostart = function(ls)
-				vim.lsp.enable(ls)
-				vim.lsp.config(ls, { autostart = false })
-			end
-			-- Nixcats - use the lspandruntimedeps for this bit
 			-- Nix
 			vim.lsp.enable("nil_ls")
 			vim.lsp.enable("nixd")
@@ -59,12 +74,27 @@ return {
 			vim.lsp.enable("ruff")
 
 			-- Go
+			vim.lsp.config("gopls", {
+				settings = {
+					gopls = {
+						templateExtensions = { "tmpl", "html", "gotmpl" },
+						semanticTokens = true,
+					},
+				},
+			})
 			vim.lsp.enable("gopls")
 
 			-- Lua
 			vim.lsp.enable("lua_ls")
-			-- Jinja
-			vim.lsp.enable("jinja_lsp")
+			-- Jinja (attach to any filetype containing "jinja")
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "*",
+				callback = function(args)
+					if args.match:find("jinja") then
+						vim.lsp.start(vim.lsp.config.jinja_lsp)
+					end
+				end,
+			})
 
 			-- Qml
 			vim.lsp.enable("qmlls")
@@ -76,17 +106,8 @@ return {
 			vim.lsp.enable("docker_language_server")
 			vim.lsp.enable("dockerls")
 
-			-- Docker Compose
-			vim.filetype.add({
-				filename = {
-					["docker-compose.yml"] = "yaml.docker-compose",
-					["docker-compose.yaml"] = "yaml.docker-compose",
-					["compose.yml"] = "yaml.docker-compose",
-					["compose.yaml"] = "yaml.docker-compose",
-				},
-			})
+			-- Docker-compose
 			vim.lsp.enable("docker_compose_language_service")
-
 			-- Javascript/typescript
 			vim.lsp.enable("ts_ls")
 			-- JSON

@@ -2,6 +2,10 @@ return {
 	{
 		"neo-tree.nvim",
 		for_cat = "general",
+		cmd = "Neotree",
+		keys = {
+			{ "<leader>se", desc = "NeoTree" },
+		},
 		after = function()
 			require("neo-tree").setup({
 

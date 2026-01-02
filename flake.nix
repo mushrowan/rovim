@@ -56,6 +56,7 @@
           markdown-oxide
           marksman
           nil
+          jinja-lsp
           nixd
           prettier
           quickshell # for quickshell modules
