@@ -52,6 +52,9 @@ return {
 			-- CSharp
 			vim.lsp.enable("csharp_ls")
 
+			-- Dart
+			vim.lsp.enable("dartls")
+
 			-- Python
 			vim.lsp.enable("ruff")
 
@@ -60,6 +63,8 @@ return {
 
 			-- Lua
 			vim.lsp.enable("lua_ls")
+			-- Jinja
+			vim.lsp.enable("jinja_lsp")
 
 			-- Qml
 			vim.lsp.enable("qmlls")

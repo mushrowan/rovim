@@ -37,20 +37,4 @@ return {
 			require("mini.bufremove").setup()
 		end,
 	},
-	{
-		"mini.files",
-		for_cat = "general",
-		event = "DeferredUIEnter",
-		after = function()
-			require("mini.files").setup({
-				mappings = {
-					close = "<C-[>",
-				},
-			})
-
-			vim.keymap.set("n", "<leader>se", function()
-				return MiniFiles.open()
-			end, { desc = "Explorer" })
-		end,
-	},
 }

@@ -106,10 +106,10 @@
           lsp_lines-nvim
           lualine-nvim
           mini-bufremove
-          mini-files
           mini-icons
           mini-sessions
           mini-surround
+          neo-tree-nvim
           noice-nvim
           nvim-dap
           nvim-lint

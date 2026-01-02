@@ -25,6 +25,8 @@ require("lze").load({
 	{ import = "partials.plugins.lsp_lines" },
 	{ import = "partials.plugins.lualine" },
 	{ import = "partials.plugins.mini" },
+  { import = "partials.plugins.jinja" },
+  { import = "partials.plugins.neotree" },
 	{ import = "partials.plugins.neocord" },
 	{ import = "partials.plugins.noice" },
 	{ import = "partials.plugins.obsidian" },

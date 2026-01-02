@@ -18,6 +18,7 @@ return {
 					rust = { "rustfmt" },
 					sh = { "shfmt" },
 					caddy = { "caddy" },
+					dart = { "dart_format" },
 				},
 
 				formatters = {
@@ -38,7 +39,7 @@ return {
 				"80",
 			}, { append = false })
 			---@cast markdown_formatter conform.FormatterConfigOverride
-			require("conform").formatters.prettier_markdown = markdown_formatter
+			conform.formatters.prettier_markdown = markdown_formatter
 
 			vim.keymap.set({ "n", "v" }, "<leader>cf", function()
 				conform.format({
