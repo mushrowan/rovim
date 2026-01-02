@@ -74,6 +74,11 @@ return {
 			vim.lsp.enable("ruff")
 
 			-- Go
+			vim.filetype.add({
+				extension = {
+          gotmpl = "go";
+				},
+			})
 			vim.lsp.config("gopls", {
 				settings = {
 					gopls = {
