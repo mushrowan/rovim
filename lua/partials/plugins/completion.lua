@@ -1,3 +1,5 @@
+-- SECTION: completion
+-- Autocompletion via blink.cmp
 return {
 	{
 		"blink.cmp",
@@ -45,6 +47,7 @@ return {
 		"blink.compat",
 		for_cat = "completion",
 		after = function()
+			-- Compatibility layer for nvim-cmp sources (if any are added later)
 			require("blink.compat").setup({})
 		end,
 	},

@@ -1,3 +1,5 @@
+-- SECTION: direnv
+-- Automatic direnv environment loading with LSP restart
 return {
 	{
 		"direnv.nvim",

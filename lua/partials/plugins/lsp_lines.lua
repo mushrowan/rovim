@@ -1,3 +1,5 @@
+-- SECTION: lsp_lines
+-- Multi-line diagnostic display instead of virtual text
 return {
 	{
 		"lsp_lines.nvim",
@@ -5,6 +7,7 @@ return {
 		event = "DeferredUIEnter",
 		after = function()
 			vim.diagnostic.config({ virtual_lines = true, virtual_text = false })
+			-- No options needed; diagnostic config above controls display
 			require("lsp_lines").setup()
 		end,
 	},

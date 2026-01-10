@@ -1,3 +1,5 @@
+-- SECTION: noice
+-- UI replacement for messages, cmdline, and popupmenu
 return {
 	{
 		"noice.nvim",

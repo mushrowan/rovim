@@ -1,3 +1,5 @@
+-- SECTION: flash
+-- Label-based navigation and treesitter selection
 return {
 	{
 		"flash.nvim",

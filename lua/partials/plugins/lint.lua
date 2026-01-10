@@ -1,3 +1,5 @@
+-- SECTION: lint
+-- Async linting on save
 return {
 	{
 		"nvim-lint",

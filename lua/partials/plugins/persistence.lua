@@ -1,3 +1,5 @@
+-- SECTION: persistence
+-- Session management with branch awareness
 return {
 	{
 		"persistence.nvim",

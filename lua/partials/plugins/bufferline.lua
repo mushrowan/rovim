@@ -1,3 +1,5 @@
+-- SECTION: bufferline
+-- Buffer tabs with scope.nvim for per-tab buffer isolation
 return {
 	{
 		"bufferline.nvim",

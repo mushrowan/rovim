@@ -1,3 +1,5 @@
+-- SECTION: avante
+-- AI-powered code assistance (Claude integration)
 return {
 	{
 		"avante.nvim",

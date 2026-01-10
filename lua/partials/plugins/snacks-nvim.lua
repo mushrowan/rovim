@@ -1,4 +1,10 @@
 -- SECTION: snacks
+-- Swiss-army knife plugin: picker, terminal, lazygit, etc.
+--
+-- MAGIC VALUES: Hardcoded project directories for picker
+-- - ~/dev/*: Development project roots
+-- - ~/.dotfiles: Dotfiles repository
+-- - ~/Documents/colony: Obsidian vault
 return {
 	{
 		"snacks.nvim",

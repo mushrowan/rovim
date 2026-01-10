@@ -1,3 +1,5 @@
+-- SECTION: oil
+-- File explorer with buffer-like editing
 return {
 	{
 		"oil.nvim",

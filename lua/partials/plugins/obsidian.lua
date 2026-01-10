@@ -1,3 +1,9 @@
+-- SECTION: obsidian
+-- Obsidian vault integration for note-taking
+--
+-- MAGIC VALUES: Hardcoded paths to personal vault
+-- - ~/Documents/colony: Main Obsidian vault location
+-- - ~/Documents/colony/todo_archive.md: Completed task archive
 return {
 	{
 		"obsidian.nvim",
@@ -6,13 +12,13 @@ return {
 		after = function()
 			require("obsidian").setup({
 				ui = {
-					enable = false,
+					enable = false, -- Using render-markdown.nvim instead
 				},
 				legacy_commands = false,
 				workspaces = {
 					{
 						name = "colony",
-						path = "~/Documents/colony",
+						path = "~/Documents/colony", -- Main vault path
 					},
 				},
 				templates = {

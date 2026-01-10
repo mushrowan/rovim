@@ -1,3 +1,5 @@
+-- SECTION: lazydev
+-- Lua development support with nixCats integration
 return {
 	{
 		"lazydev.nvim",

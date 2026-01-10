@@ -1,3 +1,5 @@
+-- SECTION: neocord
+-- Discord rich presence integration
 return {
 	{
 		"neocord",

@@ -1,3 +1,5 @@
+-- SECTION: conform
+-- Code formatting with LSP fallback
 return {
 	{
 		"conform.nvim",

@@ -1,3 +1,5 @@
+-- SECTION: yanky
+-- Yank history with sqlite persistence
 return {
 	{
 		"yanky.nvim",
