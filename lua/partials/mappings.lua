@@ -9,7 +9,7 @@ end, {
 
 require("partials.utils").map_all("n", {
 	{ "<C-CR>", "<Esc>jA", "Go to end of next line" },
-	{ "<C-q>", "<cmd>bd<CR>", "Delete current buffer" },
+	{ "<C-q>", function() Snacks.bufdelete() end, "Delete current buffer" },
 	-- { "<A-j>", "<C-w>j", "Focus window below" },
 	-- { "<A-k>", "<C-w>k", "Focus window above" },
 	-- { "<A-h>", "<C-w>h", "Focus window left" },
