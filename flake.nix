@@ -96,21 +96,22 @@
       # use with packadd and an autocommand in config to achieve lazy loading
       optionalPlugins = {
         general = with pkgs.vimPlugins; [
+          avante-nvim
           blink-cmp
           blink-compat
-          bufferline-nvim
           bullets-vim
           conform-nvim
+          flash-nvim
+          gitsigns-nvim
           harpoon2
           jinja-vim
           lazydev-nvim
           lsp_lines-nvim
           lualine-nvim
-          mini-bufremove
           mini-icons
-          mini-sessions
           mini-surround
-          neo-tree-nvim
+          neotest
+          neotest-rust
           noice-nvim
           nvim-dap
           nvim-lint
@@ -120,6 +121,8 @@
           nvim-treesitter.withAllGrammars
           nvim-web-devicons
           obsidian-nvim
+          oil-nvim
+          persistence-nvim
           pkgs-direnv.vimPlugins.direnv-nvim
           render-markdown-nvim
           rose-pine
@@ -128,7 +131,6 @@
           snacks-nvim
           sqlite-lua
           tabby-nvim
-          telescope-nvim
           which-key-nvim
           yanky-nvim
           (pkgs.vimPlugins.remote-nvim-nvim.overrideAttrs (finalAttrs: previousAttrs: {
@@ -258,7 +260,9 @@
         defaultPackageName;
 
       nixosModules.default = nixosModule;
+      nixosModules.withSecrets = ./modules/nixos.nix;
       homeModules.default = homeModule;
+      homeModules.withSecrets = ./modules/home-manager.nix;
 
       inherit utils nixosModule homeModule;
       inherit (utils) tempates;
