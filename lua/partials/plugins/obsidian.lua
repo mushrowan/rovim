@@ -49,7 +49,8 @@ return {
 				{
 					"<leader>oo",
 					function()
-						MiniSessions.read("colony")
+						vim.cmd("cd " .. vim.fn.expand("~/Documents/colony"))
+						require("persistence").load()
 					end,
 					"Open obsidian session",
 				},
