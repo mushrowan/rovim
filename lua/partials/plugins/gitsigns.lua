@@ -1,7 +1,8 @@
+-- SECTION: gitsigns
 return {
 	{
 		"gitsigns.nvim",
-		for_cat = "general",
+		for_cat = "git",
 		event = "BufReadPre",
 		after = function()
 			require("gitsigns").setup({

@@ -1,7 +1,7 @@
 return {
 	{
 		"conform.nvim",
-		for_cat = "general",
+		for_cat = "format",
 		keys = {
 			{ "<leader>cf", desc = "[c]ode [f]ormat" },
 		},

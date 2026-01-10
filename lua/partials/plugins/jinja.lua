@@ -1,7 +1,7 @@
 return {
 	{
 		"jinja.vim",
-		for_cat = "general",
+		for_cat = "lsp",
 		lazy = false,
 	},
 }

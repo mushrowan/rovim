@@ -1,5 +1,13 @@
-local colorschemeName = nixCats('colorscheme')
--- Could I lazy load on colorscheme with lze?
--- sure. But I was going to call vim.cmd.colorscheme() during startup anyway
--- this is just an example, feel free to do a better job!
-vim.cmd.colorscheme(colorschemeName)
+-- SECTION: colorscheme
+return {
+	{
+		"rose-pine",
+		for_cat = "editor",
+		lazy = false,
+		priority = 1000,
+		after = function()
+			local colorschemeName = nixCats("colorscheme")
+			vim.cmd.colorscheme(colorschemeName)
+		end,
+	},
+}

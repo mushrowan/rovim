@@ -1,7 +1,7 @@
 return {
 	{
 		"flash.nvim",
-		for_cat = "general",
+		for_cat = "editor",
 		event = "DeferredUIEnter",
 		keys = {
 			{ "s", desc = "Flash" },

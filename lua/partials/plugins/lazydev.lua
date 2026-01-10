@@ -1,7 +1,7 @@
 return {
 	{
 		"lazydev.nvim",
-		for_cat = "general",
+		for_cat = "lsp",
 		cmd = { "LazyDev" },
 		ft = "lua",
 		after = function()

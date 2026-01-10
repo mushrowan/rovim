@@ -1,7 +1,7 @@
 return {
 	{
 		"oil.nvim",
-		for_cat = "general",
+		for_cat = "editor",
 		cmd = "Oil",
 		keys = {
 			{ "-", desc = "Oil (parent directory)" },

@@ -1,7 +1,7 @@
 return {
 	{
 		"blink.cmp",
-		for_cat = "general",
+		for_cat = "completion",
 		after = function(_)
 			require("blink.cmp").setup({
 				sources = {
@@ -43,7 +43,7 @@ return {
 	},
 	{
 		"blink.compat",
-		for_cat = "general",
+		for_cat = "completion",
 		after = function()
 			require("blink.compat").setup({})
 		end,

@@ -1,7 +1,7 @@
 return {
 	{
 		"obsidian.nvim",
-		for_cat = "general",
+		for_cat = "notes",
 		event = "DeferredUIEnter",
 		after = function()
 			require("obsidian").setup({
@@ -25,8 +25,9 @@ return {
 					template = "daily_template.md",
 				},
 			})
-			local move_to_todo_archive = function()
-				target_file = vim.fn.expand("~/Documents/colony/todo_archive.md")
+			-- Move completed todo item to archive file
+		local move_to_todo_archive = function()
+				local target_file = vim.fn.expand("~/Documents/colony/todo_archive.md")
 				local line = vim.api.nvim_get_current_line()
 				if not string.match(line, "^%s*%- %[ %]") then
 					print("Not an incomplete todo item")

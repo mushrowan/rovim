@@ -1,7 +1,8 @@
+-- SECTION: snacks
 return {
 	{
 		"snacks.nvim",
-		for_cat = "general",
+		for_cat = "editor",
 		after = function()
 			require("snacks").setup({
 				bigfile = { enabled = true },

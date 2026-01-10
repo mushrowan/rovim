@@ -1,7 +1,7 @@
 return {
 	{
 		"lsp_lines.nvim",
-		for_cat = "general",
+		for_cat = "lsp",
 		event = "DeferredUIEnter",
 		after = function()
 			vim.diagnostic.config({ virtual_lines = true, virtual_text = false })

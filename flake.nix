@@ -1,7 +1,6 @@
 {
   description = "Ro's neovim config, with NixCats!";
 
-  # see :help nixCats.flake.outputs
   outputs = {
     nixpkgs,
     nixpkgs-direnv-nvim,
@@ -14,77 +13,81 @@
     extra_pkg_config = {
       allowUnfree = true;
     };
-    # see :help nixCats.flake.outputs.overlays
     dependencyOverlays = [
-      # This overlay grabs all the inputs named in the format
-      # `plugins-<pluginName>`
       (utils.standardPluginOverlay inputs)
     ];
     categoryDefinitions = {
       name,
       pkgs,
       ...
-    }
-    # @ packageDef
-    : let
+    }: let
       pkgs-direnv = import nixpkgs-direnv-nvim {system = "${pkgs.system}";};
     in {
-      # to define and use a new category, simply add a new list to a set here,
-      # and later, you will include categoryname = true; in the set you
-      # provide when you build the package using this builder function.
-      # see :help nixCats.flake.outputs.packageDefinitions for info on that section.
-
-      # lspsAndRuntimeDeps:
-      # this section is for dependencies that should be available
-      # at RUN TIME for plugins. Will be available to PATH within neovim terminal
-      # this includes LSPs
+      # LSPs and runtime dependencies by category
       lspsAndRuntimeDeps = {
-        general = with pkgs; [
+        editor = with pkgs; [
+          ripgrep
+          luajitPackages.sqlite
+        ];
+        lsp = with pkgs; [
+          # Nix
           alejandra
+          nil
+          nixd
+          statix
+          # Lua
+          lua-language-server
+          stylua
+          # Shell
           bash-language-server
-          caddy # for caddy treesitter and formatter
+          shellcheck
+          shfmt
+          # Web
+          typescript
+          typescript-language-server
+          vscode-json-languageserver
+          prettier
+          # Go
+          gopls
+          # Python
+          ruff
+          # .NET
           csharp-ls
+          # Dart
           dart
+          # Data formats
+          yaml-language-server
+          sqls
+          # Docker
           docker-compose-language-service
           docker-ls
           dockerfile-language-server
           dockerfmt
-          gopls
-          kdePackages.qtdeclarative
-          lua-language-server
-          luajitPackages.sqlite
+          # Terraform
+          terraform-ls
+          # Docs
           markdown-oxide
           marksman
-          nil
+          # Jinja
           jinja-lsp
-          nixd
-          prettier
-          quickshell # for quickshell modules
-          ripgrep
-          ruff
-          shellcheck
-          shfmt
-          sqls
-          statix
-          stylua
-          terraform-ls
-          trivy # For linting
-          typescript
-          typescript-language-server
-          vscode-json-languageserver
-          yaml-language-server
+          # QML
+          kdePackages.qtdeclarative
+          quickshell
+          # Misc
+          caddy
+          trivy
         ];
         typst = with pkgs; [
           typst
           typstPackages.easytable
           tinymist
-          zathura # for typst rendering pdf
+          zathura
         ];
       };
 
-      # This is for plugins that will load at startup without using packadd:
+      # Plugins loaded at startup (always needed)
       startupPlugins = {
-        general = with pkgs.vimPlugins; [
+        editor = with pkgs.vimPlugins; [
           lze
           lzextras
           nui-nvim
@@ -92,65 +95,101 @@
         ];
       };
 
-      # not loaded automatically at startup.
-      # use with packadd and an autocommand in config to achieve lazy loading
+      # Lazy-loaded plugins by category
       optionalPlugins = {
-        general = with pkgs.vimPlugins; [
-          avante-nvim
-          blink-cmp
-          bufferline-nvim
-          blink-compat
-          scope-nvim
-          bullets-vim
-          conform-nvim
+        # Core editing functionality
+        editor = with pkgs.vimPlugins; [
+          nvim-treesitter.withAllGrammars
+          rose-pine
+          pkgs-direnv.vimPlugins.direnv-nvim
+          which-key-nvim
           flash-nvim
-          gitsigns-nvim
-          harpoon2
-          jinja-vim
-          lazydev-nvim
-          lsp_lines-nvim
-          lualine-nvim
           mini-icons
           mini-surround
-          neotest
-          neotest-rust
-          noice-nvim
-          nvim-dap
-          nvim-lint
-          nvim-lspconfig
-          nvim-notify
-          nvim-treesitter-textobjects
-          nvim-treesitter.withAllGrammars
-          nvim-web-devicons
-          obsidian-nvim
+          yanky-nvim
           oil-nvim
-          persistence-nvim
-          pkgs-direnv.vimPlugins.direnv-nvim
-          render-markdown-nvim
-          rose-pine
-          rustaceanvim
           smart-splits-nvim
+          persistence-nvim
           snacks-nvim
           sqlite-lua
+        ];
+
+        # UI enhancements
+        ui = with pkgs.vimPlugins; [
+          lualine-nvim
+          bufferline-nvim
+          scope-nvim
           tabby-nvim
-          which-key-nvim
-          yanky-nvim
+          noice-nvim
+          nvim-notify
+          nvim-web-devicons
+        ];
+
+        # LSP and language support
+        lsp = with pkgs.vimPlugins; [
+          nvim-lspconfig
+          lsp_lines-nvim
+          lazydev-nvim
+          rustaceanvim
+          jinja-vim
+        ];
+
+        # Completion
+        completion = with pkgs.vimPlugins; [
+          blink-cmp
+          blink-compat
+        ];
+
+        # Git integration
+        git = with pkgs.vimPlugins; [
+          gitsigns-nvim
+        ];
+
+        # Testing
+        testing = with pkgs.vimPlugins; [
+          neotest
+          neotest-rust
+          nvim-dap
+        ];
+
+        # Notes and markdown
+        notes = with pkgs.vimPlugins; [
+          obsidian-nvim
+          render-markdown-nvim
+          bullets-vim
+        ];
+
+        # Formatting and linting
+        format = with pkgs.vimPlugins; [
+          conform-nvim
+          nvim-lint
+        ];
+
+        # AI assistance
+        ai = with pkgs.vimPlugins; [
+          avante-nvim
+        ];
+
+        # Remote development
+        remote = with pkgs.vimPlugins; [
           (pkgs.vimPlugins.remote-nvim-nvim.overrideAttrs (finalAttrs: previousAttrs: {
             dontPatchShebangs = true;
           }))
         ];
-        typst = with pkgs.vimPlugins; [
-          typst-preview-nvim
-        ];
+
+        # Discord rich presence
         discordRichPresence = [
           pkgs.vimPlugins.neocord
         ];
-      };
 
+        # Typst support
+        typst = with pkgs.vimPlugins; [
+          typst-preview-nvim
+        ];
+      };
     };
+
     packageDefinitions = {
-      # These are the names of your packages
-      # you can include as many as you wish.
       nvim = {
         pkgs,
         name,
@@ -160,19 +199,26 @@
           suffix-path = true;
           suffix-LD = true;
           wrapRc = true;
-          # aliases = ["vim"];
         };
         categories = {
-          general = true;
+          editor = true;
+          ui = true;
+          lsp = true;
+          completion = true;
+          git = true;
+          testing = true;
+          notes = true;
+          format = true;
+          ai = true;
+          remote = true;
+          discordRichPresence = false;
           typst = false;
         };
       };
     };
-    # In this section, the main thing you will need to do is change the default package name
-    # to the name of the packageDefinitions entry you wish to use as the default.
+
     defaultPackageName = "nvim";
   in
-    # see :help nixCats.flake.outputs.exports
     forEachSystem (system: let
       nixCatsBuilder =
         utils.baseBuilder luaPath {
@@ -181,20 +227,10 @@
         categoryDefinitions
         packageDefinitions;
       defaultPackage = nixCatsBuilder defaultPackageName;
-      # this is just for using utils such as pkgs.mkShell
-      # The one used to build neovim is resolved inside the builder
-      # and is passed to our categoryDefinitions and packageDefinitions
       pkgs = import nixpkgs {inherit system;};
     in {
-      # these outputs will be wrapped with ${system} by utils.eachSystem
+      packages = utils.mkAllWithDefault defaultPackage;
 
-      # this will make a package out of each of the packageDefinitions defined above
-      # and set the default package to the one passed in here.
-      packages =
-        utils.mkAllWithDefault defaultPackage;
-
-      # choose your package for devShell
-      # and add whatever else you want in it.
       devShells = {
         default = pkgs.mkShell {
           name = defaultPackageName;
@@ -202,7 +238,6 @@
         };
       };
 
-      # Check that the config loads without errors
       checks.default = pkgs.runCommand "nvim-config-check" {
         nativeBuildInputs = [defaultPackage];
       } ''
@@ -228,6 +263,7 @@
 
       inherit utils;
     };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-direnv-nvim.url = "github:mushrowan/nixpkgs/direnv-nvim";
@@ -237,15 +273,5 @@
       url = "github:actionshrimp/direnv.nvim";
       flake = false;
     };
-
-    # see :help nixCats.flake.inputs
-    # If you want your plugin to be loaded by the standard overlay,
-    # i.e. if it wasnt on nixpkgs, but doesnt have an extra build step.
-    # Then you should name it "plugins-something"
-    # If you wish to define a custom build step not handled by nixpkgs,
-    # then you should name it in a different format, and deal with that in the
-    # overlay defined for custom builds in the overlays directory.
-    # for specific tags, branches and commits, see:
-    # https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html#examples
   };
 }

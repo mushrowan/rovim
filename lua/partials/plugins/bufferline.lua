@@ -1,7 +1,7 @@
 return {
 	{
 		"bufferline.nvim",
-		for_cat = "general",
+		for_cat = "ui",
 		event = "DeferredUIEnter",
 		load = function(name)
 			-- Load scope.nvim first for per-tab buffer scoping

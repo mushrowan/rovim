@@ -2,7 +2,7 @@
 return {
 	{
 		"lualine.nvim",
-		for_cat = "general",
+		for_cat = "ui",
 		after = function()
 			require("lualine").setup({
 				["extensions"] = {

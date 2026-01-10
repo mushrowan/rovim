@@ -1,7 +1,8 @@
+-- SECTION: neotest
 return {
 	{
 		"neotest",
-		for_cat = "general",
+		for_cat = "testing",
 		cmd = "Neotest",
 		keys = {
 			{ "<leader>Tt", desc = "Run nearest test" },

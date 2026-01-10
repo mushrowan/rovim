@@ -1,7 +1,7 @@
 return {
 	{
 		"persistence.nvim",
-		for_cat = "general",
+		for_cat = "editor",
 		event = "BufReadPre",
 		after = function()
 			require("persistence").setup({

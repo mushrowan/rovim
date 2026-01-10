@@ -2,7 +2,7 @@ return {
 	{
 		"direnv.nvim",
 		event = "DeferredUIEnter",
-		for_cat = "general",
+		for_cat = "editor",
 		after = function()
 			require("direnv-nvim").setup({
 				async = true,

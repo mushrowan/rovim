@@ -1,7 +1,7 @@
 return {
 	{
 		"noice.nvim",
-		for_cat = "general",
+		for_cat = "ui",
 		event = "DeferredUIEnter",
 		after = function()
 			require("noice").setup({
@@ -26,7 +26,7 @@ return {
 	},
 	{
 		"nvim-notify",
-		for_cat = "general",
+		for_cat = "ui",
 		event = "DeferredUIEnter",
 		after = function()
 			vim.notify = require("notify")

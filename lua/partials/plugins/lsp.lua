@@ -1,8 +1,8 @@
--- Set default root markers for all clients
+-- SECTION: lsp
 return {
 	{
 		"rustaceanvim",
-		for_cat = "general",
+		for_cat = "lsp",
 		lazy = false,
 		dep_of = { "direnv.nvim" },
 		priority = 100,
@@ -10,17 +10,13 @@ return {
 			vim.g.rustaceanvim = {
 				server = {
 					on_attach = function(_, bufnr)
-						vim.keymap.set("n", "<leader>ca", function()
-							vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
-						end, { noremap = true, silent = true, buffer = bufnr })
-						vim.keymap.set(
-							"n",
-							"K", -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
-							function()
-								vim.cmd.RustLsp({ "hover", "actions" })
-							end,
-							{ noremap = true, silent = true, buffer = bufnr }
-						)
+						local utils = require("partials.utils")
+						utils.buf_map(bufnr, "n", "<leader>ca", function()
+							vim.cmd.RustLsp("codeAction")
+						end, "Rust code action")
+						utils.buf_map(bufnr, "n", "K", function()
+							vim.cmd.RustLsp({ "hover", "actions" })
+						end, "Rust hover actions")
 					end,
 				},
 			}
@@ -28,15 +24,11 @@ return {
 	},
 	{
 		"nvim-lspconfig",
-		for_cat = "general",
-		-- lazy = false,
-		-- priority = 100,
+		for_cat = "lsp",
 		dep_of = { "direnv.nvim" },
 
 		before = function()
-			require("partials.plugins.lspkeys")
-
-			-- Filetypes
+			-- Custom filetypes
 			vim.filetype.add({
 				filename = {
 					["docker-compose.yml"] = "yaml.docker-compose",
@@ -48,6 +40,7 @@ return {
 					jinja = "jinja",
 					jinja2 = "jinja",
 					j2 = "jinja",
+					gotmpl = "go",
 				},
 				pattern = {
 					[".*%.yaml%.j2"] = "yaml.jinja",
@@ -55,30 +48,53 @@ return {
 				},
 			})
 
+			-- Default root markers for all LSP clients
 			vim.lsp.config("*", {
 				root_markers = { ".git" },
 			})
 
-			-- Nix
-			vim.lsp.enable("nil_ls")
-			vim.lsp.enable("nixd")
-			vim.lsp.enable("statix")
+			-- LSP servers to enable (grouped by language/purpose)
+			local servers = {
+				-- Nix
+				"nil_ls",
+				"nixd",
+				"statix",
+				-- .NET
+				"csharp_ls",
+				-- Dart
+				"dartls",
+				-- Python
+				"ruff",
+				-- Go
+				"gopls",
+				-- Lua
+				"lua_ls",
+				-- QML
+				"qmlls",
+				-- Terraform
+				"terraformls",
+				-- Docker
+				"docker_language_server",
+				"dockerls",
+				"docker_compose_language_service",
+				-- Web
+				"ts_ls",
+				"jsonls",
+				-- Shell
+				"bashls",
+				-- Data
+				"yamlls",
+				"sqls",
+				-- Docs
+				"marksman",
+				"markdown_oxide",
+			}
 
-			-- CSharp
-			vim.lsp.enable("csharp_ls")
+			for _, server in ipairs(servers) do
+				vim.lsp.enable(server)
+			end
 
-			-- Dart
-			vim.lsp.enable("dartls")
-
-			-- Python
-			vim.lsp.enable("ruff")
-
-			-- Go
-			vim.filetype.add({
-				extension = {
-          gotmpl = "go";
-				},
-			})
+			-- Custom server configurations
 			vim.lsp.config("gopls", {
 				settings = {
 					gopls = {
@@ -87,54 +103,14 @@ return {
 					},
 				},
 			})
-			vim.lsp.enable("gopls")
 
-			-- Lua
-			vim.lsp.enable("lua_ls")
-			-- Jinja (attach to any filetype containing "jinja")
+			-- Jinja LSP (attach to filetypes containing "jinja")
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = "*",
-				callback = function(args)
-					if args.match:find("jinja") then
-						vim.lsp.start(vim.lsp.config.jinja_lsp)
-					end
+				pattern = { "jinja", "*.jinja", "*.jinja2" },
+				callback = function()
+					vim.lsp.start(vim.lsp.config.jinja_lsp)
 				end,
 			})
-
-			-- Qml
-			vim.lsp.enable("qmlls")
-
-			-- Terraform/OpenTofu
-			vim.lsp.enable("terraformls")
-
-			-- Docker
-			vim.lsp.enable("docker_language_server")
-			vim.lsp.enable("dockerls")
-
-			-- Docker-compose
-			vim.lsp.enable("docker_compose_language_service")
-			-- Javascript/typescript
-			vim.lsp.enable("ts_ls")
-			-- JSON
-			vim.lsp.enable("jsonls")
-			-- Ansible
-			-- vim.lsp.enable("ansiblels")
-
-			-- Azure Pipelines
-			-- vim.lsp.enable("azure_pipelines_ls")
-
-			-- Bash
-			vim.lsp.enable("bashls")
-
-			-- YAML
-			vim.lsp.enable("yamlls")
-
-			-- Markdown
-			vim.lsp.enable("marksman")
-			vim.lsp.enable("markdown_oxide")
-
-			-- SQL
-			vim.lsp.enable("sqls")
 		end,
 	},
 }

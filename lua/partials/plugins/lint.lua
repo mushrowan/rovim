@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-lint",
-		for_cat = "general",
+		for_cat = "format",
 		event = "Filetype",
 
 		after = function(_)

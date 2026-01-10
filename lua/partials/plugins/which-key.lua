@@ -2,7 +2,7 @@
 return {
 	{
 		"which-key.nvim",
-		for_cat = "general",
+		for_cat = "editor",
 		after = function()
 			local wk = require("which-key")
 			wk.setup({

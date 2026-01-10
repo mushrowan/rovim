@@ -1,6 +1,8 @@
+-- SECTION: smart-splits
 return {
 	{
 		"smart-splits.nvim",
+		for_cat = "editor",
 		event = "DeferredUIEnter",
 		after = function()
 			require("smart-splits").setup({})
