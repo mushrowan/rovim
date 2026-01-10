@@ -98,7 +98,9 @@
         general = with pkgs.vimPlugins; [
           avante-nvim
           blink-cmp
+          bufferline-nvim
           blink-compat
+          scope-nvim
           bullets-vim
           conform-nvim
           flash-nvim
@@ -145,22 +147,6 @@
         ];
       };
 
-      # shared libraries to be added to LD_LIBRARY_PATH
-      # variable available to nvim runtime
-      sharedLibraries = {
-        general = [
-        ];
-      };
-
-      # environmentVariables:
-      # this section is for environmentVariables that should be available
-      # at RUN TIME for plugins. Will be available to path within neovim terminal
-      environmentVariables = {
-      };
-
-      # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
-      extraWrapperArgs = {
-      };
     };
     packageDefinitions = {
       # These are the names of your packages
@@ -198,7 +184,7 @@
       # this is just for using utils such as pkgs.mkShell
       # The one used to build neovim is resolved inside the builder
       # and is passed to our categoryDefinitions and packageDefinitions
-      pkgs = import nixpkgs {stdenv.hostPlatform.system = system;};
+      pkgs = import nixpkgs {inherit system;};
     in {
       # these outputs will be wrapped with ${system} by utils.eachSystem
 
@@ -213,44 +199,22 @@
         default = pkgs.mkShell {
           name = defaultPackageName;
           packages = [defaultPackage];
-          inputsFrom = [];
-          shellHook = ''
-          '';
         };
       };
-    })
-    // (let
-      # we also export a nixos module to allow reconfiguration from configuration.nix
-      nixosModule = utils.mkNixosModules {
-        moduleNamespace = [defaultPackageName];
-        inherit
-          defaultPackageName
-          dependencyOverlays
-          luaPath
-          categoryDefinitions
-          packageDefinitions
-          extra_pkg_config
-          nixpkgs
-          ;
-      };
-      # and the same for home manager
-      homeModule = utils.mkHomeModules {
-        moduleNamespace = [defaultPackageName];
-        inherit
-          defaultPackageName
-          dependencyOverlays
-          luaPath
-          categoryDefinitions
-          packageDefinitions
-          extra_pkg_config
-          nixpkgs
-          ;
-      };
-    in {
-      # these outputs will be NOT wrapped with ${system}
 
-      # this will make an overlay out of each of the packageDefinitions defined above
-      # and set the default overlay to the one named here.
+      # Check that the config loads without errors
+      checks.default = pkgs.runCommand "nvim-config-check" {
+        nativeBuildInputs = [defaultPackage];
+      } ''
+        export HOME=$(mktemp -d)
+        nvim --headless -c "lua print('Config loaded successfully')" -c "qa!" 2>&1 | tee $out
+        if grep -q "Error" $out; then
+          echo "Neovim config has errors!"
+          exit 1
+        fi
+      '';
+    })
+    // {
       overlays =
         utils.makeOverlays luaPath {
           inherit nixpkgs dependencyOverlays extra_pkg_config;
@@ -259,16 +223,12 @@
         packageDefinitions
         defaultPackageName;
 
-      nixosModules.default = nixosModule;
-      nixosModules.withSecrets = ./modules/nixos.nix;
-      homeModules.default = homeModule;
-      homeModules.withSecrets = ./modules/home-manager.nix;
+      nixosModules.default = ./modules/nixos.nix;
+      homeModules.default = ./modules/home-manager.nix;
 
-      inherit utils nixosModule homeModule;
-      inherit (utils) tempates;
-    });
+      inherit utils;
+    };
   inputs = {
-    flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-direnv-nvim.url = "github:mushrowan/nixpkgs/direnv-nvim";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";

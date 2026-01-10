@@ -66,37 +66,8 @@ return {
 				return Snacks.picker.smart()
 			end, { desc = "Smart picker" })
 			vim.keymap.set("n", "<leader>sp", function()
-				local projectspicker = Snacks.picker
-				projectspicker.actions = {
-					load_session = function(picker, item)
-						picker:close()
-						if not item then
-							return
-						end
-						local dir = item.file
-						local session_loaded = false
-						vim.api.nvim_create_autocmd("SessionLoadPost", {
-							once = true,
-							callback = function()
-								session_loaded = true
-							end,
-						})
-						vim.defer_fn(function()
-							if not session_loaded then
-								Snacks.picker.files()
-							end
-						end, 100)
-						vim.fn.chdir(dir)
-						local session = Snacks.dashboard.sections.session()
-						if session then
-							vim.cmd(session.action:sub(2))
-						end
-					end,
-				}
 				return Snacks.picker.projects({
-
 					confirm = utils.handle_project_confirm,
-
 					dev = {
 						"~/dev",
 						"~/dev/nix",
@@ -135,9 +106,6 @@ return {
 			vim.keymap.set("n", "<leader>gB", function()
 				return Snacks.git.blame_line()
 			end, { desc = "Git status" })
-			vim.keymap.set("n", "<leader>gb", function()
-				return Snacks.picker.git_branches()
-			end, { desc = "Git branches" })
 			vim.keymap.set("n", "<leader>gb", function()
 				return Snacks.picker.git_branches()
 			end, { desc = "Git branches" })

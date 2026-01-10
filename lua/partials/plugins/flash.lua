@@ -2,7 +2,7 @@ return {
 	{
 		"flash.nvim",
 		for_cat = "general",
-		event = "VeryLazy",
+		event = "DeferredUIEnter",
 		keys = {
 			{ "s", desc = "Flash" },
 			{ "S", desc = "Flash Treesitter" },
