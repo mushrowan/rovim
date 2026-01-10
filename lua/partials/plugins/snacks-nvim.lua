@@ -23,7 +23,6 @@ return {
 				terminal = { enabled = true },
 				lazygit = { enabled = true },
 			})
-			local utils = require("partials.utils")
 
 			---@param working_dir string?
 			local terminal_opts = function(working_dir)
@@ -67,7 +66,6 @@ return {
 			end, { desc = "Smart picker" })
 			vim.keymap.set("n", "<leader>sp", function()
 				return Snacks.picker.projects({
-					confirm = utils.handle_project_confirm,
 					dev = {
 						"~/dev",
 						"~/dev/nix",
