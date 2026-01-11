@@ -1,15 +1,19 @@
 -- SECTION: lualine
+-- Eva-02 themed statusline with hostname display
 return {
 	{
 		"lualine.nvim",
 		for_cat = "ui",
 		after = function()
+			local eva02 = require("partials.eva02")
+			local hostname = vim.fn.hostname():upper()
+
 			require("lualine").setup({
-				["extensions"] = {
+				extensions = {
 					{
-						["filetypes"] = { "snacks_picker_list", "snacks_picker_input" },
-						["sections"] = {
-							["lualine_a"] = {
+						filetypes = { "snacks_picker_list", "snacks_picker_input" },
+						sections = {
+							lualine_a = {
 								function()
 									return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
 								end,
@@ -17,100 +21,99 @@ return {
 						},
 					},
 				},
-				["inactive_sections"] = {
-					["lualine_a"] = {},
-					["lualine_b"] = {},
-					["lualine_c"] = { "filename" },
-					["lualine_x"] = { "location" },
-					["lualine_y"] = {},
-					["lualine_z"] = {},
+				inactive_sections = {
+					lualine_a = {},
+					lualine_b = {},
+					lualine_c = { "filename" },
+					lualine_x = { "location" },
+					lualine_y = {},
+					lualine_z = {},
 				},
-				["options"] = {
-					["always_divide_middle"] = true,
-					["component_separators"] = { "", "" },
-					["globalstatus"] = true,
-					["icons_enabled"] = true,
-					["refresh"] = { ["statusline"] = 1000, ["tabline"] = 1000, ["winbar"] = 1000 },
-					["section_separators"] = { "", "" },
-					["theme"] = "auto",
+				options = {
+					always_divide_middle = true,
+					component_separators = { left = "", right = "" },
+					globalstatus = true,
+					icons_enabled = true,
+					refresh = { statusline = 1000, tabline = 1000, winbar = 1000 },
+					section_separators = { left = "", right = "" },
+					theme = eva02.lualine,
 				},
-				["sections"] = {
-
-					["lualine_a"] = {
+				sections = {
+					lualine_a = {
 						{
 							"mode",
 							icons_enabled = true,
-							separator = {
-								left = "▎",
-								right = "",
-							},
-						},
-						{
-							"",
-							draw_empty = true,
-							separator = { left = "", right = "" },
+							separator = { left = "▎", right = "" },
 						},
 					},
-					["lualine_b"] = {
+					lualine_b = {
 						{
 							"filetype",
-							colored = true,
+							colored = false,
 							icon_only = true,
 							icon = { align = "left" },
 						},
 						{
 							"filename",
-							symbols = { modified = " ", readonly = " " },
-							separator = { right = "" },
-						},
-						{
-							"",
-							draw_empty = true,
-							separator = { left = "", right = "" },
+							symbols = { modified = " ", readonly = " " },
+							separator = { right = "" },
 						},
 					},
-					["lualine_c"] = {
+					lualine_c = {
 						{
 							"diff",
-							colored = false,
+							colored = true,
 							diff_color = {
-								-- Same color values as the general color option can be used here.
-								added = "DiffAdd", -- Changes the diff's added color
-								modified = "DiffChange", -- Changes the diff's modified color
-								removed = "DiffDelete", -- Changes the diff's removed color you
+								added = { fg = "#50C878" },
+								modified = { fg = "#F0C020" },
+								removed = { fg = "#E02020" },
 							},
-							symbols = { added = "+", modified = "~", removed = "-" }, -- Changes the diff symbols
-							separator = { right = "" },
+							symbols = { added = "+", modified = "~", removed = "-" },
+							separator = { right = "" },
+						},
+						{
+							"diagnostics",
+							sources = { "nvim_diagnostic" },
+							symbols = { error = " ", warn = " ", info = " ", hint = " " },
 						},
 					},
-					["lualine_x"] = {
+					lualine_x = {
 						{
-							-- Lsp server name
+							-- LSP server name
 							function()
 								local buf_ft = vim.bo.filetype
-								local excluded_buf_ft =
-									{ toggleterm = true, NvimTree = true, ["neo-tree"] = true, TelescopePrompt = true }
+								local excluded = { toggleterm = true, NvimTree = true, ["neo-tree"] = true, TelescopePrompt = true }
 
-								if excluded_buf_ft[buf_ft] then
+								if excluded[buf_ft] then
 									return ""
 								end
 
-								local bufnr = vim.api.nvim_get_current_buf()
-								local clients = vim.lsp.get_clients({ bufnr = bufnr })
-
+								local clients = vim.lsp.get_clients({ bufnr = 0 })
 								if vim.tbl_isempty(clients) then
-									return "No Active LSP"
+									return "NO LSP"
 								end
 
-								local active_clients = {}
+								local names = {}
 								for _, client in ipairs(clients) do
-									table.insert(active_clients, client.name)
+									table.insert(names, client.name)
 								end
-
-								return table.concat(active_clients, ", ")
+								return table.concat(names, ", ")
 							end,
-							icon = " ",
-							separator = { left = "" },
+							icon = " ",
+							separator = { left = "" },
+						},
+					},
+					lualine_y = {
+						{ "progress" },
+						{ "location" },
+					},
+					lualine_z = {
+						{
+							function()
+								return hostname
+							end,
+							icon = "󰒋",
+							separator = { left = "", right = "▕" },
 						},
 					},
 				},

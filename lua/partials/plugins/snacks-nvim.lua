@@ -85,6 +85,28 @@ return {
 						"~/.dotfiles",
 						"~/Documents/colony",
 					},
+					confirm = function(picker, item)
+						picker:close()
+						if not item then
+							return
+						end
+						local project_dir = item.file
+
+						-- persistence.nvim has on_require trigger, so this will auto-load it
+						local persistence = require("persistence")
+
+						-- Save current session before switching
+						persistence.save()
+
+						-- Close all buffers
+						vim.cmd("%bdelete!")
+
+						-- Change to new project directory
+						vim.fn.chdir(project_dir)
+
+						-- Try to load session for new project, or just open the directory
+						persistence.load()
+					end,
 				})
 			end, { desc = "Projects" })
 			vim.keymap.set("n", "<leader>lG", function()

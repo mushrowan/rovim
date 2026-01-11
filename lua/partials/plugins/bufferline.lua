@@ -31,21 +31,7 @@ return {
 							separator = true,
 						},
 					},
-					-- Custom area on the right to show tabs
-					custom_areas = {
-						right = function()
-							local result = {}
-							local tab_count = vim.fn.tabpagenr("$")
-							if tab_count > 1 then
-								local current_tab = vim.fn.tabpagenr()
-								for i = 1, tab_count do
-									local hl = i == current_tab and "BufferLineTabSelected" or "BufferLineTab"
-									table.insert(result, { text = " " .. i .. " ", link = hl })
-								end
-							end
-							return result
-						end,
-					},
+					-- Tab indicators handled by tabby, not here
 				},
 			})
 

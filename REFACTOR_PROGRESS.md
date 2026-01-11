@@ -1,83 +1,54 @@
 # Rovim Refactoring Progress Log
 
-**Date**: 2026-01-10
-**Commit**: 6dbe561
+## Phase 1-7: Initial Refactor (2026-01-10)
 
-## Completed Phases
+**Bug fixes:** colorscheme, lspkeys, ws, obsidian, lsp, treesitter plugin specs
+**Removed:** harpoon, textobjects, dead code
+**Standardized:** plugin patterns with `for_cat`, section headers, table-driven LSP
+**Reorganized:** flake.nix into functional categories (editor, ui, lsp, completion, git, testing, notes, format, ai, remote)
+**Deduplicated:** Nix modules via shared.nix (106 → 79 lines)
 
-### Phase 1: Critical Bug Fixes
-- [x] Fixed colorscheme.lua - wrapped in proper plugin spec with `after` function
-- [x] Fixed lspkeys.lua - converted to plugin spec with LspAttach event
-- [x] Fixed ws.lua - wrapped workspaces setup in plugin spec
-- [x] Fixed obsidian.lua - added `local` to `target_file` variable (was global)
-- [x] Fixed lsp.lua - changed Jinja autocmd pattern from `"*"` to specific patterns
-- [x] Added nixCatsUtils.setup() call in main.lua for non-Nix fallback support
-- [x] Fixed treesitter.lua - wrapped return in array for consistency
+## Phase 8: Eva-02 Theme & UX Improvements (2026-01-11)
 
-### Phase 2: Remove Dead Code & Harpoon
-- [x] Deleted harpoon.lua and removed from init.lua
-- [x] Removed harpoon2 from flake.nix
-- [x] Removed commented Alt+hjkl keymaps from mappings.lua
-- [x] Removed commented ansible/azure LSP enables from lsp.lua
-- [x] Removed unused treesitter textobject bindings (user didn't use them)
-- [x] Removed nvim-treesitter-textobjects from flake.nix
+### Treesitter Fix
+- Updated to modern nvim-treesitter API (removed deprecated `configs.setup()`)
 
-### Phase 3: Standardize Plugin Patterns
-- [x] Added for_cat = "editor" to smart-splits.lua
-- [x] Updated utils.lua - added buf_map function, removed unused merge_tables
-- [x] Updated tabby.lua to use utils.map_all instead of local map function
-- [x] Added section headers to plugin files
+### Project Picker Session Management
+- `<leader>sp` now saves current session before switching projects
+- Added `on_require = "persistence"` trigger for auto-loading
 
-### Phase 4: LSP Restructure & Category Updates
-- [x] Converted procedural vim.lsp.enable() calls to table-driven approach
-- [x] Consolidated duplicate vim.filetype.add() calls
-- [x] Reorganized flake.nix with functional categories:
-  - editor: treesitter, colorscheme, direnv, which-key, flash, mini, yanky, oil, smart-splits, persistence, snacks
-  - ui: lualine, bufferline, tabby, noice, nvim-notify
-  - lsp: nvim-lspconfig, lsp_lines, lazydev, rustaceanvim, jinja
-  - completion: blink-cmp, blink-compat
-  - git: gitsigns
-  - testing: neotest, neotest-rust, nvim-dap
-  - notes: obsidian, render-markdown, bullets
-  - format: conform, nvim-lint
-  - ai: avante
-  - remote: remote-nvim
-  - discordRichPresence: neocord
-  - typst: typst-preview
-- [x] Updated all plugin files with appropriate for_cat values
+### Eva-02 Colorscheme (`lua/partials/eva02.lua`)
+- Custom colorscheme inspired by Evangelion Unit-02
+- Red/gold/amber palette with hazard stripe aesthetic
+- Full highlight coverage: syntax, LSP, diagnostics, Treesitter, UI plugins
+- Neovide-specific cursor effects (railgun particles)
+- Lualine theme: gold (normal), red (insert), amber (visual)
 
-### Phase 5: Plugin Restructure (Partial)
-- [x] Added section headers to snacks-nvim.lua, gitsigns.lua, neotest.lua
-- [x] Updated tabby.lua with cleaner structure
+### UI Enhancements
+- **Lualine:** Eva-02 theme, hostname in ALL CAPS (right section), diagnostics
+- **Tabby:** Devicons per tab, 3-char directory abbreviation, Eva-02 colors
+- **Bufferline:** Removed duplicate tab indicators (handled by tabby)
 
-### Phase 6: Nix Module Deduplication
-- [x] Created modules/shared.nix with common options and mkFinalPackage
-- [x] Simplified nixos.nix (53 → 17 lines) to import shared
-- [x] Simplified home-manager.nix (53 → 17 lines) to import shared
+### Nix Package Structure
+```
+nix run .           # Neovide + baked config (default)
+nix run .#nvim      # Terminal nvim + baked config
+nix run .#dev       # Neovide + local config (live reload on restart)
+nix run .#nvim-dev  # Terminal nvim + local config
+nix develop         # Shell with nvim-dev
+```
 
-### Phase 7: Documentation & Polish
-- [x] Added section headers to all 20 remaining plugin files
-- [x] Documented magic values in snacks-nvim.lua and obsidian.lua
-- [x] Added comments to empty setup({}) plugins (blink.compat, remote-nvim, render-markdown, lsp_lines, mini.icons, mini.surround, jinja)
+### Documentation
+- Created `docs/lze.md` - lazy loading trigger reference
 
-### Verification
-- [x] Run `nvim --headless -c "lua print('ok')" -c "qa!"` - passed
-- [x] Run `nix flake check` - passed
-- [ ] Full startup test with `nix run .` - manual verification
-- [ ] Verify LSP attaches correctly - manual verification
-- [ ] Verify keymaps work - manual verification
-
-## Summary Statistics
-- Files modified: 36 + 22 (Phase 6-7)
-- Files created: 1 (modules/shared.nix)
-- Files deleted: 1 (harpoon.lua)
-- Nix module reduction: 106 → 79 lines (eliminated duplication)
-
-## Key Changes
-1. Plugin files now follow consistent pattern with for_cat matching flake.nix categories
-2. LSP configuration is now table-driven and easier to maintain
-3. flake.nix is organized by functional categories for easier toggling
-4. Dead code removed, patterns standardized
-5. Bug fixes prevent runtime errors
-6. Nix modules deduplicated via shared.nix
-7. All plugin files have section headers and documented magic values
+## Files Changed (Phase 8)
+- `lua/partials/eva02.lua` (new)
+- `lua/partials/plugins/colorscheme.lua`
+- `lua/partials/plugins/treesitter.lua`
+- `lua/partials/plugins/lualine.lua`
+- `lua/partials/plugins/tabby.lua`
+- `lua/partials/plugins/bufferline.lua`
+- `lua/partials/plugins/snacks-nvim.lua`
+- `lua/partials/plugins/persistence.lua`
+- `flake.nix` (dev packages, neovide wrapper)
+- `docs/lze.md` (new)

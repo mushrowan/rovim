@@ -5,6 +5,7 @@ return {
 		"persistence.nvim",
 		for_cat = "editor",
 		event = "BufReadPre",
+		on_require = "persistence", -- Also load when require("persistence") is called
 		after = function()
 			require("persistence").setup({
 				dir = vim.fn.stdpath("state") .. "/sessions/",

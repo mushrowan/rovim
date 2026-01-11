@@ -215,6 +215,32 @@
           typst = false;
         };
       };
+      # Dev mode: uses local lua files for live reloading
+      nvim-dev = {
+        pkgs,
+        name,
+        ...
+      }: {
+        settings = {
+          suffix-path = true;
+          suffix-LD = true;
+          wrapRc = false; # Use local config, not baked-in
+        };
+        categories = {
+          editor = true;
+          ui = true;
+          lsp = true;
+          completion = true;
+          git = true;
+          testing = true;
+          notes = true;
+          format = true;
+          ai = true;
+          remote = true;
+          discordRichPresence = false;
+          typst = false;
+        };
+      };
     };
 
     defaultPackageName = "nvim";
@@ -226,23 +252,54 @@
         }
         categoryDefinitions
         packageDefinitions;
-      defaultPackage = nixCatsBuilder defaultPackageName;
+      nvimPackage = nixCatsBuilder defaultPackageName;
+      nvimDevPackage = nixCatsBuilder "nvim-dev";
       pkgs = import nixpkgs {inherit system;};
+
+      # Neovide wrapper that uses our custom nvim
+      neovideWrapper = pkgs.writeShellScriptBin "rovim" ''
+        exec ${pkgs.neovide}/bin/neovide --neovim-bin ${nvimPackage}/bin/nvim "$@"
+      '';
+
+      # Dev mode neovide wrapper (uses local config)
+      neovideDevWrapper = pkgs.writeShellScriptBin "rovim-dev" ''
+        exec ${pkgs.neovide}/bin/neovide --neovim-bin ${nvimDevPackage}/bin/nvim "$@"
+      '';
+
+      # Combined package with both neovide wrapper and nvim
+      defaultPackage = pkgs.symlinkJoin {
+        name = "rovim";
+        paths = [neovideWrapper nvimPackage];
+      };
+
+      # Dev package for live config reloading
+      devPackage = pkgs.symlinkJoin {
+        name = "rovim-dev";
+        paths = [neovideDevWrapper nvimDevPackage];
+      };
     in {
-      packages = utils.mkAllWithDefault defaultPackage;
+      packages = {
+        default = defaultPackage;
+        neovide = defaultPackage;
+        nvim = nvimPackage;
+        # Dev mode packages (use local lua files, changes apply on restart)
+        dev = devPackage;
+        neovide-dev = devPackage;
+        nvim-dev = nvimDevPackage;
+      };
 
       devShells = {
         default = pkgs.mkShell {
           name = defaultPackageName;
-          packages = [defaultPackage];
+          packages = [nvimDevPackage]; # Use dev package in shell for live editing
         };
       };
 
       checks.default = pkgs.runCommand "nvim-config-check" {
-        nativeBuildInputs = [defaultPackage];
+        nativeBuildInputs = [nvimPackage];
       } ''
         export HOME=$(mktemp -d)
-        nvim --headless -c "lua print('Config loaded successfully')" -c "qa!" 2>&1 | tee $out
+        nvim --headless +'lua print("Config loaded successfully")' +qa 2>&1 | tee $out
         if grep -q "Error" $out; then
           echo "Neovim config has errors!"
           exit 1
