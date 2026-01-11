@@ -1,10 +1,23 @@
 -- SECTION: tabby
--- Eva-02 themed tab line with directory and filetype info
+-- Eva-02 themed tab line: buffers (left) | tabs/sessions (right)
+-- Uses scope.nvim for per-tab buffer isolation
+--
+-- Navigation:
+--   Alt+h/j/k/l   = Move between splits
+--   Ctrl+h/l      = Cycle buffers
+--   <leader>1-5   = Switch tabs (sessions)
+--   <leader>C-h/l = Prev/next tab
 return {
 	{
 		"tabby.nvim",
 		for_cat = "ui",
 		event = "DeferredUIEnter",
+		load = function(name)
+			-- Load scope.nvim for per-tab buffer scoping
+			vim.cmd.packadd("scope.nvim")
+			require("scope").setup({})
+			vim.cmd.packadd(name)
+		end,
 		after = function()
 			local eva02 = require("partials.eva02")
 			local c = eva02.colors
@@ -112,13 +125,64 @@ return {
 				return fallback_icons[max_ft] or "󰈔"
 			end
 
+			-- Get buffer display name
+			local function get_buf_name(bufnr)
+				local name = vim.api.nvim_buf_get_name(bufnr)
+				if name == "" then
+					return "[No Name]"
+				end
+				return vim.fn.fnamemodify(name, ":t")
+			end
+
+			-- Get icon for buffer using mini.icons
+			local function get_buf_icon(bufnr)
+				local name = vim.api.nvim_buf_get_name(bufnr)
+				local ok, icons = pcall(require, "mini.icons")
+				if ok then
+					local icon = icons.get("file", name)
+					if icon then
+						return icon
+					end
+				end
+				return "󰈔"
+			end
+
 			require("tabby").setup({
 				line = function(line)
+					local buffers = {}
+					-- Get scoped buffers for current tab (via scope.nvim)
+					for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+						if vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buflisted then
+							local name = vim.api.nvim_buf_get_name(bufnr)
+							-- Skip empty and special buffers
+							if name ~= "" and vim.bo[bufnr].buftype == "" then
+								table.insert(buffers, bufnr)
+							end
+						end
+					end
+
+					local current_buf = vim.api.nvim_get_current_buf()
+
 					return {
-						{
-							{ "  ", hl = "TabbyHead" },
-							line.sep("", "TabbyHeadSep", "TabbyFill"),
-						},
+						-- Buffers on the left
+						vim.tbl_map(function(bufnr)
+							local is_current = bufnr == current_buf
+							local hl = is_current and "TabbyActive" or "TabbyInactive"
+							local sep_hl = is_current and "TabbyActiveSep" or "TabbyInactiveSep"
+							local modified = vim.bo[bufnr].modified and " ●" or ""
+
+							return {
+								line.sep("", sep_hl, "TabbyFill"),
+								get_buf_icon(bufnr) .. " ",
+								get_buf_name(bufnr),
+								modified,
+								line.sep("", sep_hl, "TabbyFill"),
+								hl = hl,
+								margin = " ",
+							}
+						end, buffers),
+						line.spacer(),
+						-- Tabs/sessions on the right
 						line.tabs().foreach(function(tab)
 							local hl = tab.is_current() and "TabbyActive" or "TabbyInactive"
 							local sep_hl = tab.is_current() and "TabbyActiveSep" or "TabbyInactiveSep"
@@ -141,17 +205,6 @@ return {
 								margin = " ",
 							}
 						end),
-						line.spacer(),
-						line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
-							return {
-								line.sep("", "TabbyWinSep", "TabbyFill"),
-								win.is_current() and "" or "",
-								win.buf_name(),
-								line.sep("", "TabbyWinSep", "TabbyFill"),
-								hl = "TabbyWin",
-								margin = " ",
-							}
-						end),
 						{
 							line.sep("", "TabbyTailSep", "TabbyFill"),
 							{ "  ", hl = "TabbyTail" },
@@ -164,14 +217,31 @@ return {
 			-- Always show tabline
 			vim.o.showtabline = 2
 
+			-- Split navigation (Alt+hjkl)
+			vim.keymap.set("n", "<A-h>", "<C-w>h", { desc = "Move to left split" })
+			vim.keymap.set("n", "<A-l>", "<C-w>l", { desc = "Move to right split" })
+			vim.keymap.set("n", "<A-j>", "<C-w>j", { desc = "Move to lower split" })
+			vim.keymap.set("n", "<A-k>", "<C-w>k", { desc = "Move to upper split" })
+
+			-- Buffer navigation (Ctrl+h/l)
+			vim.keymap.set("n", "<C-h>", "<cmd>bprev<CR>", { desc = "Previous buffer" })
+			vim.keymap.set("n", "<C-l>", "<cmd>bnext<CR>", { desc = "Next buffer" })
+
+			-- Tab/session navigation
+			vim.keymap.set("n", "<leader>1", "1gt", { desc = "Go to tab 1" })
+			vim.keymap.set("n", "<leader>2", "2gt", { desc = "Go to tab 2" })
+			vim.keymap.set("n", "<leader>3", "3gt", { desc = "Go to tab 3" })
+			vim.keymap.set("n", "<leader>4", "4gt", { desc = "Go to tab 4" })
+			vim.keymap.set("n", "<leader>5", "5gt", { desc = "Go to tab 5" })
+			vim.keymap.set("n", "<leader><C-h>", "<cmd>tabprev<CR>", { desc = "Previous tab" })
+			vim.keymap.set("n", "<leader><C-l>", "<cmd>tabnext<CR>", { desc = "Next tab" })
+
 			local utils = require("partials.utils")
 			utils.map_all("n", {
 				{ "<leader>j", ":Tabby jump_to_tab<CR>", "Jump to tab" },
 				{ "<leader>ta", ":$tabnew<CR>", "New tab" },
 				{ "<leader>tc", ":tabclose<CR>", "Close tab" },
 				{ "<leader>to", ":tabonly<CR>", "Tab only" },
-				{ "<leader>tn", ":tabn<CR>", "Next tab" },
-				{ "<leader>tp", ":tabp<CR>", "Previous tab" },
 				{ "<leader>tmp", ":-tabmove<CR>", "Move tab left" },
 				{ "<leader>tmn", ":+tabmove<CR>", "Move tab right" },
 			})

@@ -117,12 +117,10 @@
         # UI enhancements
         ui = with pkgs.vimPlugins; [
           lualine-nvim
-          bufferline-nvim
           scope-nvim
           tabby-nvim
           noice-nvim
           nvim-notify
-          nvim-web-devicons
         ];
 
         # LSP and language support

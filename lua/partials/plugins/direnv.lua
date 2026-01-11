@@ -8,6 +8,7 @@ return {
 		after = function()
 			require("direnv-nvim").setup({
 				async = true,
+				silent = true, -- Disable notifications
 				on_direnv_finished = function()
 					vim.cmd("LspStart")
 					if vim.bo.filetype == "rust" then
@@ -16,6 +17,11 @@ return {
 					end
 				end,
 			})
+
+			vim.keymap.set("n", "<leader>da", function()
+				vim.fn.system("direnv allow")
+				require("direnv-nvim").check_direnv()
+			end, { desc = "Direnv allow" })
 		end,
 	},
 }

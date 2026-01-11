@@ -6,7 +6,6 @@ require("lze").load({
 	},
 
 	{ import = "partials.plugins.avante" },
-	{ import = "partials.plugins.bufferline" },
 	{ import = "partials.plugins.completion" },
 	{ import = "partials.plugins.conform" },
 	{ import = "partials.plugins.direnv" },
