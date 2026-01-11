@@ -31,34 +31,18 @@
         "type": "github"
       }
     },
-    "nixpkgs-direnv-nvim": {
-      "locked": {
-        "lastModified": 1763160442,
-        "narHash": "sha256-3ISHTbNaYTusp4Sr1lB2mU2h3IqRr5LjJXt2zEgVWec=",
-        "owner": "mushrowan",
-        "repo": "nixpkgs",
-        "rev": "66e4cb78801db14f0257ed93b6372126390d829c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mushrowan",
-        "ref": "direnv-nvim",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "plugins-direnv-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1759863545,
-        "narHash": "sha256-p2im4nUV0n9HQsjCA9oGJvTADfKGlCEr/RYWGlUszuU=",
-        "owner": "actionshrimp",
+        "lastModified": 1767735631,
+        "narHash": "sha256-a+NvIzlGk+ojNzOReXt1QHqr6wVROIaFBhS8Hd1C3HU=",
+        "owner": "NotAShelf",
         "repo": "direnv.nvim",
-        "rev": "0d2edd378dbdf2c653869772d761ad914219ba9d",
+        "rev": "ecd3bd4898f79689a3f5bf956877ea42c7b3072e",
         "type": "github"
       },
       "original": {
-        "owner": "actionshrimp",
+        "owner": "NotAShelf",
         "repo": "direnv.nvim",
         "type": "github"
       }
@@ -67,7 +51,6 @@
       "inputs": {
         "nixCats": "nixCats",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-direnv-nvim": "nixpkgs-direnv-nvim",
         "plugins-direnv-nvim": "plugins-direnv-nvim"
       }
     }

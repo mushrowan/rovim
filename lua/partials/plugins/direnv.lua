@@ -2,26 +2,34 @@
 -- Automatic direnv environment loading with LSP restart
 return {
 	{
-		"direnv.nvim",
-		event = "DeferredUIEnter",
+		"direnv-nvim",
+		event = "BufReadPre",
+		cmd = { "Direnv" },
+		keys = {
+			{ "<leader>da", "<cmd>Direnv allow<CR>", desc = "Direnv allow" },
+			{ "<leader>dd", "<cmd>Direnv deny<CR>", desc = "Direnv deny" },
+			{ "<leader>dr", "<cmd>Direnv reload<CR>", desc = "Direnv reload" },
+			{ "<leader>de", "<cmd>Direnv edit<CR>", desc = "Direnv edit" },
+			{ "<leader>ds", "<cmd>Direnv status<CR>", desc = "Direnv status" },
+		},
 		for_cat = "editor",
 		after = function()
-			require("direnv-nvim").setup({
-				async = true,
-				silent = true, -- Disable notifications
-				on_direnv_finished = function()
-					vim.cmd("LspStart")
-					if vim.bo.filetype == "rust" then
-						require("rustaceanvim.lsp").start()
-						require("rustaceanvim.lsp").reload_settings()
-					end
-				end,
+			require("direnv").setup({
+				autoload_direnv = true,
+				keybindings = {
+					allow = "<leader>da",
+					deny = "<leader>dd",
+					reload = "<leader>dr",
+				},
 			})
 
-			vim.keymap.set("n", "<leader>da", function()
-				vim.fn.system("direnv allow")
-				require("direnv-nvim").check_direnv()
-			end, { desc = "Direnv allow" })
+			-- Restart LSP after direnv loads
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "DirenvLoaded",
+				callback = function()
+					vim.cmd("LspRestart")
+				end,
+			})
 		end,
 	},
 }

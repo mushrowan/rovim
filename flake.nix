@@ -3,7 +3,6 @@
 
   outputs = {
     nixpkgs,
-    nixpkgs-direnv-nvim,
     nixCats,
     ...
   } @ inputs: let
@@ -15,14 +14,22 @@
     };
     dependencyOverlays = [
       (utils.standardPluginOverlay inputs)
+      # Build direnv-nvim from source since it's not in nixpkgs
+      (final: prev: {
+        neovimPlugins = prev.neovimPlugins or {} // {
+          direnv-nvim = final.vimUtils.buildVimPlugin {
+            pname = "direnv-nvim";
+            version = "unstable";
+            src = inputs."plugins-direnv-nvim";
+          };
+        };
+      })
     ];
     categoryDefinitions = {
       name,
       pkgs,
       ...
-    }: let
-      pkgs-direnv = import nixpkgs-direnv-nvim {system = "${pkgs.system}";};
-    in {
+    }: {
       # LSPs and runtime dependencies by category
       lspsAndRuntimeDeps = {
         editor = with pkgs; [
@@ -101,7 +108,7 @@
         editor = with pkgs.vimPlugins; [
           nvim-treesitter.withAllGrammars
           rose-pine
-          pkgs-direnv.vimPlugins.direnv-nvim
+          pkgs.neovimPlugins."direnv-nvim"
           which-key-nvim
           flash-nvim
           mini-icons
@@ -321,11 +328,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-direnv-nvim.url = "github:mushrowan/nixpkgs/direnv-nvim";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
     "plugins-direnv-nvim" = {
-      url = "github:actionshrimp/direnv.nvim";
+      url = "github:NotAShelf/direnv.nvim";
       flake = false;
     };
   };
