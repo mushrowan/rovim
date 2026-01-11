@@ -3,8 +3,8 @@ return {
 	{
 		"rustaceanvim",
 		for_cat = "lsp",
-		lazy = false,
-		dep_of = { "direnv.nvim" },
+		ft = "rust",
+		dep_of = { "direnv-nvim" },
 		priority = 100,
 		before = function()
 			vim.g.rustaceanvim = {
@@ -25,7 +25,8 @@ return {
 	{
 		"nvim-lspconfig",
 		for_cat = "lsp",
-		dep_of = { "direnv.nvim" },
+		event = "BufReadPost",
+		dep_of = { "direnv-nvim" },
 
 		before = function()
 			-- Custom filetypes

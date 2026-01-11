@@ -23,11 +23,13 @@ return {
 				},
 			})
 
-			-- Restart LSP after direnv loads
+			-- Restart LSP after direnv loads (only if clients are running)
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "DirenvLoaded",
 				callback = function()
-					vim.cmd("LspRestart")
+					if #vim.lsp.get_clients() > 0 then
+						vim.cmd("LspRestart")
+					end
 				end,
 			})
 		end,
