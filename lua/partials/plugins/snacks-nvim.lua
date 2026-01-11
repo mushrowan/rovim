@@ -80,13 +80,14 @@ return {
 				if new_tab then
 					-- Open new tab with local directory (keeps current session intact)
 					vim.cmd("tabnew")
-					vim.cmd("lcd " .. vim.fn.fnameescape(project_dir))
 				else
-					-- Save and close current session
-					persistence.save()
-					vim.cmd("silent! %bdelete!")
-					vim.fn.chdir(project_dir)
+					-- Close only windows in current tab, keep other tabs intact
+					vim.cmd("silent! only")
+					vim.cmd("enew")
 				end
+
+				-- Set local directory for this tab
+				vim.cmd("lcd " .. vim.fn.fnameescape(project_dir))
 
 				-- Try to load session for project
 				persistence.load()
