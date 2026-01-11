@@ -71,6 +71,41 @@ return {
 			vim.keymap.set("n", "<leader>sf", function()
 				return Snacks.picker.smart()
 			end, { desc = "Smart picker" })
+			--- Switch to a project, loading its session or opening file picker if none exists
+			---@param project_dir string
+			---@param new_tab boolean
+			local function switch_project(project_dir, new_tab)
+				local persistence = require("persistence")
+
+				if new_tab then
+					-- Open new tab with local directory (keeps current session intact)
+					vim.cmd("tabnew")
+					vim.cmd("lcd " .. vim.fn.fnameescape(project_dir))
+				else
+					-- Save and close current session
+					persistence.save()
+					vim.cmd("silent! %bdelete!")
+					vim.fn.chdir(project_dir)
+				end
+
+				-- Try to load session for project
+				persistence.load()
+
+				-- Check if session loaded any real files, if not open file picker
+				vim.schedule(function()
+					local has_file = false
+					for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
+						if buf.name ~= "" and vim.fn.filereadable(buf.name) == 1 then
+							has_file = true
+							break
+						end
+					end
+					if not has_file then
+						Snacks.picker.files()
+					end
+				end)
+			end
+
 			vim.keymap.set("n", "<leader>sp", function()
 				return Snacks.picker.projects({
 					dev = {
@@ -87,26 +122,25 @@ return {
 					},
 					confirm = function(picker, item)
 						picker:close()
-						if not item then
-							return
+						if item then
+							switch_project(item.file, false)
 						end
-						local project_dir = item.file
-
-						-- persistence.nvim has on_require trigger, so this will auto-load it
-						local persistence = require("persistence")
-
-						-- Save current session before switching
-						persistence.save()
-
-						-- Close all buffers
-						vim.cmd("%bdelete!")
-
-						-- Change to new project directory
-						vim.fn.chdir(project_dir)
-
-						-- Try to load session for new project, or just open the directory
-						persistence.load()
 					end,
+					win = {
+						input = {
+							keys = {
+								["<S-CR>"] = { "confirm_new_tab", mode = { "n", "i" } },
+							},
+						},
+					},
+					actions = {
+						confirm_new_tab = function(picker, item)
+							picker:close()
+							if item then
+								switch_project(item.file, true)
+							end
+						end,
+					},
 				})
 			end, { desc = "Projects" })
 			vim.keymap.set("n", "<leader>lG", function()
