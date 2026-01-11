@@ -79,6 +79,7 @@
           jinja-lsp
           # QML
           kdePackages.qtdeclarative
+          kdePackages.qtlanguageserver
           quickshell
           # Misc
           caddy
