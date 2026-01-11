@@ -217,17 +217,12 @@ return {
 			-- Always show tabline
 			vim.o.showtabline = 2
 
-			-- Split navigation (Alt+hjkl)
-			vim.keymap.set("n", "<A-h>", "<C-w>h", { desc = "Move to left split" })
-			vim.keymap.set("n", "<A-l>", "<C-w>l", { desc = "Move to right split" })
-			vim.keymap.set("n", "<A-j>", "<C-w>j", { desc = "Move to lower split" })
-			vim.keymap.set("n", "<A-k>", "<C-w>k", { desc = "Move to upper split" })
-
 			-- Buffer navigation (Ctrl+h/l)
 			vim.keymap.set("n", "<C-h>", "<cmd>bprev<CR>", { desc = "Previous buffer" })
 			vim.keymap.set("n", "<C-l>", "<cmd>bnext<CR>", { desc = "Next buffer" })
 
 			-- Tab/session navigation
+			-- NOTE: Split navigation (Alt+hjkl) handled by smart-splits.nvim
 			vim.keymap.set("n", "<leader>1", "1gt", { desc = "Go to tab 1" })
 			vim.keymap.set("n", "<leader>2", "2gt", { desc = "Go to tab 2" })
 			vim.keymap.set("n", "<leader>3", "3gt", { desc = "Go to tab 3" })

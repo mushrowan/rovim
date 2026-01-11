@@ -3,6 +3,7 @@ return {
 	{
 		"which-key.nvim",
 		for_cat = "editor",
+		event = "DeferredUIEnter",
 		after = function()
 			local wk = require("which-key")
 			wk.setup({

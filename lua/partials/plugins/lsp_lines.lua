@@ -4,7 +4,7 @@ return {
 	{
 		"lsp_lines.nvim",
 		for_cat = "lsp",
-		event = "DeferredUIEnter",
+		event = "LspAttach",
 		after = function()
 			vim.diagnostic.config({ virtual_lines = true, virtual_text = false })
 			-- No options needed; diagnostic config above controls display

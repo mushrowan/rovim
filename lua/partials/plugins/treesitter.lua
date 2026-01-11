@@ -6,7 +6,7 @@ return {
 	{
 		"nvim-treesitter",
 		for_cat = "editor",
-		event = "DeferredUIEnter",
+		event = { "BufReadPre", "BufNewFile" },
 		after = function()
 			-- Enable treesitter-based indentation
 			vim.opt.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"

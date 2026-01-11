@@ -4,6 +4,7 @@ return {
 	{
 		"lualine.nvim",
 		for_cat = "ui",
+		event = "DeferredUIEnter",
 		after = function()
 			local eva02 = require("partials.eva02")
 			local hostname = vim.fn.hostname():upper()

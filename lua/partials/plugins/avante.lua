@@ -4,7 +4,7 @@ return {
 	{
 		"avante.nvim",
 		for_cat = "ai",
-		event = "DeferredUIEnter",
+		cmd = { "AvanteAsk", "AvanteChat", "AvanteEdit", "AvanteToggle" },
 		keys = {
 			{ "<leader>aa", desc = "Avante ask" },
 			{ "<leader>ae", desc = "Avante edit" },

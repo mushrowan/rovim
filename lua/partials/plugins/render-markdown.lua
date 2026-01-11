@@ -3,7 +3,7 @@
 return {
 	{
 		"render-markdown.nvim",
-		event = "DeferredUIEnter",
+		ft = "markdown",
 		for_cat = "notes",
 		after = function()
 			-- Uses defaults: renders headings, checkboxes, tables, code blocks

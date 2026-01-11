@@ -4,7 +4,7 @@ return {
 	{
 		"remote-nvim.nvim",
 		for_cat = "remote",
-		event = "DeferredUIEnter",
+		cmd = { "RemoteStart", "RemoteStop", "RemoteInfo", "RemoteCleanup", "RemoteConfigDel", "RemoteLog" },
 		after = function()
 			-- Uses defaults: SSH connection management with remote neovim instances
 			require("remote-nvim").setup({})

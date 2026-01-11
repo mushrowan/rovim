@@ -8,7 +8,15 @@ return {
 	{
 		"obsidian.nvim",
 		for_cat = "notes",
-		event = "DeferredUIEnter",
+		ft = "markdown",
+		cmd = { "Obsidian" },
+		keys = {
+			{ "<leader>oo", desc = "Open obsidian session" },
+			{ "<leader>of", desc = "Open obsidian file" },
+			{ "<leader>od", desc = "Open today's note" },
+			{ "<leader>ot", desc = "Tags" },
+			{ "<leader>oc", desc = "Complete task" },
+		},
 		after = function()
 			require("obsidian").setup({
 				ui = {

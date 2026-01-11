@@ -4,6 +4,7 @@ return {
 	{
 		"blink.cmp",
 		for_cat = "completion",
+		event = "InsertEnter",
 		after = function(_)
 			require("blink.cmp").setup({
 				sources = {
@@ -46,6 +47,7 @@ return {
 	{
 		"blink.compat",
 		for_cat = "completion",
+		on_plugin = "blink.cmp",
 		after = function()
 			-- Compatibility layer for nvim-cmp sources (if any are added later)
 			require("blink.compat").setup({})
