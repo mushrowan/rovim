@@ -1,0 +1,34 @@
+# Eva-02 Base24 Colorscheme
+# Inspired by Evangelion Unit-02's red/orange/gold color palette
+# Base24 extends Base16 with 8 additional colors for richer theming
+
+scheme: "Eva-02"
+author: "rowan"
+
+# Base16 colors (base00-base0F)
+base00: "0D0D0D"  # Default Background (almost black)
+base01: "1A1A1A"  # Lighter Background (status bars, line numbers)
+base02: "2A1A10"  # Selection Background (warm tint)
+base03: "706050"  # Comments, Invisibles, Line Highlighting (warm grey)
+base04: "A0A0A0"  # Dark Foreground (status bars)
+base05: "E8E8E8"  # Default Foreground, Caret, Delimiters, Operators
+base06: "E8DCC8"  # Light Foreground (cream)
+base07: "FFFFFF"  # Light Background (pure white)
+base08: "E02020"  # Variables, XML Tags, Markup Link Text, Diff Deleted (red)
+base09: "E89000"  # Integers, Boolean, Constants, XML Attributes (amber light)
+base0A: "D4A000"  # Classes, Markup Bold, Search Text Background (gold)
+base0B: "50C878"  # Strings, Inherited Class, Markup Code, Diff Inserted (green)
+base0C: "40B0B0"  # Support, Regular Expressions, Escape Characters (cyan)
+base0D: "FF3030"  # Functions, Methods, Attribute IDs, Headings (red light)
+base0E: "CC7700"  # Keywords, Storage, Selector, Markup Italic (amber)
+base0F: "A06020"  # Deprecated, Opening/Closing Embedded Language Tags (bronze)
+
+# Base24 extended colors (base10-base17)
+base10: "080808"  # Darker Background (popups, deep backgrounds)
+base11: "3A2010"  # Visual Selection (warmer visual bg)
+base12: "FF4040"  # Bright Red (errors, urgent indicators)
+base13: "E8B800"  # Bright Yellow/Gold (warnings, highlights)
+base14: "5090C0"  # Blue (links, info)
+base15: "A060C0"  # Magenta/Purple (special, trace)
+base16: "E080A0"  # Pink (secondary accent)
+base17: "F47920"  # Orange (command mode, accents)

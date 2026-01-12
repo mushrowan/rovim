@@ -47,10 +47,11 @@ vim.diagnostic.config({
 	-- update_in_insert = true,
 })
 
--- suggested by autosession
--- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 vim.g.neovide_normal_opacity = 0.97
 vim.g.neovide_cursor_vfx_mode = "pixiedust"
+vim.g.neovide_cursor_vfx_particle_speed = 20.0
+vim.g.neovide_cursor_vfx_particle_lifetime = 0.1
+-- vim.g.neovide_cursor_vfx_particle_highlight_lifetime = 0.1
 
 -- Neovide binds
 vim.g.neovide_scale_factor = 1.0
