@@ -2,6 +2,7 @@ require("lze").load({
 	{ import = "partials.plugins.colorscheme" },
 	{
 		"bullets.vim",
+		for_cat = "notes",
 		ft = "markdown",
 	},
 

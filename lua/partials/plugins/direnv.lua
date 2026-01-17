@@ -16,11 +16,7 @@ return {
 		after = function()
 			require("direnv").setup({
 				autoload_direnv = true,
-				keybindings = {
-					allow = "<leader>da",
-					deny = "<leader>dd",
-					reload = "<leader>dr",
-				},
+				-- Keybindings defined in keys spec above
 			})
 
 			-- Restart LSP after direnv loads (only if clients are running)

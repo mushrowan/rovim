@@ -39,8 +39,9 @@ return {
 					template = "daily_template.md",
 				},
 			})
+
 			-- Move completed todo item to archive file
-		local move_to_todo_archive = function()
+			local function move_to_todo_archive()
 				local target_file = vim.fn.expand("~/Documents/colony/todo_archive.md")
 				local line = vim.api.nvim_get_current_line()
 				if not string.match(line, "^%s*%- %[ %]") then
