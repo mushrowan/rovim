@@ -14,17 +14,20 @@ This is a Neovim configuration managed by **nixCats-nvim** (Nix-based plugin man
 ## Commands
 
 ```bash
-# Build and run the configuration
+# Build and run the configuration (opens neovide)
 nix run .
 
-# Enter dev shell with nvim available
+# Run just nvim without neovide
+nix run .#nvim
+
+# Enter dev shell with nvim available (uses local lua for live editing)
 nix develop
 
 # Check configuration loads without errors
 nix flake check
 
 # Run headless config check
-nvim --headless -c "lua print('ok')" -c "qa!"
+nix run .#nvim -- --headless +'lua print("ok")' +qa
 ```
 
 ## Architecture
@@ -32,7 +35,8 @@ nvim --headless -c "lua print('ok')" -c "qa!"
 ### Entry Point Flow
 1. `init.lua` - Sets `_G.ro` namespace, calls `main.lua`
 2. `lua/main.lua` - Registers lze handlers, then loads partials in order:
-   - `partials.settings` - vim options
+   - `partials.settings` - vim options (editing, display, behavior)
+   - `partials.neovide` - neovide-specific settings (only runs in neovide)
    - `partials.mappings` - global keymaps
    - `partials.abbreviations` - command abbreviations
    - `partials.plugins` - all plugins via `lze.load()`
@@ -45,7 +49,7 @@ Each plugin file in `lua/partials/plugins/` returns a table with this structure:
 return {
   {
     "plugin-name",           -- Name must match nixCats package name
-    for_cat = "general",     -- nixCats category (enables/disables via Nix)
+    for_cat = "editor",      -- nixCats category (enables/disables via Nix)
     event = "DeferredUIEnter", -- Lazy load trigger (or ft, cmd, keys)
     load = function(name)    -- Optional: custom load function
       vim.cmd.packadd(name)
@@ -67,16 +71,16 @@ Plugins are imported in `lua/partials/plugins/init.lua` using `{ import = "parti
 The custom `for_cat` handler (`lua/nixCatsUtils/lzUtils.lua`) integrates lze with nixCats:
 
 ```lua
-for_cat = "general"                           -- Simple category check
-for_cat = { cat = "general", default = true } -- With non-Nix fallback
+for_cat = "editor"                            -- Simple category check
+for_cat = { cat = "editor", default = true }  -- With non-Nix fallback
 ```
 
 ### Utility Functions
 
 `lua/partials/utils.lua` provides:
 - `map(mode, keys, action, desc, opts)` - Single keymap with defaults
+- `buf_map(bufnr, mode, keys, action, desc, opts)` - Buffer-local keymap
 - `map_all(mode, mappings)` - Batch keymaps from table
-- `merge_tables(t1, t2)` - Append t2 to t1
 
 ### Nix Structure
 
@@ -84,7 +88,10 @@ In `flake.nix`:
 - `categoryDefinitions.lspsAndRuntimeDeps` - LSPs and CLI tools added to PATH
 - `categoryDefinitions.startupPlugins` - Plugins loaded immediately (lze, plenary, nui)
 - `categoryDefinitions.optionalPlugins` - Plugins loaded via `packadd` (everything else)
-- `packageDefinitions.nvim.categories` - Enable/disable categories for the build
+- `defaultCategories` - Shared category toggles used by all package variants
+- `sharedSettings` - Common settings for nvim and nvim-dev packages
+
+Available categories: `editor`, `ui`, `lsp`, `completion`, `git`, `testing`, `notes`, `format`, `ai`, `remote`, `discordRichPresence`, `typst`
 
 ### NixOS/Home-Manager Modules
 
@@ -94,14 +101,40 @@ In `flake.nix`:
 ## Key Conventions
 
 - **Leader key**: `<space>`
-- **LSP mappings**: `<leader>l*`
-- **Git mappings**: `<leader>g*`
+- **LSP mappings**: `<leader>l*` (go to: `<leader>lg*`, workspace: `<leader>lw*`)
+- **Git mappings**: `<leader>g*` (hunks: `<leader>gh*`)
 - **Search/picker mappings**: `<leader>s*`
+- **Tab mappings**: `<leader>t*` (move: `<leader>tm*`)
+- **Test mappings**: `<leader>T*`
+- **Obsidian mappings**: `<leader>o*`
 - **Lazy load event**: `DeferredUIEnter` for non-critical UI plugins
 
 ## Adding a New Plugin
 
 1. Add to `flake.nix` under appropriate category in `optionalPlugins`
-2. Create `lua/partials/plugins/pluginname.lua` with spec
+2. Create `lua/partials/plugins/pluginname.lua` with spec (or add to existing related file)
 3. Add `{ import = "partials.plugins.pluginname" }` to `lua/partials/plugins/init.lua`
 4. Run `nix flake check` to verify
+
+## File Structure
+
+```
+lua/
+├── main.lua                 # Entry point, loads all partials
+├── nixCatsUtils/
+│   ├── init.lua            # nixCats compatibility layer
+│   └── lzUtils.lua         # for_cat handler for lze
+└── partials/
+    ├── settings.lua        # Core vim options
+    ├── neovide.lua         # Neovide-specific config
+    ├── mappings.lua        # Global keymaps
+    ├── abbreviations.lua   # Command abbreviations
+    ├── utils.lua           # Keymap utilities
+    ├── eva02.lua           # Custom colorscheme
+    └── plugins/
+        ├── init.lua        # Plugin imports
+        ├── lsp.lua         # LSP, lsp_lines, jinja syntax
+        ├── snacks-nvim.lua # Picker, terminal, lazygit
+        ├── tabby.lua       # Tab line with scope.nvim
+        └── ...             # Other plugin configs
+```
