@@ -10,7 +10,7 @@ return {
       vim.cmd.packadd("sqlite.lua")
     end,
    
-		after = function(_)
+		after = function()
 			require("yanky").setup({
 				ring = {
 					storage = "sqlite",

@@ -195,57 +195,37 @@
       };
     };
 
+    # Shared category configuration for all package variants
+    defaultCategories = {
+      editor = true;
+      ui = true;
+      lsp = true;
+      completion = true;
+      git = true;
+      testing = true;
+      notes = true;
+      format = true;
+      ai = true;
+      remote = true;
+      discordRichPresence = false;
+      typst = false;
+    };
+
+    # Shared settings for all package variants
+    sharedSettings = {
+      suffix-path = true;
+      suffix-LD = true;
+    };
+
     packageDefinitions = {
-      nvim = {
-        pkgs,
-        name,
-        ...
-      }: {
-        settings = {
-          suffix-path = true;
-          suffix-LD = true;
-          wrapRc = true;
-        };
-        categories = {
-          editor = true;
-          ui = true;
-          lsp = true;
-          completion = true;
-          git = true;
-          testing = true;
-          notes = true;
-          format = true;
-          ai = true;
-          remote = true;
-          discordRichPresence = false;
-          typst = false;
-        };
+      nvim = {...}: {
+        settings = sharedSettings // { wrapRc = true; };
+        categories = defaultCategories;
       };
       # Dev mode: uses local lua files for live reloading
-      nvim-dev = {
-        pkgs,
-        name,
-        ...
-      }: {
-        settings = {
-          suffix-path = true;
-          suffix-LD = true;
-          wrapRc = false; # Use local config, not baked-in
-        };
-        categories = {
-          editor = true;
-          ui = true;
-          lsp = true;
-          completion = true;
-          git = true;
-          testing = true;
-          notes = true;
-          format = true;
-          ai = true;
-          remote = true;
-          discordRichPresence = false;
-          typst = false;
-        };
+      nvim-dev = {...}: {
+        settings = sharedSettings // { wrapRc = false; };
+        categories = defaultCategories;
       };
     };
 
@@ -273,15 +253,17 @@
       '';
 
       # Combined package with both neovide wrapper and nvim
-      defaultPackage = pkgs.symlinkJoin {
-        name = "rovim";
+      defaultPackage = let name = "rovim"; in pkgs.symlinkJoin {
+        inherit name;
         paths = [neovideWrapper nvimPackage];
+        meta.mainProgram = name;
       };
 
       # Dev package for live config reloading
-      devPackage = pkgs.symlinkJoin {
-        name = "rovim-dev";
+      devPackage = let name = "rovim-dev"; in pkgs.symlinkJoin {
+        inherit name;
         paths = [neovideDevWrapper nvimDevPackage];
+        meta.mainProgram = name;
       };
     in {
       packages = {

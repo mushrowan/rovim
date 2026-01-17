@@ -5,7 +5,7 @@ return {
 		"blink.cmp",
 		for_cat = "completion",
 		event = "InsertEnter",
-		after = function(_)
+		after = function()
 			require("blink.cmp").setup({
 				sources = {
 					default = { "lsp", "path", "snippets", "buffer"},

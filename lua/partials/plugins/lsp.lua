@@ -1,5 +1,22 @@
 -- SECTION: lsp
+-- LSP configuration, diagnostics display, and syntax plugins
 return {
+	-- Jinja2 template syntax highlighting
+	{
+		"jinja.vim",
+		for_cat = "lsp",
+		lazy = false, -- Syntax plugin, must load eagerly
+	},
+	-- Multi-line diagnostic display
+	{
+		"lsp_lines.nvim",
+		for_cat = "lsp",
+		event = "LspAttach",
+		after = function()
+			vim.diagnostic.config({ virtual_lines = true, virtual_text = false })
+			require("lsp_lines").setup()
+		end,
+	},
 	{
 		"rustaceanvim",
 		for_cat = "lsp",

@@ -1,66 +1,60 @@
--- local settings = {}
-
--- Use the new lua loader
+-- Core vim settings
 vim.loader.enable()
+
+-- Editing
 vim.o.autoindent = true
-vim.o.backup = false
-vim.o.clipboard = "unnamedplus"
-vim.o.cmdheight = 1
-vim.o.cursorline = true
-vim.o.cursorlineopt = "line"
-vim.o.encoding = "utf-8"
-vim.o.errorbells = false
 vim.o.expandtab = true
-vim.o.hidden = true
+vim.o.shiftwidth = 2
+vim.o.tabstop = 2
+
+-- Search
 vim.o.hlsearch = true
 vim.o.ignorecase = true
-vim.o.inccommand = "split"
-vim.o.list = true
-vim.o.listchars = "tab:» ,trail:·,nbsp:␣"
-vim.o.mouse = "nvi"
-vim.o.number = true
-vim.o.pumblend = 10
-vim.o.relativenumber = true
-vim.o.scrolloff = 20
-vim.o.shiftwidth = 2
-vim.o.signcolumn = "yes"
 vim.o.smartcase = true
-vim.o.splitbelow = true
-vim.o.splitright = true
-vim.o.swapfile = false
-vim.o.tabstop = 2
-vim.o.timeoutlen = 300
-vim.o.undodir = vim.fn.stdpath("state") .. "/undo"
-vim.o.undofile = true
-vim.o.updatetime = 250
-vim.o.visualbell = false
-vim.o.winblend = 10
+vim.o.inccommand = "split"
+
+-- Display
+vim.o.cursorline = true
+vim.o.cursorlineopt = "line"
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.signcolumn = "yes"
+vim.o.scrolloff = 20
 vim.o.wrap = true
 vim.o.linebreak = true
-vim.o.writebackup = true
-vim.o.completeopt = "menu,preview,noselect"
+vim.o.list = true
+vim.o.listchars = "tab:» ,trail:·,nbsp:␣"
 vim.o.conceallevel = 1
 
+-- Windows
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.pumblend = 10
+vim.o.winblend = 10
+
+-- Behavior
+vim.o.clipboard = "unnamedplus"
+vim.o.hidden = true
+vim.o.mouse = "nvi"
+vim.o.timeoutlen = 300
+vim.o.updatetime = 250
+vim.o.completeopt = "menu,preview,noselect"
+
+-- Files
+vim.o.backup = false
+vim.o.swapfile = false
+vim.o.writebackup = true
+vim.o.undodir = vim.fn.stdpath("state") .. "/undo"
+vim.o.undofile = true
+vim.o.encoding = "utf-8"
+
+-- UI feedback
+vim.o.cmdheight = 1
+vim.o.errorbells = false
+vim.o.visualbell = false
+
+-- Diagnostics
 vim.diagnostic.config({
-	signs = true,
-	underline = true,
-	-- update_in_insert = true,
+  signs = true,
+  underline = true,
 })
-
-vim.g.neovide_normal_opacity = 0.97
-vim.g.neovide_cursor_vfx_mode = "pixiedust"
-vim.g.neovide_cursor_vfx_particle_speed = 20.0
-vim.g.neovide_cursor_vfx_particle_lifetime = 0.1
--- vim.g.neovide_cursor_vfx_particle_highlight_lifetime = 0.1
-
--- Neovide binds
-vim.g.neovide_scale_factor = 1.0
-local change_scale_factor = function(delta)
-	vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
-end
-vim.keymap.set("n", "<C-=>", function()
-	change_scale_factor(1.25)
-end)
-vim.keymap.set("n", "<C-->", function()
-	change_scale_factor(1 / 1.25)
-end)

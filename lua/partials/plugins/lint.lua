@@ -5,7 +5,7 @@ return {
 		"nvim-lint",
 		for_cat = "format",
 		event = "BufWritePost",
-		after = function(_)
+		after = function()
 			require("lint").linters_by_ft = {
 				dockerfile = { "trivy" },
 			}

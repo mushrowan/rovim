@@ -15,10 +15,8 @@ require("lze").load({
 	{ import = "partials.plugins.lazydev" },
 	{ import = "partials.plugins.lsp" },
 	{ import = "partials.plugins.lspkeys" },
-	{ import = "partials.plugins.lsp_lines" },
 	{ import = "partials.plugins.lualine" },
 	{ import = "partials.plugins.mini" },
-	{ import = "partials.plugins.jinja" },
 	{ import = "partials.plugins.neocord" },
 	{ import = "partials.plugins.neotest" },
 	{ import = "partials.plugins.noice" },
@@ -32,6 +30,5 @@ require("lze").load({
 	{ import = "partials.plugins.tabby" },
 	{ import = "partials.plugins.treesitter" },
 	{ import = "partials.plugins.which-key" },
-	{ import = "partials.plugins.ws" },
 	{ import = "partials.plugins.yanky" },
 })

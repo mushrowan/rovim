@@ -7,7 +7,7 @@ return {
 		keys = {
 			{ "<leader>cf", desc = "[c]ode [f]ormat" },
 		},
-		after = function(_)
+		after = function()
 			local conform = require("conform")
 			conform.setup({
 				-- NOTE: download some formatters in lspsAndRuntimeDeps
