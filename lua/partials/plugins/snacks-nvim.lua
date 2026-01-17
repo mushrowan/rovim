@@ -14,14 +14,10 @@ return {
 				bigfile = { enabled = true },
 				indent = { enabled = true },
 				git = { enable = true },
-				--input = { enabled = true },
-				-- notifier = { enabled = true, timeout = 3000 },
 				picker = {
-					-- enabled = true,
 					hidden = true,
 					sources = {
 						projects = {},
-
 						files = { hidden = true },
 						grep = { hidden = true },
 					},
@@ -31,8 +27,7 @@ return {
 				lazygit = { enabled = true },
 			})
 
-			---@param working_dir string?
-			local terminal_opts = function(working_dir)
+			local function terminal_opts()
 				return {
 					win = {
 						fixbuf = true,
@@ -40,14 +35,7 @@ return {
 						position = "float",
 						backdrop = 70,
 						keys = {
-							{
-								"<C-[>",
-								function(win)
-									win:toggle()
-								end,
-								mode = "n",
-							},
-							-- Terminal raw mode binding here?
+							{ "<C-[>", function(win) win:toggle() end, mode = "n" },
 						},
 					},
 				}
@@ -58,7 +46,7 @@ return {
 			end, { desc = "Rename File" })
 			vim.keymap.set("n", "<C-y>", function()
 				return Snacks.picker.resume()
-			end)
+			end, { desc = "Resume picker" })
 			vim.keymap.set("n", "<leader>sb", function()
 				return Snacks.picker.buffers()
 			end, { desc = "Buffers" })
@@ -149,7 +137,7 @@ return {
 			end, { desc = "LazyGit" })
 			vim.keymap.set("n", "<leader>sF", function()
 				return Snacks.picker.files()
-			end)
+			end, { desc = "Files (all)" })
 			vim.keymap.set("n", "<leader>sz", function()
 				return Snacks.picker.zoxide()
 			end, { desc = "Zoxide" })
@@ -167,7 +155,7 @@ return {
 			end, { desc = "Git status" })
 			vim.keymap.set("n", "<leader>gB", function()
 				return Snacks.git.blame_line()
-			end, { desc = "Git status" })
+			end, { desc = "Git blame line" })
 			vim.keymap.set("n", "<leader>gb", function()
 				return Snacks.picker.git_branches()
 			end, { desc = "Git branches" })
