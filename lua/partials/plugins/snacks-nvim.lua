@@ -166,9 +166,7 @@ return {
 			-- LSP keybinds
 			local lsp_symbols = {
 				filter = {
-					rust = true,
-					lua = true,
-					markdown = true,
+					default = true, -- Show all symbol kinds
 				},
 			}
 			vim.keymap.set("n", "<leader>ls", function()

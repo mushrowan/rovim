@@ -384,8 +384,8 @@ function M.setup()
 	-- Neovide-specific settings for vivid colors
 	if vim.g.neovide then
 		vim.g.neovide_cursor_vfx_mode = "railgun"
-		vim.g.neovide_cursor_vfx_particle_lifetime = 1.2
-		vim.g.neovide_cursor_vfx_particle_density = 7.0
+		vim.g.neovide_cursor_vfx_particle_lifetime = 0.3
+		vim.g.neovide_cursor_vfx_particle_density = 3.0
 		vim.g.neovide_cursor_vfx_particle_speed = 10.0
 		-- Eva-02 orange/gold particles
 		vim.g.neovide_cursor_vfx_particle_curl = 1.0
