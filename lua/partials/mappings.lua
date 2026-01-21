@@ -21,4 +21,5 @@ utils.map_all("n", {
 -- Insert mode
 utils.map_all("i", {
   { "<C-CR>", "<Esc>jA", "Go to end of next line" },
+  { "<C-BS>", "<C-w>", "Delete word before cursor" },
 })
