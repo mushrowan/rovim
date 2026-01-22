@@ -70,9 +70,15 @@ return {
 					-- Open new tab with local directory (keeps current session intact)
 					vim.cmd("tabnew")
 				else
-					-- Close only windows in current tab, keep other tabs intact
-					vim.cmd("silent! only")
-					vim.cmd("enew")
+					-- Check for unsaved changes before wiping buffers
+					for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+						if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].modified then
+							vim.notify("Save changes before switching projects", vim.log.levels.WARN)
+							return
+						end
+					end
+					-- Wipe all buffers and close windows
+					vim.cmd("silent! %bwipeout")
 				end
 
 				-- Set local directory for this tab
