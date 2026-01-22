@@ -22,7 +22,6 @@ require("lze").load({
 	{ import = "partials.plugins.neotest" },
 	{ import = "partials.plugins.noice" },
 	{ import = "partials.plugins.obsidian" },
-	{ import = "partials.plugins.oil" },
 	{ import = "partials.plugins.persistence" },
 	{ import = "partials.plugins.remote-nvim" },
 	{ import = "partials.plugins.render-markdown" },

@@ -115,7 +115,6 @@
           mini-icons
           mini-surround
           yanky-nvim
-          oil-nvim
           smart-splits-nvim
           persistence-nvim
           snacks-nvim

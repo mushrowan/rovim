@@ -14,6 +14,9 @@ return {
 			bigfile = { enabled = true },
 			indent = { enabled = true },
 			input = { enabled = true },
+				explorer = {
+					replace_netrw = true,
+				},
 				git = { enable = true },
 				picker = {
 					hidden = true,
@@ -198,6 +201,35 @@ return {
 			end, {
 				desc = "Toggle Terminal",
 			})
+
+			-- File explorer
+			vim.keymap.set("n", "<leader>e", function()
+				Snacks.explorer.open()
+			end, { desc = "File Explorer" })
+
+			vim.keymap.set("n", "<leader>E", function()
+				Snacks.explorer.reveal()
+			end, { desc = "Reveal in Explorer" })
+
+			-- IDE layout for remote development (explorer + terminal)
+			vim.keymap.set("n", "<leader>ri", function()
+				-- Close all windows first for clean slate
+				vim.cmd("only")
+
+				-- Open explorer on left
+				Snacks.explorer.open({
+					win = { position = "left", width = 30 }
+				})
+
+				-- Go to main window and open terminal at bottom
+				vim.cmd("wincmd l")
+				vim.cmd("botright split")
+				vim.cmd("resize 15")
+				Snacks.terminal.open()
+
+				-- Focus main editor
+				vim.cmd("wincmd k")
+			end, { desc = "IDE layout (explorer + terminal)" })
 		end,
 	},
 }
