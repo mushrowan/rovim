@@ -19,7 +19,20 @@ return {
 			{ "<A-Shift-l>", desc = "Swap buffer right" },
 		},
 		after = function()
-			require("smart-splits").setup({})
+			require("smart-splits").setup({
+				-- tmux integration: navigate seamlessly between vim and tmux panes
+				multiplexer_integration = "tmux",
+				-- When at edge of neovim, wrap around (or use "stop" to stay put)
+				at_edge = "wrap",
+				-- Don't navigate to tmux panes when current tmux pane is zoomed
+				disable_multiplexer_nav_when_zoomed = true,
+				-- Resize mode settings
+				resize_mode = {
+					quit_key = "<ESC>",
+					resize_keys = { "h", "j", "k", "l" },
+					silent = true,
+				},
+			})
 			require("partials.utils").map_all("n", {
 				{ "<C-A-h>", require("smart-splits").resize_left },
 				{ "<C-A-j>", require("smart-splits").resize_down },
