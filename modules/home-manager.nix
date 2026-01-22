@@ -1,4 +1,4 @@
-# Home Manager module wrapper that adds avante API key file support
+# Home Manager module wrapper that adds Anthropic API key file support
 {
   config,
   lib,

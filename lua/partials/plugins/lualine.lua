@@ -78,10 +78,24 @@ return {
 							symbols = { error = " ", warn = " ", info = " ", hint = " " },
 						},
 					},
-					lualine_x = {
-						{
-							-- LSP server name
-							function()
+				lualine_x = {
+					{
+						-- opencode.nvim status
+						function()
+							local ok, opencode = pcall(require, "opencode")
+							if ok then
+								return opencode.statusline()
+							end
+							return ""
+						end,
+						cond = function()
+							local ok, opencode = pcall(require, "opencode")
+							return ok and opencode.statusline() ~= ""
+						end,
+					},
+					{
+						-- LSP server name
+						function()
 								local buf_ft = vim.bo.filetype
 								local excluded = { toggleterm = true, NvimTree = true, ["neo-tree"] = true, TelescopePrompt = true }
 

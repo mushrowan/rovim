@@ -1,4 +1,4 @@
-# NixOS module wrapper that adds avante API key file support
+# NixOS module wrapper that adds Anthropic API key file support
 {
   config,
   lib,

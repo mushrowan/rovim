@@ -10,9 +10,10 @@ return {
 		"snacks.nvim",
 		for_cat = "editor",
 		after = function()
-			require("snacks").setup({
-				bigfile = { enabled = true },
-				indent = { enabled = true },
+		require("snacks").setup({
+			bigfile = { enabled = true },
+			indent = { enabled = true },
+			input = { enabled = true },
 				git = { enable = true },
 				picker = {
 					hidden = true,

@@ -173,7 +173,7 @@
 
         # AI assistance
         ai = with pkgs.vimPlugins; [
-          avante-nvim
+          opencode-nvim
         ];
 
         # Remote development

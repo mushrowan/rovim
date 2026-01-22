@@ -6,7 +6,7 @@ require("lze").load({
 		ft = "markdown",
 	},
 
-	{ import = "partials.plugins.avante" },
+	{ import = "partials.plugins.opencode" },
 	{ import = "partials.plugins.completion" },
 	{ import = "partials.plugins.conform" },
 	{ import = "partials.plugins.direnv" },

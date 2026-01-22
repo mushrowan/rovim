@@ -5,11 +5,11 @@
   options = {
     enable = lib.mkEnableOption "rovim neovim configuration";
 
-    avanteApiKeyFile = lib.mkOption {
+    anthropicApiKeyFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
       default = null;
       description = ''
-        Path to a file containing the Anthropic API key for avante.nvim.
+        Path to a file containing the Anthropic API key for AI plugins.
         The file should contain only the API key with no trailing newline.
         This is useful for integration with sops-nix or agenix.
       '';
@@ -30,7 +30,7 @@
 
   # Build the final package with optional API key wrapping
   mkFinalPackage = cfg:
-    if cfg.avanteApiKeyFile != null
+    if cfg.anthropicApiKeyFile != null
     then
       pkgs.symlinkJoin {
         name = "rovim-wrapped";
@@ -38,7 +38,7 @@
         buildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/nvim \
-            --run 'export ANTHROPIC_API_KEY="$(cat ${cfg.avanteApiKeyFile})"'
+            --run 'export ANTHROPIC_API_KEY="$(cat ${cfg.anthropicApiKeyFile})"'
         '';
       }
     else cfg.package;
