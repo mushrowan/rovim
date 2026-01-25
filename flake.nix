@@ -16,13 +16,15 @@
       (utils.standardPluginOverlay inputs)
       # Build direnv-nvim from source since it's not in nixpkgs
       (final: prev: {
-        neovimPlugins = prev.neovimPlugins or {} // {
-          direnv-nvim = final.vimUtils.buildVimPlugin {
-            pname = "direnv-nvim";
-            version = "unstable";
-            src = inputs."plugins-direnv-nvim";
+        neovimPlugins =
+          prev.neovimPlugins or {}
+          // {
+            direnv-nvim = final.vimUtils.buildVimPlugin {
+              pname = "direnv-nvim";
+              version = "unstable";
+              src = inputs."plugins-direnv-nvim";
+            };
           };
-        };
       })
     ];
     categoryDefinitions = {
@@ -90,6 +92,9 @@
           typstPackages.easytable
           tinymist
           zathura
+        ];
+        ai = [
+          pkgs.lsof
         ];
       };
 
@@ -218,12 +223,12 @@
 
     packageDefinitions = {
       nvim = {...}: {
-        settings = sharedSettings // { wrapRc = true; };
+        settings = sharedSettings // {wrapRc = true;};
         categories = defaultCategories;
       };
       # Dev mode: uses local lua files for live reloading
       nvim-dev = {...}: {
-        settings = sharedSettings // { wrapRc = false; };
+        settings = sharedSettings // {wrapRc = false;};
         categories = defaultCategories;
       };
     };
@@ -252,18 +257,24 @@
       '';
 
       # Combined package with both neovide wrapper and nvim
-      defaultPackage = let name = "rovim"; in pkgs.symlinkJoin {
-        inherit name;
-        paths = [neovideWrapper nvimPackage];
-        meta.mainProgram = name;
-      };
+      defaultPackage = let
+        name = "rovim";
+      in
+        pkgs.symlinkJoin {
+          inherit name;
+          paths = [neovideWrapper nvimPackage];
+          meta.mainProgram = name;
+        };
 
       # Dev package for live config reloading
-      devPackage = let name = "rovim-dev"; in pkgs.symlinkJoin {
-        inherit name;
-        paths = [neovideDevWrapper nvimDevPackage];
-        meta.mainProgram = name;
-      };
+      devPackage = let
+        name = "rovim-dev";
+      in
+        pkgs.symlinkJoin {
+          inherit name;
+          paths = [neovideDevWrapper nvimDevPackage];
+          meta.mainProgram = name;
+        };
     in {
       packages = {
         default = defaultPackage;
@@ -282,16 +293,17 @@
         };
       };
 
-      checks.default = pkgs.runCommand "nvim-config-check" {
-        nativeBuildInputs = [nvimPackage];
-      } ''
-        export HOME=$(mktemp -d)
-        nvim --headless +'lua print("Config loaded successfully")' +qa 2>&1 | tee $out
-        if grep -q "Error" $out; then
-          echo "Neovim config has errors!"
-          exit 1
-        fi
-      '';
+      checks.default =
+        pkgs.runCommand "nvim-config-check" {
+          nativeBuildInputs = [nvimPackage];
+        } ''
+          export HOME=$(mktemp -d)
+          nvim --headless +'lua print("Config loaded successfully")' +qa 2>&1 | tee $out
+          if grep -q "Error" $out; then
+            echo "Neovim config has errors!"
+            exit 1
+          fi
+        '';
     })
     // {
       overlays =
