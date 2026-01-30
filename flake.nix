@@ -66,6 +66,7 @@
           dart
           # Data formats
           yaml-language-server
+          yamlfmt
           sqls
           # Docker
           docker-compose-language-service

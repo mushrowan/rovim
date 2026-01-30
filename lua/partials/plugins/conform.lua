@@ -21,6 +21,7 @@ return {
 					sh = { "shfmt" },
 					caddy = { "caddy" },
 					dart = { "dart_format" },
+					yaml = { "yamlfmt" },
 				},
 
 				formatters = {
