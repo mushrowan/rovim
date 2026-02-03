@@ -88,6 +88,9 @@
           caddy
           trivy
         ];
+        notes = with pkgs; [
+          wl-clipboard
+        ];
         typst = with pkgs; [
           typst
           typstPackages.easytable
@@ -168,6 +171,7 @@
           obsidian-nvim
           render-markdown-nvim
           bullets-vim
+          img-clip-nvim
         ];
 
         # Formatting and linting

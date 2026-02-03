@@ -12,6 +12,7 @@ require("lze").load({
 	{ import = "partials.plugins.direnv" },
 	{ import = "partials.plugins.flash" },
 	{ import = "partials.plugins.gitsigns" },
+	{ import = "partials.plugins.img-clip" },
 	{ import = "partials.plugins.lint" },
 	{ import = "partials.plugins.lazydev" },
 	{ import = "partials.plugins.lsp" },
